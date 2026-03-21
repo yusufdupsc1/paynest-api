@@ -10,7 +10,6 @@ import { RefundsModule } from './modules/refunds/refunds.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { HealthModule } from './modules/health/health.module';
 import { GatewayModule } from './gateways/gateway.module';
-import { AppConfigModule } from './config/config.module';
 import { RedisModule } from './config/redis.module';
 import { Transaction } from './modules/transactions/entities/transaction.entity';
 import { WebhookEvent } from './modules/webhooks/entities/webhook-event.entity';
@@ -38,13 +37,12 @@ import { AnalyticsDaily } from './modules/analytics/entities/analytics-daily.ent
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_DATABASE', 'payment_dashboard'),
         entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily],
-        synchronize: configService.get('NODE_ENV') !== 'production',
-        logging: configService.get('NODE_ENV') === 'development',
+        synchronize: true,
+        logging: false,
       }),
       inject: [ConfigService],
     }),
     RedisModule,
-    AppConfigModule,
     GatewayModule,
     TransactionsModule,
     WebhooksModule,
