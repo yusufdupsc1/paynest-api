@@ -33,13 +33,13 @@ export class AuditLog {
   })
   action!: AuditActionType;
 
-  @Column({ name: 'transaction_id', nullable: true })
+  @Column({ name: 'transaction_id', type: 'uuid', nullable: true })
   transactionId!: string | null;
 
-  @Column({ name: 'refund_id', nullable: true })
+  @Column({ name: 'refund_id', type: 'uuid', nullable: true })
   refundId!: string | null;
 
-  @Column({ name: 'webhook_event_id', nullable: true })
+  @Column({ name: 'webhook_event_id', type: 'uuid', nullable: true })
   webhookEventId!: string | null;
 
   @Column({

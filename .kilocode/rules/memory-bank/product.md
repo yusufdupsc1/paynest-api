@@ -1,44 +1,41 @@
-# Product Context: Next.js Starter Template
+# Product Context: PayNest
 
-## Why This Template Exists
+## Why This Product Exists
 
-Starting a new Next.js project involves boilerplate setup, configuration decisions, and establishing patterns. This template provides a clean, opinionated starting point that eliminates setup friction and establishes best practices from the start. It's optimized for AI-assisted development, where an AI can quickly extend the template based on user requirements.
+PayNest exists to demonstrate more than API correctness. It aims to show how payment orchestration, webhook durability, refund operations, and reliability telemetry can be packaged as a credible product experience for clients, reviewers, and operators.
 
 ## Problems It Solves
 
-1. **Setup Time**: Eliminates boilerplate configuration (TypeScript, Tailwind, ESLint)
-2. **Decision Fatigue**: Pre-made choices for tooling and patterns
-3. **AI Context**: Memory bank provides persistent context for AI assistants
-4. **Extensibility**: Recipe system for adding common features
-5. **Consistency**: Standardized project structure and conventions
+1. **Operational visibility**: makes transaction, refund, and webhook state legible through one hosted surface
+2. **Reliability storytelling**: exposes backlog, replay posture, signatures, and recent flow instead of hiding them behind internal tools
+3. **Demo realism**: provides a polished landing page and dashboard flow that feels closer to a SaaS product than a raw API sandbox
+4. **Portfolio credibility**: lets reviewers inspect both the UX narrative and the underlying API/Swagger surface
 
-## How It Should Work (User Flow)
+## User Flow
 
-1. User starts with this template
-2. User describes what they want to build to AI assistant
-3. AI adds pages, components, and features as needed
-4. AI uses recipes for common additions (database, auth)
-5. User previews changes via hot reload
-6. Iterate until satisfied
-7. Deploy
+1. visitor lands on `/`
+2. visitor sees product positioning and demo access details
+3. visitor signs in with demo credentials
+4. visitor enters the hosted dashboard
+5. visitor explores transactions, webhooks, reliability, gateways, refunds, and analytics
+6. advanced reviewers validate backend behavior through `/docs` and live endpoints
 
-## Key User Experience Goals
+## UX Goals
 
-- **Zero to Feature Fast**: Get building immediately, no setup required
-- **AI-Friendly**: Memory bank and recipes make AI assistance effective
-- **Flexible Foundation**: Can become any type of application
-- **Best Practices Built-In**: TypeScript strict mode, ESLint, clean structure
+- make the first impression feel professional and client-ready
+- keep the dashboard honest about missing or failing live data
+- use operational telemetry as a product advantage, not just a backend implementation detail
+- preserve same-origin deployment simplicity for live demos
 
-## What This Template Provides
+## Current Product Surface
 
-1. **Clean App Structure**: Single page ready for expansion
-2. **Type Safety**: Full TypeScript setup with strict mode
-3. **Modern Styling**: Tailwind CSS 4 ready to use
-4. **Code Quality**: ESLint configured
-5. **Extensibility**: Recipe system for common features
+- landing page at `/`
+- demo login gate
+- dashboard views for Overview, Transactions, Webhooks, Reliability, Gateways, Refunds, and Analytics
+- Swagger docs at `/docs`
 
 ## Integration Points
 
-- **Database**: Use add-database recipe for Drizzle + SQLite
-- **Styling**: Tailwind CSS pre-configured
-- **AI Assistance**: Memory bank for context persistence
+- PostgreSQL for transactions, refunds, analytics, webhooks, and audit trail
+- Redis for idempotency and retry support
+- Stripe test credentials for the most credible live demo path

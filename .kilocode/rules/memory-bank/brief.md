@@ -1,48 +1,51 @@
-# Project Brief: Next.js Starter Template
+# Project Brief: PayNest Payment Orchestration Demo
 
 ## Purpose
 
-This is a minimal Next.js starter template designed for AI-assisted development. It provides a clean foundation that can be extended to build any type of web application through interaction with an AI assistant.
+PayNest is a NestJS-based payment orchestration and webhook reliability platform demo. It is designed to present a believable SaaS product surface: a professional landing page, a demo login handoff, and a live operations dashboard backed by real API responses.
 
 ## Target Users
 
-- Developers wanting a clean Next.js starting point
-- Users building applications through AI-assisted coding
-- Teams needing a standardized, modern Next.js setup
+- clients evaluating payment operations software
+- hiring teams reviewing backend reliability and product thinking
+- developers extending a multi-gateway payments platform
 
 ## Core Use Case
 
-Users describe what they want to build to an AI assistant, which then expands this template by:
+Users should be able to:
 
-1. Adding components and pages as needed
-2. Installing additional dependencies
-3. Setting up databases, authentication, etc. using recipes
-4. Customizing styling and branding
+1. land on a polished product page at `/`
+2. sign in with demo credentials
+3. enter a live dashboard showing transactions, webhooks, reliability, gateways, refunds, and analytics
+4. inspect API behavior through Swagger and live endpoints
 
 ## Key Requirements
 
 ### Must Have
 
-- Modern Next.js 16 setup with App Router
-- TypeScript for type safety
-- Tailwind CSS 4 for styling
-- ESLint for code quality
-- Clean, minimal starting structure
-- Bun as package manager
+- NestJS backend with TypeScript
+- PostgreSQL persistence via TypeORM
+- Redis-backed idempotency / retry support
+- static hosted dashboard in [public/dashboard.html](public/dashboard.html)
+- professional landing page and demo login handoff
+- accurate deployment posture for Render or similar hosts
+- passing build, lint, and type checks
 
 ### Nice to Have
 
-- Recipe system for common additions (database, auth)
-- Memory bank for AI context persistence
-- Clear development guidelines
+- broader automated regression coverage
+- richer demo authentication beyond static credentials
+- clearer operator and reviewer narratives in docs and UI
 
 ## Success Metrics
 
-- Clean, zero-error TypeScript setup
-- Passing lint and type checks
+- successful Render deployment
+- dashboard loads against the real mounted API routes
+- Stripe-backed demo flow works with configured test credentials
+- webhook reliability and health views surface meaningful live telemetry
 
 ## Constraints
 
-- Minimal dependencies by default
-- Framework: Next.js 16 + React 19 + Tailwind CSS 4
-- Package manager: Bun
+- the current UI is static HTML served by NestJS, not a separate SPA/Next.js frontend
+- deployment should remain simple and same-origin when possible
+- documentation and memory-bank files must reflect the real project rather than a starter template

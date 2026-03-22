@@ -14,7 +14,7 @@ All memory bank files are in `.kilocode/rules/memory-bank/`:
 
 1. Read all memory bank files at task start
 2. **CRITICAL**: After completing ANY significant changes (design updates, new features, bug fixes, configuration changes), you MUST update `context.md` BEFORE using `attempt_completion`. This is not optional.
-3. Update other memory bank files when architecture, tech stack, or project goals change
+3. Update other memory bank files when architecture, tech stack, product flow, or deployment posture change
 
 ## What Counts as "Significant Changes"
 
@@ -22,8 +22,10 @@ You must update the memory bank after:
 
 - Design/styling changes (colors, fonts, layouts)
 - New features or sections added
+- Landing page / login-flow changes
 - Configuration changes (settings, environment)
 - Bug fixes that affect user experience
+- Route-contract and deployment-contract changes
 - File structure changes
 - Dependency updates
 - Any change that would be important for the next developer/AI to know about

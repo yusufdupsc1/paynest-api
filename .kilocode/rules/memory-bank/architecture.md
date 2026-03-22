@@ -1,120 +1,74 @@
-# System Patterns: Next.js Starter Template
+# System Patterns: PayNest NestJS + Static Dashboard
 
 ## Architecture Overview
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx          # Root layout + metadata
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Tailwind imports + global styles
-│   └── favicon.ico         # Site icon
-└── (expand as needed)
-    ├── components/         # React components (add when needed)
-    ├── lib/                # Utilities and helpers (add when needed)
-    └── db/                 # Database files (add via recipe)
+├── main.ts                    # Nest bootstrap + Swagger
+├── app.factory.ts             # Shared app configuration (CORS, validation)
+├── app.module.ts              # Root module + static asset serving
+├── config/                    # Config and Redis wiring
+├── gateways/                  # Payment gateway implementations
+├── common/                    # Shared enums, DTO-like types, utilities
+└── modules/
+    ├── transactions/          # Payment initiation, listing, stats
+    ├── refunds/               # Refund creation, listing, stats
+    ├── webhooks/              # Webhook inbox, replay, retry, summaries
+    ├── analytics/             # Dashboard analytics endpoints
+    ├── health/                # Service health + reliability telemetry
+    └── audit/                 # Audit trail persistence
+
+public/
+└── dashboard.html             # Landing page, demo login, and hosted dashboard shell
 ```
 
 ## Key Design Patterns
 
-### 1. App Router Pattern
+### 1. Single-Service Hosted Surface
 
-Uses Next.js App Router with file-based routing:
-```
-src/app/
-├── page.tsx           # Route: /
-├── about/page.tsx     # Route: /about
-├── blog/
-│   ├── page.tsx       # Route: /blog
-│   └── [slug]/page.tsx # Route: /blog/:slug
-└── api/
-    └── route.ts       # API Route: /api
-```
+- NestJS serves both API routes and the static UI from one host.
+- [src/app.module.ts](src/app.module.ts:27) mounts [public](public) via `ServeStaticModule`.
+- Root `/` is the landing page + demo login + dashboard entry experience in [public/dashboard.html](public/dashboard.html).
 
-### 2. Component Organization Pattern (When Expanding)
+### 2. Same-Origin API Contract
 
-```
-src/components/
-├── ui/                # Reusable UI components (Button, Card, etc.)
-├── layout/            # Layout components (Header, Footer)
-├── sections/          # Page sections (Hero, Features, etc.)
-└── forms/             # Form components
-```
+- Frontend fetches in [public/dashboard.html](public/dashboard.html) should target the actual mounted NestJS routes.
+- Avoid introducing docs/UI references to `/api/v1/...` unless the backend explicitly adds that prefix.
+- Render deployment should work without requiring a second frontend host.
 
-### 3. Server Components by Default
+### 3. Reliability-First Backend Modeling
 
-All components are Server Components unless marked with `"use client"`:
-```tsx
-// Server Component (default) - can fetch data, access DB
-export default function Page() {
-  return <div>Server rendered</div>;
-}
+- Webhooks are treated as durable inbox records, not fire-and-forget handlers.
+- Health endpoints expose backlog and reliability posture.
+- Audit logging records meaningful status transitions and replay attempts.
 
-// Client Component - for interactivity
-"use client";
-export default function Counter() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
-}
-```
+### 4. Demo Product Flow
 
-### 4. Layout Pattern
+- First impression: professional landing page.
+- Entry control: static demo-login handoff.
+- Product depth: operational dashboard with Transactions, Webhooks, Reliability, Gateways, Refunds, and Analytics views.
 
-Layouts wrap pages and can be nested:
-```tsx
-// src/app/layout.tsx - Root layout
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
+## UI / Styling Conventions
 
-// src/app/dashboard/layout.tsx - Nested layout
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex">
-      <Sidebar />
-      <main>{children}</main>
-    </div>
-  );
-}
-```
+- Tailwind via CDN in [public/dashboard.html](public/dashboard.html) is acceptable for the current hosted shell.
+- Favor premium SaaS visual language: dark hero surfaces, clear KPI cards, polished spacing, trust-oriented copy.
+- Preserve graceful loading and explicit connection-error states.
 
-## Styling Conventions
+## Backend Conventions
 
-### Tailwind CSS Usage
-- Utility classes directly on elements
-- Component composition for repeated patterns
-- Responsive: `sm:`, `md:`, `lg:`, `xl:`
-
-### Common Patterns
-```tsx
-// Container
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-// Responsive grid
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-// Flexbox centering
-<div className="flex items-center justify-center">
-```
+- Controllers stay route-focused and thin.
+- Services own orchestration, persistence behavior, and reliability logic.
+- TypeORM entities should use accurate nullability to keep build-time typing stable.
+- Shared app concerns belong in [src/app.factory.ts](src/app.factory.ts:3).
 
 ## File Naming Conventions
 
-- Components: PascalCase (`Button.tsx`, `Header.tsx`)
-- Utilities: camelCase (`utils.ts`, `helpers.ts`)
-- Pages/Routes: lowercase (`page.tsx`, `layout.tsx`)
-- Directories: kebab-case (`api-routes/`) or lowercase (`components/`)
+- Nest modules and services follow standard lowercase directory naming.
+- Entity files end with `.entity.ts`.
+- Tests are grouped by `unit`, `integration`, `e2e`, and `regression` under [test](test).
 
 ## State Management
 
-For simple needs:
-- `useState` for local component state
-- `useContext` for shared state
-- Server Components for data fetching
-
-For complex needs (add when necessary):
-- Zustand for client state
-- React Query for server state
+- Client state is lightweight and lives directly in the in-page script in [public/dashboard.html](public/dashboard.html:829).
+- Backend is the source of truth for dashboard data.
+- Prefer enriching API summaries over adding brittle client-side data fabrication.

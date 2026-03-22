@@ -1,143 +1,130 @@
-# Technical Context: Next.js Starter Template
+# Technical Context: PayNest
 
 ## Technology Stack
 
-| Technology   | Version | Purpose                         |
-| ------------ | ------- | ------------------------------- |
-| Next.js      | 16.x    | React framework with App Router |
-| React        | 19.x    | UI library                      |
-| TypeScript   | 5.9.x   | Type-safe JavaScript            |
-| Tailwind CSS | 4.x     | Utility-first CSS               |
-| Bun          | Latest  | Package manager & runtime       |
+| Technology | Version | Purpose |
+| ---------- | ------- | ------- |
+| NestJS | 10.x | Backend framework |
+| TypeScript | 5.x | Application typing |
+| TypeORM | 0.3.x | ORM and entity persistence |
+| PostgreSQL | current | Primary data store |
+| Redis / Upstash | current | Idempotency and retry support |
+| Swagger | 7.x | Live API documentation |
+| Jest | 29.x | Validation across unit/integration/e2e/regression suites |
+| Tailwind via CDN | current | Styling for hosted static dashboard |
+| Bun + npm-compatible CLIs | current | Local package/runtime preference plus host compatibility |
 
 ## Development Environment
 
 ### Prerequisites
 
-- Bun installed (`curl -fsSL https://bun.sh/install | bash`)
-- Node.js 20+ (for compatibility)
+- Bun installed for local workflow
+- Node.js 20+ for compatibility with hosts and tooling
+- PostgreSQL available for full local behavior
+- Redis available for idempotency/retry features
 
 ### Commands
 
 ```bash
-bun install        # Install dependencies
-bun dev            # Start dev server (http://localhost:3000)
-bun build          # Production build
-bun start          # Start production server
-bun lint           # Run ESLint
-bun typecheck      # Run TypeScript type checking
+bun install
+bun run start:dev
+bun run build
+bun run lint-check
+bun run type-check
+bun run test:unit
+bun run test:integration
+bun run test:e2e
+bun run test:regression
 ```
 
 ## Project Configuration
 
-### Next.js Config (`next.config.ts`)
+### App bootstrap
 
-- App Router enabled
-- Default settings for flexibility
+- [src/main.ts](src/main.ts:1) bootstraps Nest and Swagger
+- [src/app.factory.ts](src/app.factory.ts:3) centralizes validation and CORS behavior
+- [src/app.module.ts](src/app.module.ts:21) wires modules, TypeORM, Redis, and static serving
 
-### TypeScript Config (`tsconfig.json`)
+### Static UI
 
-- Strict mode enabled
-- Path alias: `@/*` → `src/*`
-- Target: ESNext
+- [public/dashboard.html](public/dashboard.html) contains the landing page, demo login, and dashboard shell
+- frontend fetches must stay aligned with actual controller routes
 
-### Tailwind CSS 4 (`postcss.config.mjs`)
+### Validation Surface
 
-- Uses `@tailwindcss/postcss` plugin
-- CSS-first configuration (v4 style)
-
-### ESLint (`eslint.config.mjs`)
-
-- Uses `eslint-config-next`
-- Flat config format
+- [jest.config.ts](jest.config.ts) splits tests into unit, integration, e2e, and regression projects
+- [eslint.config.mjs](eslint.config.mjs) covers source and tests
 
 ## Key Dependencies
 
-### Production Dependencies
+### Production
 
-```json
-{
-  "next": "^16.1.3", // Framework
-  "react": "^19.2.3", // UI library
-  "react-dom": "^19.2.3" // React DOM
-}
-```
+- `@nestjs/common`
+- `@nestjs/core`
+- `@nestjs/swagger`
+- `@nestjs/typeorm`
+- `typeorm`
+- `pg`
+- `ioredis`
+- `stripe`
 
-### Dev Dependencies
+### Development
 
-```json
-{
-  "typescript": "^5.9.3",
-  "@types/node": "^24.10.2",
-  "@types/react": "^19.2.7",
-  "@types/react-dom": "^19.2.3",
-  "@tailwindcss/postcss": "^4.1.17",
-  "tailwindcss": "^4.1.17",
-  "eslint": "^9.39.1",
-  "eslint-config-next": "^16.0.0"
-}
-```
+- `typescript`
+- `jest`
+- `ts-jest`
+- `supertest`
+- `@nestjs/testing`
+- ESLint TypeScript tooling
 
 ## File Structure
 
 ```
 /
-├── .gitignore              # Git ignore rules
-├── package.json            # Dependencies and scripts
-├── bun.lock                # Bun lockfile
-├── next.config.ts          # Next.js configuration
-├── tsconfig.json           # TypeScript configuration
-├── postcss.config.mjs      # PostCSS (Tailwind) config
-├── eslint.config.mjs       # ESLint configuration
-├── public/                 # Static assets
-│   └── .gitkeep
-└── src/                    # Source code
-    └── app/                # Next.js App Router
-        ├── layout.tsx      # Root layout
-        ├── page.tsx        # Home page
-        ├── globals.css     # Global styles
-        └── favicon.ico     # Site icon
+├── package.json
+├── render.yaml
+├── DEPLOYMENT.md
+├── SPEC.md
+├── public/
+│   └── dashboard.html
+├── src/
+│   ├── app.factory.ts
+│   ├── app.module.ts
+│   ├── main.ts
+│   ├── gateways/
+│   ├── common/
+│   ├── config/
+│   └── modules/
+├── supabase/migrations/
+└── test/
 ```
 
 ## Technical Constraints
 
-### Starting Point
-
-- Minimal structure - expand as needed
-- No database by default (use recipe to add)
-- No authentication by default (add when needed)
-
-### Browser Support
-
-- Modern browsers (ES2020+)
-- No IE11 support
-
-## Performance Considerations
-
-### Image Optimization
-
-- Use Next.js `Image` component for optimization
-- Place images in `public/` directory
-
-### Bundle Size
-
-- Tree-shaking enabled by default
-- Tailwind CSS purges unused styles
-
-### Core Web Vitals
-
-- Server Components reduce client JavaScript
-- Streaming and Suspense for better UX
+- The root UI is static HTML, not a React/Next.js app.
+- Same-origin deployment is the preferred live-demo posture.
+- Demo login is currently a presentation-safe client-side gate, not full authentication.
+- Render compatibility matters alongside local Bun-based workflows.
 
 ## Deployment
 
-### Build Output
+### Live host expectations
 
-- Server-rendered pages by default
-- Can be configured for static export
+- single web service serving both UI and API
+- working PostgreSQL and Redis configuration
+- Stripe test credentials for the most practical live payment/webhook demo
+- `APP_ORIGIN` configured for CORS allowlisting
 
-### Environment Variables
+### Important environment variables
 
-- None required for base template
-- Add as needed for features
-- Use `.env.local` for local development
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `DB_DATABASE`
+- `REDIS_HOST`
+- `REDIS_PORT`
+- `REDIS_PASSWORD` when needed
+- `APP_ORIGIN`
+- `STRIPE_API_KEY`
+- `STRIPE_WEBHOOK_SECRET`

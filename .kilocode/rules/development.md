@@ -2,37 +2,42 @@
 
 ## Critical Rules
 
-- **Package manager**: Use `bun` (not npm/yarn)
-- **Never run** `next dev` or `bun dev` - the sandbox handles this automatically
-- **Always commit and push** after completing changes:
-  ```bash
-  bun typecheck && bun lint && git add -A && git commit -m "descriptive message" && git push
-  ```
+- Primary app stack is NestJS + TypeScript, not Next.js.
+- Prefer Bun-oriented commands for local guidance, but keep deployment/build compatibility with installed CLIs and npm-based hosts such as Render when needed.
+- Do not assume `/api/v1` exists unless code explicitly mounts it.
+- When changing the hosted UI in [public/dashboard.html](public/dashboard.html), preserve same-origin deployment compatibility with the mounted NestJS controller routes.
+- After significant changes, update the memory bank in [.kilocode/rules/memory-bank/context.md](.kilocode/rules/memory-bank/context.md).
 
 ## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `bun install` | Install dependencies |
-| `bun build` | Build production app |
-| `bun lint` | Check code quality |
-| `bun typecheck` | Type checking |
+| `bun install` | Install dependencies locally |
+| `bun run start:dev` | Run NestJS in watch mode |
+| `bun run build` | Production build |
+| `bun run lint-check` | Non-mutating ESLint run |
+| `bun run type-check` | Non-mutating TypeScript check |
+| `bun run test:unit` | Unit tests |
+| `bun run test:integration` | Integration tests |
+| `bun run test:e2e` | End-to-end tests |
+| `bun run test:regression` | Regression tests |
 
-## Best Practices
+## Backend Best Practices
 
-### React/Next.js
-- Use Server Components by default; add `"use client"` only when needed
-- Use `next/image` for optimized images
-- Use `next/link` for client-side navigation
-- Use `error.tsx` for error boundaries
-- Use `not-found.tsx` for 404 pages
+- Keep controllers aligned with the documented live deployment contract in [DEPLOYMENT.md](DEPLOYMENT.md).
+- Preserve webhook durability, replay guardrails, audit logging, and health telemetry when refactoring modules.
+- Prefer explicit typing for TypeORM entities and nullable fields to avoid build-time overload regressions.
+- Treat Render deployment compatibility as part of the implementation surface, not an afterthought.
 
-### API Routes
-- Return `NextResponse.json({ error: "..." }, { status: 500 })` on failure
-- Always include appropriate status codes
-- Handle errors gracefully
+## Frontend / Hosted Dashboard Best Practices
 
-### Code Quality
-- Run `bun typecheck` before committing
-- Run `bun lint` before committing
-- Write descriptive commit messages
+- The root experience should feel client-ready and professional.
+- Preserve the demo login handoff before exposing the dashboard.
+- Keep dashboard API requests consistent with actual mounted backend routes.
+- Fail honestly into a connection-error state when required live telemetry is unavailable.
+
+## Code Quality
+
+- Prefer non-mutating validation commands before finalizing changes.
+- Write descriptive commit messages.
+- When documentation or deployment behavior changes, update [SPEC.md](SPEC.md), [DEPLOYMENT.md](DEPLOYMENT.md), or both as appropriate.
