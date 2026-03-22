@@ -49,10 +49,10 @@ export class AuditLog {
   })
   gateway!: GatewayType | null;
 
-  @Column({ name: 'previous_status', nullable: true, length: 100 })
+  @Column({ name: 'previous_status', type: 'varchar', nullable: true, length: 100 })
   previousStatus!: string | null;
 
-  @Column({ name: 'next_status', nullable: true, length: 100 })
+  @Column({ name: 'next_status', type: 'varchar', nullable: true, length: 100 })
   nextStatus!: string | null;
 
   @Column({ type: 'varchar', length: 100, default: 'system' })

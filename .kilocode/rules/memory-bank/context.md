@@ -55,6 +55,7 @@ A NestJS payment orchestration backend with 15+ gateway integrations, now paired
 - [x] Reworked the hosted root experience into a professional landing page with a demo login handoff before entering the live dashboard
 - [x] Aligned the static dashboard startup fetch paths with the currently mounted NestJS controller routes for same-origin Render deployment
 - [x] Added explicit `uuid` column typing to audit log foreign-key reference fields so Render/PostgreSQL no longer rejects `AuditLog` metadata during bootstrap
+- [x] Added explicit `varchar` typing to audit log status-history columns so Render/PostgreSQL no longer infers `Object` for nullable audit statuses
 
 ## Architecture
 
@@ -169,3 +170,4 @@ bun run test:regression
 | 2026-03-21 | Patched follow-up regressions by restoring Stripe webhook transaction reconciliation and replacing wildcard credentialed CORS with a configurable allowlist |
 | 2026-03-22 | Fixed the refunds typing build regression, added a professional landing page with demo login gating, and aligned dashboard fetch paths with the mounted NestJS routes for Render deployment |
 | 2026-03-22 | Added explicit UUID typing to audit-log foreign-key columns so Render/PostgreSQL accepts `AuditLog` metadata during Nest bootstrap |
+| 2026-03-22 | Added explicit varchar typing to audit-log status columns so nullable audit status metadata no longer breaks Render/PostgreSQL bootstrap |
