@@ -51,6 +51,9 @@ A NestJS payment orchestration backend with 15+ gateway integrations, now paired
 - [x] Expanded flat ESLint coverage to include `test/**/*.ts` and `jest.config.ts` so local linting matches the intended validation surface
 - [x] Fixed Stripe webhook transaction reconciliation to use the verified payload shape returned by the Stripe gateway
 - [x] Replaced wildcard credentialed CORS with an explicit/configurable origin allowlist in the shared app factory
+- [x] Fixed the refunds entity nullability typing so Render/TypeScript builds stop inferring array overloads during refund creation
+- [x] Reworked the hosted root experience into a professional landing page with a demo login handoff before entering the live dashboard
+- [x] Aligned the static dashboard startup fetch paths with the currently mounted NestJS controller routes for same-origin Render deployment
 
 ## Architecture
 
@@ -163,3 +166,4 @@ bun run test:regression
 | 2026-03-21 | Clarified portfolio-readiness docs with a stronger dashboard architecture narrative, deployment contract, routing caveats, and demo-facing copy polish |
 | 2026-03-21 | Reduced Bun-specific validation coupling by pointing quality-gate scripts at installed Nest/TypeScript CLIs and widening ESLint flat-config coverage to tests and Jest config |
 | 2026-03-21 | Patched follow-up regressions by restoring Stripe webhook transaction reconciliation and replacing wildcard credentialed CORS with a configurable allowlist |
+| 2026-03-22 | Fixed the refunds typing build regression, added a professional landing page with demo login gating, and aligned dashboard fetch paths with the mounted NestJS routes for Render deployment |

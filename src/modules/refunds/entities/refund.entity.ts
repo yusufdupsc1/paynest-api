@@ -16,40 +16,40 @@ import { Transaction } from '../../transactions/entities/transaction.entity';
 @Index(['status'])
 export class Refund {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ name: 'transaction_id' })
-  transactionId: string;
+  transactionId!: string;
 
   @ManyToOne(() => Transaction)
   @JoinColumn({ name: 'transaction_id' })
-  transaction: Transaction;
+  transaction!: Transaction;
 
   @Column({ name: 'external_refund_id', nullable: true })
-  externalRefundId: string;
+  externalRefundId!: string | null;
 
   @Column({ type: 'decimal', precision: 15, scale: 2 })
-  amount: number;
+  amount!: number;
 
   @Column({
     type: 'enum',
     enum: RefundStatus,
     default: RefundStatus.PENDING,
   })
-  status: RefundStatus;
+  status!: RefundStatus;
 
   @Column({ type: 'text', nullable: true })
-  reason: string;
+  reason!: string | null;
 
   @Column({ type: 'jsonb', nullable: true })
-  metadata: Record<string, unknown>;
+  metadata!: Record<string, unknown> | null;
 
   @Column({ name: 'gateway_response', type: 'jsonb', nullable: true })
-  gatewayResponse: Record<string, unknown>;
+  gatewayResponse!: Record<string, unknown> | null;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column({ name: 'processed_at', type: 'timestamp', nullable: true })
-  processedAt: Date;
+  processedAt!: Date | null;
 }

@@ -7,20 +7,117 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-100">
-  <div class="relative min-h-screen overflow-hidden">
+  <div id="landing" class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.22),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.18),_transparent_22%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
+
+    <div class="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 lg:px-8">
+      <header class="flex flex-col gap-6 border-b border-white/10 pb-8 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">PayNest</p>
+          <h1 class="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl">Payments infrastructure, reliability telemetry, and operator confidence in one client-ready control center.</h1>
+          <p class="mt-4 max-w-2xl text-base leading-7 text-slate-300">A polished payments platform demo for merchant operations, finance teams, and reliability reviewers. Explore a landing page that sells the product story, then enter the live dashboard with demo credentials.</p>
+        </div>
+        <div class="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 px-5 py-4 text-sm text-cyan-50 shadow-xl shadow-cyan-950/30">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200">Demo access</p>
+          <p class="mt-3 font-medium text-white">Email: <span class="font-semibold">demo@paynest.io</span></p>
+          <p class="mt-1 font-medium text-white">Password: <span class="font-semibold">PayNestDemo#2026</span></p>
+          <button id="useDemoCredentials" class="mt-4 inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-100">Use demo credentials</button>
+        </div>
+      </header>
+
+      <section class="grid flex-1 gap-8 py-10 lg:grid-cols-[1.25fr,0.95fr] lg:py-14">
+        <div class="space-y-8">
+          <div class="grid gap-4 sm:grid-cols-3">
+            <article class="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Orchestration</p>
+              <p class="mt-3 text-2xl font-semibold text-white">15+ rails</p>
+              <p class="mt-2 text-sm text-slate-300">Global and regional payment gateway coverage for a strong portfolio narrative.</p>
+            </article>
+            <article class="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Reliability</p>
+              <p class="mt-3 text-2xl font-semibold text-white">Inbox + replay</p>
+              <p class="mt-2 text-sm text-slate-300">Webhook durability, retry visibility, and health telemetry surfaced as product features.</p>
+            </article>
+            <article class="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Operations</p>
+              <p class="mt-3 text-2xl font-semibold text-white">Refunds + analytics</p>
+              <p class="mt-2 text-sm text-slate-300">Move from executive story to operator workflow without leaving the same hosted surface.</p>
+            </article>
+          </div>
+
+          <div class="rounded-[32px] border border-white/10 bg-slate-900/70 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur">
+            <p class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.25em] text-emerald-100">
+              <span class="h-2 w-2 rounded-full bg-emerald-300"></span>
+              Built for client demos
+            </p>
+            <h2 class="mt-5 text-3xl font-semibold text-white">Professional landing experience first, authenticated operations surface second.</h2>
+            <p class="mt-4 max-w-3xl text-base leading-7 text-slate-300">This flow now behaves more like a real SaaS product: a polished marketing layer introduces the platform, a guarded demo login creates an app-entry moment, and the operational dashboard remains available behind that handoff.</p>
+            <div class="mt-8 grid gap-4 md:grid-cols-2">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <p class="text-sm font-semibold text-white">What clients can evaluate</p>
+                <ul class="mt-4 space-y-3 text-sm text-slate-300">
+                  <li>• Transaction visibility across gateways</li>
+                  <li>• Webhook reliability and replay posture</li>
+                  <li>• Refund queue operations and exposure</li>
+                  <li>• Analytics and payment performance storytelling</li>
+                </ul>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <p class="text-sm font-semibold text-white">Demo flow</p>
+                <ul class="mt-4 space-y-3 text-sm text-slate-300">
+                  <li>• Visit landing page at `/`</li>
+                  <li>• Sign in with demo credentials</li>
+                  <li>• Load live API-backed dashboard data</li>
+                  <li>• Navigate reliability, gateways, refunds, and analytics views</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <section class="w-full rounded-[32px] border border-white/10 bg-slate-900/80 p-8 shadow-2xl shadow-slate-950/50 backdrop-blur">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">Client login</p>
+            <h2 class="mt-4 text-3xl font-semibold text-white">Access the PayNest dashboard</h2>
+            <p class="mt-3 text-sm leading-6 text-slate-300">Use the demo account to enter the live dashboard experience. This is a presentation-safe login gate for portfolio walkthroughs while full account creation and authentication can be added next.</p>
+
+            <form id="demoLoginForm" class="mt-8 space-y-5">
+              <div>
+                <label for="loginEmail" class="mb-2 block text-sm font-medium text-slate-200">Work email</label>
+                <input id="loginEmail" type="email" class="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300" placeholder="demo@paynest.io" />
+              </div>
+              <div>
+                <label for="loginPassword" class="mb-2 block text-sm font-medium text-slate-200">Password</label>
+                <input id="loginPassword" type="password" class="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300" placeholder="••••••••••••" />
+              </div>
+              <div class="flex items-start gap-3 rounded-2xl border border-amber-400/20 bg-amber-400/10 px-4 py-3 text-sm text-amber-50">
+                <span class="mt-0.5 h-2.5 w-2.5 rounded-full bg-amber-300"></span>
+                <p>This is a demo authentication layer for live portfolio review. Use the provided credentials to access the dashboard.</p>
+              </div>
+              <p id="loginError" class="hidden text-sm font-medium text-rose-300"></p>
+              <button type="submit" class="inline-flex w-full items-center justify-center rounded-2xl bg-cyan-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">Enter dashboard</button>
+            </form>
+          </section>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="appShell" class="relative hidden min-h-screen overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.20),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.14),_transparent_22%),linear-gradient(180deg,_#020617_0%,_#0f172a_38%,_#e2e8f0_38%,_#f8fafc_100%)]"></div>
 
     <div class="relative flex min-h-screen flex-col xl:flex-row">
       <aside class="border-b border-white/10 bg-slate-950/80 backdrop-blur xl:min-h-screen xl:w-80 xl:border-b-0 xl:border-r">
         <div class="flex h-full flex-col px-6 py-6">
-          <div class="flex items-start justify-between gap-4 xl:block">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">PayNest</p>
-              <h1 class="mt-2 text-2xl font-semibold text-white">Control Center</h1>
-              <p class="mt-2 max-w-xs text-sm text-slate-400">Operational portfolio surface for payment orchestration, webhook durability, and reliability posture.</p>
+            <div class="flex items-start justify-between gap-4 xl:block">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">PayNest</p>
+                <h1 class="mt-2 text-2xl font-semibold text-white">Control Center</h1>
+                <p class="mt-2 max-w-xs text-sm text-slate-400">Operational portfolio surface for payment orchestration, webhook durability, and reliability posture.</p>
+              </div>
+              <button id="logoutButton" class="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/10 xl:mt-4">Logout</button>
+              <div id="systemHealthBadge" class="hidden rounded-full border px-3 py-1 text-xs font-medium xl:inline-flex"></div>
             </div>
-            <div id="systemHealthBadge" class="hidden rounded-full border px-3 py-1 text-xs font-medium xl:inline-flex"></div>
-          </div>
 
           <nav class="mt-8 space-y-2" aria-label="Primary views">
             <a href="#overview" data-nav="overview" class="nav-link flex items-center justify-between rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3 text-sm font-medium text-cyan-100 shadow-lg shadow-cyan-950/40">
@@ -824,7 +921,10 @@
   </div>
 
   <script>
-    const API_URL = window.location.origin.replace(/:\d+$/, ':3000');
+    const API_URL = window.location.origin;
+    const DEMO_EMAIL = 'demo@paynest.io';
+    const DEMO_PASSWORD = 'PayNestDemo#2026';
+    const DEMO_SESSION_KEY = 'paynest-demo-session';
 
     const state = {
       transactions: [],
@@ -2079,14 +2179,14 @@
     async function fetchData() {
       try {
         const [txRes, analyticsRes, analyticsTrendsRes, gatewaysRes, refundsRes, refundStatsRes, webhooksRes, healthRes] = await Promise.all([
-          fetch(`${API_URL}/api/v1/transactions?limit=50`),
-          fetch(`${API_URL}/api/v1/analytics/summary`),
-          fetch(`${API_URL}/api/v1/analytics/trends?days=14`),
-          fetch(`${API_URL}/api/v1/health/gateways`),
-          fetch(`${API_URL}/api/v1/refunds?limit=8`),
-          fetch(`${API_URL}/api/v1/refunds/stats`),
+          fetch(`${API_URL}/transactions?limit=50`),
+          fetch(`${API_URL}/analytics/summary`),
+          fetch(`${API_URL}/analytics/trends?days=14`),
+          fetch(`${API_URL}/health/gateways`),
+          fetch(`${API_URL}/refunds?limit=8`),
+          fetch(`${API_URL}/refunds/stats`),
           fetch(`${API_URL}/webhooks?limit=20`),
-          fetch(`${API_URL}/api/v1/health`),
+          fetch(`${API_URL}/health`),
         ]);
 
         if (![txRes, analyticsRes, analyticsTrendsRes, gatewaysRes, refundsRes, refundStatsRes, webhooksRes, healthRes].every((response) => response.ok)) {
@@ -2127,6 +2227,62 @@
       }
     }
 
+    function showDashboard() {
+      document.getElementById('landing').classList.add('hidden');
+      document.getElementById('appShell').classList.remove('hidden');
+      fetchData();
+    }
+
+    function showLanding() {
+      document.getElementById('appShell').classList.add('hidden');
+      document.getElementById('landing').classList.remove('hidden');
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('content').classList.add('hidden');
+      document.getElementById('error').classList.add('hidden');
+    }
+
+    function persistDemoSession() {
+      localStorage.setItem(DEMO_SESSION_KEY, 'authenticated');
+    }
+
+    function clearDemoSession() {
+      localStorage.removeItem(DEMO_SESSION_KEY);
+    }
+
+    function isDemoAuthenticated() {
+      return localStorage.getItem(DEMO_SESSION_KEY) === 'authenticated';
+    }
+
+    function applyDemoCredentials() {
+      document.getElementById('loginEmail').value = DEMO_EMAIL;
+      document.getElementById('loginPassword').value = DEMO_PASSWORD;
+      document.getElementById('loginError').classList.add('hidden');
+    }
+
+    document.getElementById('demoLoginForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+      const errorNode = document.getElementById('loginError');
+
+      if (email !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
+        errorNode.textContent = 'Use the provided demo credentials to access the dashboard.';
+        errorNode.classList.remove('hidden');
+        return;
+      }
+
+      persistDemoSession();
+      errorNode.classList.add('hidden');
+      showDashboard();
+    });
+
+    document.getElementById('useDemoCredentials').addEventListener('click', applyDemoCredentials);
+    document.getElementById('logoutButton').addEventListener('click', () => {
+      clearDemoSession();
+      showLanding();
+    });
+
     document.getElementById('filter').addEventListener('change', applyTransactionFilters);
     document.getElementById('gatewayFilter').addEventListener('change', applyTransactionFilters);
     document.getElementById('transactionSearch').addEventListener('input', applyTransactionFilters);
@@ -2158,7 +2314,13 @@
       });
     });
 
-    fetchData();
+    applyDemoCredentials();
+
+    if (isDemoAuthenticated()) {
+      showDashboard();
+    } else {
+      showLanding();
+    }
   </script>
 </body>
 </html>
