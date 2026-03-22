@@ -1,16 +1,18 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindOptionsWhere } from 'typeorm';
-import Redis from 'ioredis';
 import { Transaction } from './entities/transaction.entity';
 import { GatewayService } from '../../gateways/gateway.service';
 import { IdempotencyService } from './idempotency.service';
 import {
+  AuditActionType,
+  AuditEntityType,
   GatewayType,
   TransactionStatus,
   PaymentCustomer,
   PaymentMetadata,
 } from '../../common/types';
+import { AuditService } from '../audit/audit.service';
 
 export interface CreatePaymentDto {
   gateway: GatewayType;
@@ -39,6 +41,7 @@ export class TransactionsService {
     private readonly transactionRepository: Repository<Transaction>,
     private readonly gatewayService: GatewayService,
     private readonly idempotencyService: IdempotencyService,
+    private readonly auditService: AuditService,
   ) {}
 
   async createPayment(dto: CreatePaymentDto): Promise<Transaction> {
@@ -83,6 +86,23 @@ export class TransactionsService {
     const savedTransaction = await this.transactionRepository.save(transaction);
     await this.idempotencyService.store(dto.idempotencyKey, savedTransaction.id);
 
+    await this.auditService.recordEntry({
+      entityType: AuditEntityType.TRANSACTION,
+      entityId: savedTransaction.id,
+      transactionId: savedTransaction.id,
+      gateway: savedTransaction.gateway,
+      action: AuditActionType.TRANSACTION_CREATED,
+      previousStatus: null,
+      nextStatus: savedTransaction.status,
+      source: 'transactions.createPayment',
+      metadata: {
+        externalId: savedTransaction.externalId,
+        amount: savedTransaction.amount,
+        currency: savedTransaction.currency,
+        idempotencyKey: savedTransaction.idempotencyKey,
+      },
+    });
+
     return savedTransaction;
   }
 
@@ -119,14 +139,37 @@ export class TransactionsService {
     id: string,
     status: TransactionStatus,
     gatewayResponse?: Record<string, unknown>,
+    source: string = 'transactions.updateStatus',
+    metadata?: Record<string, unknown>,
   ): Promise<Transaction | null> {
     const transaction = await this.findOne(id);
     if (!transaction) return null;
 
+    const previousStatus = transaction.status;
+
     transaction.status = status;
     if (gatewayResponse) transaction.gatewayResponse = gatewayResponse;
 
-    return this.transactionRepository.save(transaction);
+    const savedTransaction = await this.transactionRepository.save(transaction);
+
+    if (previousStatus !== status) {
+      await this.auditService.recordEntry({
+        entityType: AuditEntityType.TRANSACTION,
+        entityId: savedTransaction.id,
+        transactionId: savedTransaction.id,
+        gateway: savedTransaction.gateway,
+        action: AuditActionType.TRANSACTION_STATUS_CHANGED,
+        previousStatus,
+        nextStatus: status,
+        source,
+        metadata: {
+          ...(metadata || {}),
+          gatewayResponse,
+        },
+      });
+    }
+
+    return savedTransaction;
   }
 
   async updateRefundAmount(id: string, refundedAmount: number): Promise<void> {

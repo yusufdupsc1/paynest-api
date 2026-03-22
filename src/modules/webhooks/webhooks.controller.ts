@@ -10,11 +10,17 @@ import {
   HttpCode,
   HttpStatus,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiHeader, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiHeader, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { Request } from 'express';
 import { WebhooksService } from './webhooks.service';
-import { GatewayType } from '../../common/types';
+import {
+  GatewayType,
+  ReplayWebhookDto,
+  WebhookProcessingStatus,
+  WebhookSignatureStatus,
+} from '../../common/types';
 
 @ApiTags('webhooks')
 @Controller('webhooks')
@@ -35,11 +41,11 @@ export class WebhooksController {
       throw new BadRequestException('Missing stripe-signature header');
     }
     const rawBody = typeof body === 'string' ? body : JSON.stringify(body);
-    const result = await this.webhooksService.processWebhook(
-      GatewayType.STRIPE,
-      rawBody,
-      request.headers as Record<string, string>,
-    );
+    const result = await this.webhooksService.processWebhook({
+      gateway: GatewayType.STRIPE,
+      payload: rawBody,
+      headers: request.headers,
+    });
     return { received: result.success };
   }
 
@@ -51,11 +57,11 @@ export class WebhooksController {
     @Body() body: Record<string, unknown>,
     @Req() request: Request,
   ): Promise<{ received: boolean }> {
-    const result = await this.webhooksService.processWebhook(
-      GatewayType.PAYPAL,
-      body,
-      request.headers as Record<string, string>,
-    );
+    const result = await this.webhooksService.processWebhook({
+      gateway: GatewayType.PAYPAL,
+      payload: body,
+      headers: request.headers,
+    });
     return { received: result.success };
   }
 
@@ -72,11 +78,11 @@ export class WebhooksController {
     if (!signature) {
       throw new BadRequestException('Missing x-razorpay-signature header');
     }
-    const result = await this.webhooksService.processWebhook(
-      GatewayType.RAZORPAY,
-      body,
-      request.headers as Record<string, string>,
-    );
+    const result = await this.webhooksService.processWebhook({
+      gateway: GatewayType.RAZORPAY,
+      payload: body,
+      headers: request.headers,
+    });
     return { received: result.success };
   }
 
@@ -88,11 +94,11 @@ export class WebhooksController {
     @Body() body: Record<string, unknown>,
     @Req() request: Request,
   ): Promise<{ received: boolean }> {
-    const result = await this.webhooksService.processWebhook(
-      GatewayType.BKASH,
-      body,
-      request.headers as Record<string, string>,
-    );
+    const result = await this.webhooksService.processWebhook({
+      gateway: GatewayType.BKASH,
+      payload: body,
+      headers: request.headers,
+    });
     return { received: result.success };
   }
 
@@ -104,12 +110,24 @@ export class WebhooksController {
     @Body() body: Record<string, unknown>,
     @Req() request: Request,
   ): Promise<{ received: boolean }> {
-    const result = await this.webhooksService.processWebhook(
-      GatewayType.NAGAD,
-      body,
-      request.headers as Record<string, string>,
-    );
+    const result = await this.webhooksService.processWebhook({
+      gateway: GatewayType.NAGAD,
+      payload: body,
+      headers: request.headers,
+    });
     return { received: result.success };
+  }
+
+  @Post('admin/:id/replay')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Replay a stored webhook event' })
+  @ApiParam({ name: 'id', description: 'Webhook event ID' })
+  @ApiResponse({ status: 200, description: 'Replay result' })
+  async replayWebhook(
+    @Param('id') id: string,
+    @Body() body: ReplayWebhookDto,
+  ): Promise<{ success: boolean; message?: string; status?: WebhookProcessingStatus }> {
+    return this.webhooksService.replayWebhook(id, body?.reason);
   }
 
   @Post(':gateway')
@@ -122,22 +140,52 @@ export class WebhooksController {
     @Body() body: Record<string, unknown>,
     @Req() request: Request,
   ): Promise<{ received: boolean }> {
-    const result = await this.webhooksService.processWebhook(
+    const result = await this.webhooksService.processWebhook({
       gateway,
-      body,
-      request.headers as Record<string, string>,
-    );
+      payload: body,
+      headers: request.headers,
+    });
     return { received: result.success };
   }
 
   @Get()
   @ApiOperation({ summary: 'List webhook events' })
   @ApiResponse({ status: 200, description: 'List of webhook events' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'gateway', required: false, enum: GatewayType })
+  @ApiQuery({ name: 'status', required: false, enum: WebhookProcessingStatus })
+  @ApiQuery({ name: 'signatureStatus', required: false, enum: WebhookSignatureStatus })
+  @ApiQuery({ name: 'replayable', required: false, type: Boolean })
   async listWebhooks(
     @Query('page') page?: number,
     @Query('limit') limit?: number,
-  ): Promise<{ data: unknown[]; total: number }> {
-    return this.webhooksService.findAll(page || 1, limit || 20);
+    @Query('gateway') gateway?: GatewayType,
+    @Query('status') status?: WebhookProcessingStatus,
+    @Query('signatureStatus') signatureStatus?: WebhookSignatureStatus,
+    @Query('replayable') replayable?: boolean,
+  ): Promise<{ data: unknown[]; total: number; page: number; limit: number; summary: unknown }> {
+    return this.webhooksService.findAll(page || 1, limit || 20, {
+      gateway,
+      status,
+      signatureStatus,
+      replayable,
+    });
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get stored webhook event details' })
+  @ApiParam({ name: 'id', description: 'Webhook event ID' })
+  @ApiResponse({ status: 200, description: 'Webhook event details' })
+  @ApiResponse({ status: 404, description: 'Webhook event not found' })
+  async getWebhook(@Param('id') id: string): Promise<unknown> {
+    const event = await this.webhooksService.findOne(id);
+
+    if (!event) {
+      throw new NotFoundException(`Webhook event ${id} not found`);
+    }
+
+    return event;
   }
 
   @Post('retry/:id')

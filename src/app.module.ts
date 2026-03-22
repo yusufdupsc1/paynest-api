@@ -9,12 +9,14 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { RefundsModule } from './modules/refunds/refunds.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { HealthModule } from './modules/health/health.module';
+import { AuditModule } from './modules/audit/audit.module';
 import { GatewayModule } from './gateways/gateway.module';
 import { RedisModule } from './config/redis.module';
 import { Transaction } from './modules/transactions/entities/transaction.entity';
 import { WebhookEvent } from './modules/webhooks/entities/webhook-event.entity';
 import { Refund } from './modules/refunds/entities/refund.entity';
 import { AnalyticsDaily } from './modules/analytics/entities/analytics-daily.entity';
+import { AuditLog } from './modules/audit/entities/audit-log.entity';
 
 @Module({
   imports: [
@@ -36,7 +38,7 @@ import { AnalyticsDaily } from './modules/analytics/entities/analytics-daily.ent
         username: configService.get('DB_USERNAME', 'postgres'),
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_DATABASE', 'payment_dashboard'),
-        entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily],
+        entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
         synchronize: true,
         logging: false,
       }),
@@ -44,6 +46,7 @@ import { AnalyticsDaily } from './modules/analytics/entities/analytics-daily.ent
     }),
     RedisModule,
     GatewayModule,
+    AuditModule,
     TransactionsModule,
     WebhooksModule,
     RefundsModule,

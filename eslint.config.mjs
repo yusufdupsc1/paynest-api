@@ -1,10 +1,12 @@
-import eslint from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 
 const eslintConfig = [
   {
-    files: ['src/**/*.ts'],
+    ignores: ['node_modules/**', 'dist/**', 'coverage/**'],
+  },
+  {
+    files: ['src/**/*.ts', 'test/**/*.ts', 'jest.config.ts'],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -25,9 +27,6 @@ const eslintConfig = [
       'no-console': 'warn',
       'no-unused-vars': 'off',
     },
-  },
-  {
-    ignores: ['node_modules/**', 'dist/**', 'coverage/**'],
   },
 ];
 

@@ -4,7 +4,13 @@ import { Repository } from 'typeorm';
 import { Refund } from './entities/refund.entity';
 import { TransactionsService } from '../transactions/transactions.service';
 import { GatewayService } from '../../gateways/gateway.service';
-import { RefundStatus, TransactionStatus, GatewayType } from '../../common/types';
+import {
+  AuditActionType,
+  AuditEntityType,
+  RefundStatus,
+  TransactionStatus,
+} from '../../common/types';
+import { AuditService } from '../audit/audit.service';
 
 export interface CreateRefundDto {
   transactionId: string;
@@ -21,6 +27,7 @@ export class RefundsService {
     private readonly refundRepository: Repository<Refund>,
     private readonly transactionsService: TransactionsService,
     private readonly gatewayService: GatewayService,
+    private readonly auditService: AuditService,
   ) {}
 
   async createRefund(dto: CreateRefundDto): Promise<Refund> {
@@ -53,17 +60,74 @@ export class RefundsService {
       status: response.status === RefundStatus.COMPLETED ? RefundStatus.COMPLETED : RefundStatus.PENDING,
       reason: dto.reason,
       gatewayResponse: response as unknown as Record<string, unknown>,
+      processedAt: response.status === RefundStatus.COMPLETED ? new Date() : null,
     });
 
     const savedRefund = await this.refundRepository.save(refund);
+
+    await this.auditService.recordEntry({
+      entityType: AuditEntityType.REFUND,
+      entityId: savedRefund.id,
+      transactionId: transaction.id,
+      refundId: savedRefund.id,
+      gateway: transaction.gateway,
+      action: AuditActionType.REFUND_CREATED,
+      previousStatus: null,
+      nextStatus: savedRefund.status,
+      source: 'refunds.createRefund',
+      metadata: {
+        amount: savedRefund.amount,
+        reason: savedRefund.reason,
+        externalRefundId: savedRefund.externalRefundId,
+      },
+    });
+
+    if (savedRefund.status !== RefundStatus.PENDING) {
+      await this.auditService.recordEntry({
+        entityType: AuditEntityType.REFUND,
+        entityId: savedRefund.id,
+        transactionId: transaction.id,
+        refundId: savedRefund.id,
+        gateway: transaction.gateway,
+        action: AuditActionType.REFUND_STATUS_CHANGED,
+        previousStatus: RefundStatus.PENDING,
+        nextStatus: savedRefund.status,
+        source: 'refunds.createRefund',
+        metadata: {
+          amount: savedRefund.amount,
+          externalRefundId: savedRefund.externalRefundId,
+          gatewayResponse: savedRefund.gatewayResponse,
+        },
+      });
+    }
 
     if (response.success) {
       await this.transactionsService.updateRefundAmount(transaction.id, dto.amount);
 
       if (dto.amount === availableAmount) {
-        await this.transactionsService.updateStatus(transaction.id, TransactionStatus.REFUNDED);
+        await this.transactionsService.updateStatus(
+          transaction.id,
+          TransactionStatus.REFUNDED,
+          undefined,
+          'refunds.createRefund',
+          {
+            refundId: savedRefund.id,
+            refundAmount: dto.amount,
+            refundStatus: savedRefund.status,
+          },
+        );
       } else {
-        await this.transactionsService.updateStatus(transaction.id, TransactionStatus.PARTIALLY_REFUNDED);
+        await this.transactionsService.updateStatus(
+          transaction.id,
+          TransactionStatus.PARTIALLY_REFUNDED,
+          undefined,
+          'refunds.createRefund',
+          {
+            refundId: savedRefund.id,
+            refundAmount: dto.amount,
+            refundStatus: savedRefund.status,
+          },
+        );
       }
     }
 

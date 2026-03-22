@@ -1,11 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { GatewayService } from '../../gateways/gateway.service';
+import { WebhooksService } from '../webhooks/webhooks.service';
 
 @ApiTags('health')
 @Controller('health')
 export class HealthController {
-  constructor(private readonly gatewayService: GatewayService) {}
+  constructor(
+    private readonly gatewayService: GatewayService,
+    private readonly webhooksService: WebhooksService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Health check endpoint' })
@@ -15,12 +19,45 @@ export class HealthController {
     timestamp: string;
     uptime: number;
     gateways: Array<{ type: string; name: string }>;
+    webhooks: {
+      backlog: {
+        total: number;
+        retryable: number;
+        failed: number;
+        processing: number;
+        invalidSignature: number;
+        oldestPendingAt?: string | null;
+      };
+      reliability: {
+        status: 'healthy' | 'active' | 'attention';
+        replayable: number;
+        blockedReplay: number;
+        maxRetriesExceeded: number;
+        lastReceivedAt: string | null;
+        lastProcessedAt: string | null;
+        backlogAgeSeconds: number | null;
+        recent24h: {
+          received: number;
+          processed: number;
+          failed: number;
+          invalidSignature: number;
+          replayed: number;
+        };
+      };
+    };
   }> {
+    const backlog = await this.webhooksService.getBacklogSummary();
+    const reliability = await this.webhooksService.getReliabilitySummary();
+
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
       gateways: this.gatewayService.getSupportedGateways(),
+      webhooks: {
+        backlog,
+        reliability,
+      },
     };
   }
 
