@@ -20,6 +20,7 @@
     "test:regression": "jest --config jest.config.ts --selectProjects regression",
     "test:security-smoke": "jest --config jest.config.ts --selectProjects e2e --runTestsByPath test/e2e/security-smoke.e2e-spec.ts",
     "test:performance-smoke": "jest --config jest.config.ts --selectProjects regression --runTestsByPath test/regression/performance-smoke.spec.ts",
+    "test:release-gate": "bun run lint-check && bun run type-check && bun run test:unit -- --runInBand && bun run test:integration -- --runInBand && bun run test:e2e -- --runInBand && bun run test:regression -- --runInBand && bun run test:performance-smoke -- --runInBand && bun run build-check",
     "test:cov": "jest --config jest.config.ts --coverage",
     "migration:generate": "typeorm migration:generate -d src/config/data-source.ts",
     "migration:run": "typeorm migration:run -d src/config/data-source.ts"
