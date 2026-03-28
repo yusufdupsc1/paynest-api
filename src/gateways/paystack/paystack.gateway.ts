@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IGateway } from '../interfaces/gateway.interface';
 import { GatewayType, TransactionStatus, RefundStatus, PaymentCustomer, PaymentMetadata, PaymentResponse, RefundResponse, WebhookVerificationResult } from '../../common/types';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class PaystackGateway implements IGateway {
@@ -25,7 +26,10 @@ export class PaystackGateway implements IGateway {
     returnUrl?: string,
   ): Promise<PaymentResponse> {
     try {
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const callbackUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'return', gateway: this.type },
+      );
       const response = await fetch(`${this.baseUrl}/transaction/initialize`, {
         method: 'POST',
         headers: {
@@ -36,7 +40,7 @@ export class PaystackGateway implements IGateway {
           amount: (amount * 100).toString(),
           email: customer.email,
           reference: idempotencyKey,
-          callback_url: returnUrl || `${baseUrl}/webhooks/paystack`,
+          callback_url: returnUrl || callbackUrl,
           metadata: { phone: customer.phone, ...metadata },
         }),
       });

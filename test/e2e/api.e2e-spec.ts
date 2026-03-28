@@ -1,14 +1,20 @@
 import { Test } from "@nestjs/testing";
 import request from "supertest";
 import { GatewayType, WebhookProcessingStatus } from "../../src/common/types";
+import { GatewayService } from "../../src/gateways/gateway.service";
 import { HealthController } from "../../src/modules/health/health.controller";
 import { RefundsController } from "../../src/modules/refunds/refunds.controller";
+import { RefundsService } from "../../src/modules/refunds/refunds.service";
 import { TransactionsController } from "../../src/modules/transactions/transactions.controller";
+import { TransactionsService } from "../../src/modules/transactions/transactions.service";
 import { WebhooksController } from "../../src/modules/webhooks/webhooks.controller";
+import { WebhooksService } from "../../src/modules/webhooks/webhooks.service";
 import { canonicalPaymentRequest } from "../fixtures/requests";
 import { createTestApp } from "../helpers/test-app";
 
 describe("API e2e", () => {
+  jest.setTimeout(15000);
+
   const transactionsService = {
     createPayment: jest.fn(),
   };
@@ -106,31 +112,10 @@ describe("API e2e", () => {
           HealthController,
         ],
         providers: [
-          { provide: "TransactionsService", useValue: transactionsService },
-          { provide: "RefundsService", useValue: refundsService },
-          { provide: "WebhooksService", useValue: webhooksService },
-          { provide: "GatewayService", useValue: gatewayService },
-          {
-            provide: TransactionsController,
-            useFactory: () =>
-              new TransactionsController(transactionsService as never),
-          },
-          {
-            provide: RefundsController,
-            useFactory: () => new RefundsController(refundsService as never),
-          },
-          {
-            provide: WebhooksController,
-            useFactory: () => new WebhooksController(webhooksService as never),
-          },
-          {
-            provide: HealthController,
-            useFactory: () =>
-              new HealthController(
-                gatewayService as never,
-                webhooksService as never,
-              ),
-          },
+          { provide: TransactionsService, useValue: transactionsService },
+          { provide: RefundsService, useValue: refundsService },
+          { provide: WebhooksService, useValue: webhooksService },
+          { provide: GatewayService, useValue: gatewayService },
         ],
       }),
     );
@@ -138,6 +123,7 @@ describe("API e2e", () => {
     await request(app.getHttpServer())
       .post("/transactions/initiate")
       .set("idempotency-key", "idem-e2e-001")
+      .set("Content-Type", "application/json; charset=utf-8")
       .send(canonicalPaymentRequest)
       .expect(201)
       .expect(({ body }) => {
@@ -147,6 +133,7 @@ describe("API e2e", () => {
 
     await request(app.getHttpServer())
       .post("/webhooks/admin/webhook-event-001/replay")
+      .set("Content-Type", "application/json; charset=utf-8")
       .send({ reason: "regression_verification" })
       .expect(200)
       .expect(({ body }) => {

@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
 import { IGateway } from '../interfaces/gateway.interface';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 import {
   GatewayType,
   TransactionStatus,
@@ -40,6 +41,14 @@ export class StripeGateway implements IGateway {
     returnUrl?: string,
   ): Promise<PaymentResponse> {
     try {
+      const successUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'success' },
+      );
+      const cancelUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'cancel' },
+      );
       const session = await this.stripe.checkout.sessions.create(
         {
           mode: 'payment',
@@ -61,8 +70,8 @@ export class StripeGateway implements IGateway {
             idempotencyKey,
             ...metadata,
           },
-          success_url: returnUrl || `${process.env.APP_URL}/success`,
-          cancel_url: returnUrl || `${process.env.APP_URL}/cancel`,
+          success_url: returnUrl || successUrl,
+          cancel_url: returnUrl || cancelUrl,
         },
         {
           idempotencyKey,

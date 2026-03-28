@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { IGateway } from '../interfaces/gateway.interface';
 import { GatewayType, TransactionStatus, RefundStatus } from '../../common/types';
 import { PaymentCustomer, PaymentMetadata, PaymentResponse, RefundResponse, WebhookVerificationResult } from '../../common/types';
+import { buildPublicAppUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class AamarpayGateway implements IGateway {
@@ -29,7 +30,10 @@ export class AamarpayGateway implements IGateway {
     returnUrl?: string,
   ): Promise<PaymentResponse> {
     try {
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const webhookUrl = buildPublicAppUrl(
+        '/webhooks/aamarpay',
+        this.configService.get<string>('APP_URL'),
+      );
       const response = await fetch(`${this.baseUrl}/post`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -39,8 +43,8 @@ export class AamarpayGateway implements IGateway {
           amount: amount.toString(),
           currency: currency || 'BDT',
           tran_id: idempotencyKey,
-          success_url: returnUrl || `${baseUrl}/webhooks/aamarpay`,
-          fail_url: returnUrl || `${baseUrl}/webhooks/aamarpay`,
+          success_url: returnUrl || webhookUrl,
+          fail_url: returnUrl || webhookUrl,
           customer_email: customer.email,
           customer_mobile: customer.phone,
         }),

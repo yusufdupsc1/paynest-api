@@ -12,6 +12,7 @@ import {
   WebhookVerificationResult,
 } from '../../common/types';
 import * as crypto from 'crypto';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class RazorpayGateway implements IGateway {
@@ -38,7 +39,10 @@ export class RazorpayGateway implements IGateway {
     returnUrl?: string,
   ): Promise<PaymentResponse> {
     try {
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const callbackUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'return', gateway: this.type },
+      );
 
       const orderPayload = {
         amount: Math.round(amount * 100),
@@ -49,7 +53,7 @@ export class RazorpayGateway implements IGateway {
           phone: customer.phone,
           ...metadata,
         },
-        callback_url: returnUrl || `${baseUrl}/webhooks/razorpay`,
+        callback_url: returnUrl || callbackUrl,
       };
 
       const response = await fetch(`${this.baseUrl}/orders`, {

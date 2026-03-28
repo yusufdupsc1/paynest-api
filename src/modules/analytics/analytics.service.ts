@@ -25,17 +25,21 @@ export class AnalyticsService {
     byGateway: Record<string, { count: number; amount: number }>;
     byStatus: Record<string, number>;
   }> {
-    const where: Record<string, unknown> = {};
-
-    if (startDate && endDate) {
-      where.createdAt = Between(startDate, endDate);
-    }
-
-    const stats = await this.transactionsService.getTransactionStats();
+    const stats = await this.transactionsService.getTransactionStats({ startDate, endDate });
     const totalTransactions = stats.totalTransactions;
-    const successRate = totalTransactions > 0
+    const successRate = totalTransactions > 0 && stats.totalAmount > 0
       ? ((stats.totalAmount - stats.totalRefunded) / stats.totalAmount) * 100
       : 0;
+
+    const byGateway = Object.fromEntries(
+      Object.entries(stats.byGateway).map(([gateway, data]) => [
+        gateway,
+        {
+          count: data.count,
+          amount: data.amount,
+        },
+      ]),
+    );
 
     return {
       totalTransactions,
@@ -43,8 +47,8 @@ export class AnalyticsService {
       totalRefunds: stats.totalRefunded,
       netAmount: stats.totalAmount - stats.totalRefunded,
       successRate: Math.round(successRate * 100) / 100,
-      byGateway: stats.byGateway,
-      byStatus: {},
+      byGateway,
+      byStatus: stats.byStatus,
     };
   }
 
@@ -57,15 +61,15 @@ export class AnalyticsService {
   }[]> {
     const results: { gateway: string; totalTransactions: number; totalAmount: number; totalRefunds: number; netAmount: number }[] = [];
 
-    const stats = await this.transactionsService.getTransactionStats();
+    const stats = await this.transactionsService.getTransactionStats({ startDate, endDate });
 
     for (const [gateway, data] of Object.entries(stats.byGateway)) {
       results.push({
         gateway,
         totalTransactions: data.count,
         totalAmount: data.amount,
-        totalRefunds: 0,
-        netAmount: data.amount,
+        totalRefunds: data.refundedAmount,
+        netAmount: data.amount - data.refundedAmount,
       });
     }
 

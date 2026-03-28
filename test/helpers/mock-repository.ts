@@ -16,7 +16,7 @@ export function createMockRepository<T extends object>(): MockRepository<T> {
     find: jest.fn(async (_options?: unknown) => []),
     findAndCount: jest.fn(async (_options?: unknown) => [[], 0] as [T[], number]),
     count: jest.fn(async (_options?: unknown) => 0),
-    increment: jest.fn(async (_criteria: unknown, _property: string, _value: number) => {}),
+    increment: jest.fn(async (_criteria: unknown, _property: string, _value: number) => undefined),
   };
 }
 

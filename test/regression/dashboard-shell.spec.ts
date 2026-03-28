@@ -11,7 +11,7 @@ describe("Dashboard shell regression", () => {
     expect(html).toContain('id="transactions-view"');
     expect(html).toContain('id="webhooks-view"');
     expect(html).toContain('id="reliability-view"');
-    expect(html).toContain("/api/v1/health");
+    expect(html).toContain("/health");
     expect(html).toContain("/webhooks?limit=20");
     expect(html).toContain("/webhooks/${webhookId}");
     expect(html).toContain('id="webhookSignatureFilter"');
@@ -28,9 +28,9 @@ describe("Dashboard shell regression", () => {
     expect(html).toContain("Gateway support matrix");
     expect(html).toContain("Recent refund queue");
     expect(html).toContain("Recent trend bars");
-    expect(html).toContain("/api/v1/refunds?limit=8");
-    expect(html).toContain("/api/v1/refunds/stats");
-    expect(html).toContain("/api/v1/analytics/trends?days=14");
+    expect(html).toContain("/refunds?limit=8");
+    expect(html).toContain("/refunds/stats");
+    expect(html).toContain("/analytics/trends?days=14");
     expect(html).toContain(
       "required transactions, analytics, health, refunds, and webhooks endpoints",
     );

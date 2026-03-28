@@ -1552,7 +1552,7 @@
         },
         {
           title: trendPoints.length ? 'Trend endpoint adds time-series credibility' : 'Time-series endpoint is wired but awaiting records',
-          body: trendPoints.length ? `${formatNumber(totals.transactions)} transactions and ${formatCompactCurrency(totals.amount)} of amount are represented across the currently available trend window.` : 'The hosted dashboard already knows how to consume `GET /api/v1/analytics/trends`; the environment just needs daily aggregates to make it richer.',
+          body: trendPoints.length ? `${formatNumber(totals.transactions)} transactions and ${formatCompactCurrency(totals.amount)} of amount are represented across the currently available trend window.` : 'The hosted dashboard already knows how to consume `GET /analytics/trends`; the environment just needs daily aggregates to make it richer.',
         },
         {
           title: 'Analytics story now balances product and operations',

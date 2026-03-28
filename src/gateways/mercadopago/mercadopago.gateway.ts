@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IGateway } from '../interfaces/gateway.interface';
 import { GatewayType, TransactionStatus, RefundStatus, PaymentCustomer, PaymentMetadata, PaymentResponse, RefundResponse, WebhookVerificationResult } from '../../common/types';
+import { buildPublicAppUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class MercadopagoGateway implements IGateway {
@@ -11,14 +12,18 @@ export class MercadopagoGateway implements IGateway {
 
   private readonly accessToken: string;
   private readonly baseUrl = 'https://api.mercadopago.com';
+  private readonly notificationUrl: string;
 
   constructor(private readonly configService: ConfigService) {
     this.accessToken = this.configService.get<string>('MERCADOPAGO_ACCESS_TOKEN') || '';
+    this.notificationUrl = buildPublicAppUrl(
+      '/webhooks/mercadopago',
+      this.configService.get<string>('APP_URL'),
+    );
   }
 
   async createPayment(amount: number, currency: string, customer: PaymentCustomer, idempotencyKey: string, metadata?: PaymentMetadata, returnUrl?: string): Promise<PaymentResponse> {
     try {
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
       const response = await fetch(`${this.baseUrl}/v1/payments`, {
         method: 'POST',
         headers: {
@@ -31,6 +36,8 @@ export class MercadopagoGateway implements IGateway {
           payment_method_id: 'pix',
           payer: { email: customer.email },
           external_reference: idempotencyKey,
+          currency_id: currency,
+          notification_url: this.notificationUrl,
         }),
       });
 

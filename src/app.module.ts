@@ -31,17 +31,26 @@ import { AuditLog } from './modules/audit/entities/audit-log.entity';
     ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST', 'localhost'),
-        port: configService.get<number>('DB_PORT', 5432),
-        username: configService.get('DB_USERNAME', 'postgres'),
-        password: configService.get('DB_PASSWORD', 'postgres'),
-        database: configService.get('DB_DATABASE', 'payment_dashboard'),
-        entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
-        synchronize: true,
-        logging: false,
-      }),
+      useFactory: (configService: ConfigService) => {
+        const rawSynchronize = configService.get<string | boolean | undefined>('DB_SYNCHRONIZE');
+        const synchronize = typeof rawSynchronize === 'boolean'
+          ? rawSynchronize
+          : rawSynchronize == null
+            ? configService.get('NODE_ENV') !== 'production'
+            : rawSynchronize.trim().toLowerCase() === 'true';
+
+        return {
+          type: 'postgres',
+          host: configService.get('DB_HOST', 'localhost'),
+          port: configService.get<number>('DB_PORT', 5432),
+          username: configService.get('DB_USERNAME', 'postgres'),
+          password: configService.get('DB_PASSWORD', 'postgres'),
+          database: configService.get('DB_DATABASE', 'payment_dashboard'),
+          entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
+          synchronize,
+          logging: false,
+        };
+      },
       inject: [ConfigService],
     }),
     RedisModule,

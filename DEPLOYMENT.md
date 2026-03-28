@@ -1,217 +1,350 @@
 # Deployment Guide
 
-## Deployment Intent
+## Recommended Live Stack
 
-This project is easiest to review when deployed as a single NestJS service that:
+For the cleanest portfolio deployment, run PayNest as a single public service on Render, backed by Supabase PostgreSQL and Upstash Redis:
 
-- serves the static dashboard shell from [`public/dashboard.html`](public/dashboard.html)
-- exposes the API and Swagger docs from the same host
-- connects to PostgreSQL and Redis for persistence and idempotency/retry behavior
-
-The live demo story is therefore less "frontend app + separate backend" and more "one hosted operations surface backed by live API telemetry." That is the deployment posture this guide now documents.
-
-## Architecture
-
-```
-┌───────────────────────────────┐
-│ Hosted NestJS service         │
-│ - /            → dashboard    │
-│ - /docs        → Swagger      │
-│ - /health      → readiness    │
-│ - /webhooks/*  → inbox/replay │
-│ - /analytics/* → metrics      │
-│ - /refunds/*   → refund data  │
-│ - /transactions/* → payments  │
-└───────────────┬───────────────┘
-                │
-      ┌─────────┴─────────┐
-      │                   │
-┌───────────────┐  ┌───────────────┐
-│ PostgreSQL    │  │ Redis         │
-│ transactions  │  │ idempotency   │
-│ webhooks      │  │ retry support │
-│ refunds/audit │  │               │
-└───────────────┘  └───────────────┘
+```text
+Browser
+  │
+  ▼
+Render Web Service
+- serves `/` from [`public/dashboard.html`](public/dashboard.html)
+- serves `/docs` from [`src/main.ts`](src/main.ts:23)
+- serves live API routes from Nest controllers
+  │                    │
+  │                    └── Upstash Redis
+  │                        - idempotency keys
+  │                        - retry support
+  │
+  └── Supabase PostgreSQL
+      - transactions
+      - refunds
+      - webhook inbox
+      - audit logs
+      - analytics
 ```
 
-## Live Demo Proof Narrative
+This is the deployment posture the current codebase is optimized for:
 
-A reviewer should be able to open the deployed root URL and verify:
+- one host for UI and API
+- same-origin requests from [`API_URL`](public/dashboard.html:924)
+- Render-compatible NestJS startup
+- Supabase for durable relational data
+- Upstash for Redis-backed reliability features
 
-1. the static dashboard shell loads from `/`
-2. the dashboard populates from live API responses instead of mocked JSON
-3. the Webhooks and Reliability views show backlog/replay/signature posture
-4. the Gateways, Refunds, and Analytics views reflect the broader portfolio surface
-5. Swagger is available at `/docs` for raw endpoint inspection
+## What Must Work In Production
 
-If the API is unavailable, the dashboard intentionally enters its connection-error state rather than masking missing telemetry.
+Your deployed app should make all of the following reachable from the same public origin:
 
-## Step 1: Setup Supabase PostgreSQL
+- `/`
+- `/docs`
+- `/health`
+- `/health/gateways`
+- `/transactions`
+- `/refunds`
+- `/refunds/stats`
+- `/analytics/summary`
+- `/analytics/trends`
+- `/webhooks`
 
-1. Go to https://supabase.com and create an account
-2. Create a new project
-3. Get your connection string from Settings → Database → Connection String
-4. Note your database password
+The dashboard currently loads its initial data from [`Promise.all()`](public/dashboard.html:2181) using these exact same-origin requests:
 
-## Step 2: Deploy NestJS Backend
-
-Railway, Render, Fly.io, or any comparable Node host will work. The key requirement is that the deployed service serves both the dashboard and API from one reachable origin, or that you deliberately configure the dashboard API base for split-host deployment.
-
-### Railway example
-
-1. Go to https://railway.app and connect your GitHub
-2. Click "New Project" → "Deploy from GitHub"
-3. Select your repo: `yusufdupsc1/webhook-reliability-lab`
-4. Railway will auto-detect NestJS
-
-### Configure Environment Variables in Railway
-
-```
-NODE_ENV=production
-PORT=3000
-DB_HOST=<your-supabase-host>
-DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=<your-supabase-password>
-DB_DATABASE=postgres
-REDIS_HOST=<railway-redis or upstash-url>
-REDIS_PORT=6379
-```
-
-Notes:
-
-- CORS is currently permissive in [`configureApp()`](src/app.factory.ts:3), so `CORS_ORIGIN` is not presently enforced by code.
-- PostgreSQL and Redis are both required for the product story this repository is trying to demonstrate.
-- The application currently uses TypeORM `synchronize: true` in [`src/app.module.ts`](src/app.module.ts:42). That is convenient for demos, but reviewers should treat it as a non-production-safe shortcut rather than a hardened migration strategy.
-
-### Start command
-
-```bash
-bun run build && bun run start:prod
-```
-
-The older migration command examples referenced a non-present data-source file and are not the current source of truth for this repository.
-
-## Step 3: Decide how the dashboard reaches the API
-
-### Option A: Single-origin deployment recommended for portfolio review
-
-Host the NestJS service and static dashboard together. In that case, the root URL serves the dashboard and the same host also exposes the API.
-
-### Option B: Split-host deployment
-
-If you want the static dashboard on one host and the API on another, update [`API_URL`](public/dashboard.html:827) in [`public/dashboard.html`](public/dashboard.html) so it points at the public API origin.
-
-Current source:
-
-```javascript
-const API_URL = window.location.origin.replace(/:\d+$/, ":3000");
-```
-
-Example override for split-host deployment:
-
-```javascript
-const API_URL = "https://your-api-host.example.com";
-```
-
-Important: the dashboard currently requests `/api/v1/transactions`, `/api/v1/analytics/*`, `/api/v1/health*`, and `/api/v1/refunds*`, but it requests `/webhooks` directly. Since the NestJS controllers in this repository are not globally prefixed, a production deployment must either:
-
-- expose matching `/api/v1/...` routes through a reverse proxy/gateway, or
-- adjust the dashboard fetch paths to the deployed controller paths
-
-For portfolio clarity, do not ignore this mismatch; make one of those approaches explicit in the deployment you show reviewers.
-
-## Quick Alternative: All-in-One Deploy (Render)
-
-1. Go to https://render.com
-2. Create Web Service from your GitHub repo
-3. Build command: `bun install && bun run build`
-4. Start command: `bun run start:prod`
-5. Add the same database and Redis environment variables as Railway
-6. If using [`render.yaml`](render.yaml), review it before deployment because it still contains older `npm`-based defaults and a `/health` health check path that may need to be reconciled with your final route exposure
-
-## Data Setup
-
-This repository includes baseline SQL in [`supabase/migrations/001_initial.sql`](supabase/migrations/001_initial.sql). If you are creating infrastructure manually in Supabase, use that file as the canonical starting point instead of the older shortened schema examples that were previously documented here.
-
-For a truthful portfolio demo, ensure the database contains at least some representative transaction, webhook, refund, and analytics records; otherwise the dashboard will render correctly but with sparse operational storytelling.
-
-## Required Environment and Service Setup
-
-### Minimum services
-
-- PostgreSQL
-- Redis
-- Node-compatible host that can serve the built NestJS app
-
-### Required environment variables
-
-At minimum, configure:
-
-```
-NODE_ENV=production
-PORT=3000
-DB_HOST=...
-DB_PORT=5432
-DB_USERNAME=...
-DB_PASSWORD=...
-DB_DATABASE=...
-REDIS_HOST=...
-REDIS_PORT=6379
-```
-
-### Gateway secrets
-
-Gateway credentials are not required just to render the dashboard shell, but they are required for truthful live payment/webhook behavior. See `.env.example` for the current expected gateway variables.
-
-## Dashboard Endpoint Contract
-
-The current dashboard startup path depends on all of the following succeeding:
-
-- `GET /api/v1/transactions?limit=50`
-- `GET /api/v1/analytics/summary`
-- `GET /api/v1/analytics/trends?days=14`
-- `GET /api/v1/health/gateways`
-- `GET /api/v1/refunds?limit=8`
-- `GET /api/v1/refunds/stats`
+- `GET /transactions?limit=50`
+- `GET /analytics/summary`
+- `GET /analytics/trends?days=14`
+- `GET /health/gateways`
+- `GET /refunds?limit=8`
+- `GET /refunds/stats`
 - `GET /webhooks?limit=20`
-- `GET /api/v1/health`
+- `GET /health`
 
-The dashboard then issues additional follow-up requests for interactive depth:
+If any of those fail, the UI intentionally falls into a connection-error state instead of masking deployment problems.
 
-- filtered `GET /webhooks?...` queries using `gateway`, `status`, `signatureStatus`, and `replayable`
-- `GET /webhooks/:id` for selected event detail
+## Step 1: Provision Supabase PostgreSQL
 
-If one of the startup responses fails, the shell shows a connection error by design. This is preferable for portfolio honesty because it proves the demo is driven by live dependencies instead of mocked fallback content.
+1. Create a Supabase project.
+2. Open the database connection details in Supabase.
+3. Collect these values for Render:
+   - `DB_HOST`
+   - `DB_PORT`
+   - `DB_USERNAME`
+   - `DB_PASSWORD`
+   - `DB_DATABASE`
+4. Open the SQL editor and run the baseline schema from [`supabase/migrations/001_initial.sql`](supabase/migrations/001_initial.sql).
 
-## Verification Checklist
+### Supabase Notes
 
-After deployment, verify the following URLs and behaviors:
+- Use the direct Postgres host/port credentials for the Nest app.
+- Keep `DB_SYNCHRONIZE=false` on Render once the schema is applied.
+- If you reset the Supabase database, rerun [`supabase/migrations/001_initial.sql`](supabase/migrations/001_initial.sql).
 
-1. `/` serves the dashboard shell
-2. `/docs` serves Swagger UI
-3. `/health` or your routed health endpoint returns health JSON
-4. `/webhooks?limit=20` returns inbox data and summary metadata
-5. Dashboard navigation exposes Overview, Transactions, Webhooks, Reliability, Gateways, Refunds, and Analytics
-6. The Webhooks view can filter results and hydrate selected-event detail
-7. The Reliability view shows backlog, replay, and timestamp telemetry
+## Step 2: Provision Upstash Redis
 
-## Payment Gateway Setup
+1. Create an Upstash Redis database.
+2. Copy the Redis connection details.
+3. Set these in Render:
+   - `REDIS_HOST`
+   - `REDIS_PORT`
+   - `REDIS_PASSWORD`
 
-Each gateway needs its API keys configured. See `.env.example` for all required variables:
+### Upstash Notes
 
-- **Stripe**: https://dashboard.stripe.com/apikeys
-- **PayPal**: https://developer.paypal.com/
-- **bKash**: https://developer.bka.sh/
-- **Nagad**: https://developer.nagad.com.bd/
-- **Razorpay**: https://dashboard.razorpay.com/app/keys
+- [`RedisModule`](src/config/redis.module.ts:10) expects host, port, and optional password values.
+- If `REDIS_HOST` is missing, Redis-backed idempotency and retry support will not behave like the intended live demo.
+- Upstash free tier is sufficient for the portfolio/demo workload.
 
-Add gateway credentials to your chosen host's environment configuration.
+## Step 3: Create the Render Web Service
 
-## Honesty Notes For Reviewers
+### Render Manual Setup
 
-- The dashboard is genuinely API-backed, but the breadth of UI surface is ahead of exhaustive automated validation for every provider.
-- Gateway modules exist for 15+ providers, but live proof in a hosted demo depends on which credentials and sample data you actually configure.
-- If analytics trend rows are sparse, the Analytics view will show empty-state messaging rather than fabricated charts.
-- If you do not reconcile the current `/api/v1/...` dashboard fetch paths with the controller routes your host exposes, the dashboard will correctly fail closed into its connection-error state.
-- The included [`render.yaml`](render.yaml) still reflects an older deployment baseline and should be treated as a starting point to reconcile, not as a guaranteed source of truth for the current dashboard contract.
+1. Go to Render and create a new Web Service.
+2. Connect this Git repository.
+3. Choose the free tier plan.
+4. Use these settings:
+
+```text
+Environment: Node
+Build Command: npm install && npm run build-check
+Start Command: npm run start:prod
+Health Check Path: /health
+```
+
+### Why npm-based commands are recommended on Render
+
+The repository uses Bun in CI and local guidance, but the project scripts in [`package.json`](package.json:6) remain npm-compatible. For Render free-tier simplicity, use the Node host with npm-based install/build/start commands.
+
+## Step 4: Configure Required Render Environment Variables
+
+Set the following variables in Render before the first successful boot.
+
+### Core application
+
+```text
+NODE_ENV=production
+PORT=3000
+APP_URL=https://your-render-service.onrender.com
+APP_ORIGIN=https://your-render-service.onrender.com
+DB_SYNCHRONIZE=false
+```
+
+### Supabase PostgreSQL
+
+```text
+DB_HOST=<supabase-db-host>
+DB_PORT=5432
+DB_USERNAME=<supabase-db-user>
+DB_PASSWORD=<supabase-db-password>
+DB_DATABASE=<supabase-db-name>
+```
+
+### Upstash Redis
+
+```text
+REDIS_HOST=<upstash-redis-host>
+REDIS_PORT=<upstash-redis-port>
+REDIS_PASSWORD=<upstash-redis-password>
+```
+
+## Step 5: Add Gateway API Keys
+
+### Important runtime note
+
+[`StripeGateway`](src/gateways/stripe/stripe.gateway.ts:25) throws during app startup if `STRIPE_API_KEY` is missing. That means Stripe credentials are effectively required for the application to boot today.
+
+Other gateway credentials are strongly recommended if you want the full multi-provider demo story, but many of those modules degrade until their routes are actually used.
+
+### Stripe
+
+```text
+STRIPE_API_KEY=
+STRIPE_WEBHOOK_SECRET=
+```
+
+### PayPal
+
+```text
+PAYPAL_CLIENT_ID=
+PAYPAL_CLIENT_SECRET=
+PAYPAL_ENVIRONMENT=sandbox
+PAYPAL_WEBHOOK_ID=
+```
+
+### bKash
+
+```text
+BKASH_API_KEY=
+BKASH_API_SECRET=
+BKASH_MERCHANT_ID=
+BKASH_USERNAME=
+BKASH_PASSWORD=
+BKASH_BASE_URL=https://checkout.sandbox.bka.sh/v1.2.0-beta
+```
+
+### Nagad
+
+```text
+NAGAD_MERCHANT_ID=
+NAGAD_MERCHANT_KEY=
+NAGAD_USERNAME=
+NAGAD_PASSWORD=
+NAGAD_BASE_URL=https://sandbox.mynagad.com
+```
+
+### Razorpay
+
+```text
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+RAZORPAY_WEBHOOK_SECRET=
+RAZORPAY_BASE_URL=https://api.razorpay.com/v1
+```
+
+### SSLCommerz
+
+```text
+SSLCOMMERZ_STORE_ID=
+SSLCOMMERZ_STORE_PASSWORD=
+SSLCOMMERZ_BASE_URL=https://sandbox.sslcommerz.com
+```
+
+### Aamarpay
+
+```text
+AAMARPAY_STORE_ID=
+AAMARPAY_SIGNATURE_KEY=
+AAMARPAY_BASE_URL=https://sandbox.aamarpay.com
+```
+
+### Paystack
+
+```text
+PAYSTACK_SECRET_KEY=
+```
+
+### Flutterwave
+
+```text
+FLUTTERWAVE_PUBLIC_KEY=
+FLUTTERWAVE_SECRET_KEY=
+```
+
+### Mercado Pago
+
+```text
+MERCADOPAGO_ACCESS_TOKEN=
+```
+
+### Square
+
+```text
+SQUARE_ACCESS_TOKEN=
+SQUARE_LOCATION_ID=
+```
+
+### Adyen
+
+```text
+ADYEN_API_KEY=
+ADYEN_MERCHANT_ACCOUNT=
+```
+
+### PhonePe
+
+```text
+PHONEPE_MERCHANT_ID=
+PHONEPE_SALT_KEY=
+PHONEPE_BASE_URL=https://api-preprod.phonepe.com/apis/pg-sandbox
+```
+
+### Providers currently scaffolded without active secret requirements in the current code
+
+- Paytm support exists in [`PaytmGateway`](src/gateways/paytm/paytm.gateway.ts:7), but the current implementation is placeholder-oriented.
+- UPI support exists in [`UpiGateway`](src/gateways/upi/upi.gateway.ts:7), but the current implementation is placeholder-oriented.
+
+## Step 6: Set Correct Public URL Behavior
+
+Several gateways now derive callback and return URLs from [`buildPublicAppUrl()`](src/gateways/utils/public-app-url.util.ts:27). That makes `APP_URL` critical.
+
+Use your real Render public URL:
+
+```text
+APP_URL=https://your-render-service.onrender.com
+APP_ORIGIN=https://your-render-service.onrender.com
+```
+
+Why both matter:
+
+- `APP_URL` is used for public callback and return URL construction.
+- `APP_ORIGIN` is used by [`configureApp()`](src/app.factory.ts:12) for CORS allowlisting.
+
+If `APP_URL` is malformed, the app now fails fast instead of silently producing localhost callbacks.
+
+## Step 7: Optional Render Blueprint Setup
+
+[`render.yaml`](render.yaml) now reflects the same Render + Supabase + Upstash deployment posture documented here. You can use it as a baseline, but you still need to provide your real secret values in Render.
+
+## Step 8: Verify The Deployment
+
+After the first successful deploy, verify all of the following:
+
+1. `/` loads the landing page and demo login handoff.
+2. `/docs` loads Swagger.
+3. `/health` returns a JSON payload with gateway and webhook posture.
+4. `/health/gateways` returns supported gateway metadata.
+5. `/transactions?limit=5` returns transaction JSON.
+6. `/refunds?limit=5` returns refund JSON.
+7. `/refunds/stats` returns refund summary JSON.
+8. `/analytics/summary` returns analytics summary JSON.
+9. `/analytics/trends?days=14` returns trend data or an empty array.
+10. `/webhooks?limit=20` returns inbox data and summary metadata.
+
+## Recommended Demo Seed Strategy
+
+For a believable public demo, prepare at least:
+
+- a few completed and pending transactions
+- at least one refund record
+- several webhook events across different statuses
+- some daily analytics rows for trend charts
+
+Without seeded records, the app will still deploy correctly, but the dashboard will feel sparse.
+
+## Render Free-Tier Caveats
+
+- Cold starts can delay the first request.
+- Free-tier networking can make webhook round-trips less predictable than paid infrastructure.
+- If your service sleeps, reconnecting to the dashboard may briefly show loading delays.
+- Use sandbox credentials for external payment providers whenever possible.
+
+## Troubleshooting
+
+### App boots locally but fails on Render
+
+Check:
+
+- `STRIPE_API_KEY` is present
+- `APP_URL` is a valid absolute `https://...` URL
+- Supabase credentials are correct
+- Upstash credentials are correct
+- `DB_SYNCHRONIZE=false`
+
+### Dashboard shows connection error
+
+Check the startup endpoints listed earlier in this guide. The dashboard is same-origin and expects the live Nest routes mounted by the app.
+
+### Webhooks do not appear
+
+Check:
+
+- provider webhook URLs target your Render host
+- callback URLs are using the real `APP_URL`
+- relevant gateway secrets are configured
+- Redis is connected so retry/idempotency behavior is available
+
+## Reviewer-Facing Honesty Notes
+
+- The dashboard is real and API-backed.
+- The operational surface is broader than the current live-credential coverage most demos will actually configure.
+- Gateway breadth in the UI represents implementation coverage plus configured credentials, not a promise that every provider is production-certified in this environment.
+- Render free tier is good for a portfolio walkthrough, not for production-grade reliability guarantees.

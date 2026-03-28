@@ -1,27 +1,111 @@
 services:
   - type: web
-    name: payment-dashboard
+    name: paynest
     env: node
     region: oregon
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npm run build-check
     startCommand: npm run start:prod
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
-        value: production
+        value: "production"
       - key: PORT
-        value: 3000
+        value: "3000"
+      - key: APP_URL
+        sync: false
+      - key: APP_ORIGIN
+        sync: false
+      - key: DB_SYNCHRONIZE
+        value: "false"
       - key: DB_HOST
         sync: false
       - key: DB_PORT
-        value: 5432
+        value: "5432"
       - key: DB_USERNAME
-        value: postgres
+        sync: false
       - key: DB_PASSWORD
         sync: false
       - key: DB_DATABASE
-        value: postgres
+        sync: false
       - key: REDIS_HOST
         sync: false
       - key: REDIS_PORT
-        value: 6379
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
+      - key: STRIPE_API_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: PAYPAL_ENVIRONMENT
+        value: "sandbox"
+      - key: PAYPAL_WEBHOOK_ID
+        sync: false
+      - key: BKASH_API_KEY
+        sync: false
+      - key: BKASH_API_SECRET
+        sync: false
+      - key: BKASH_MERCHANT_ID
+        sync: false
+      - key: BKASH_USERNAME
+        sync: false
+      - key: BKASH_PASSWORD
+        sync: false
+      - key: BKASH_BASE_URL
+        value: "https://checkout.sandbox.bka.sh/v1.2.0-beta"
+      - key: NAGAD_MERCHANT_ID
+        sync: false
+      - key: NAGAD_MERCHANT_KEY
+        sync: false
+      - key: NAGAD_USERNAME
+        sync: false
+      - key: NAGAD_PASSWORD
+        sync: false
+      - key: NAGAD_BASE_URL
+        value: "https://sandbox.mynagad.com"
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: RAZORPAY_BASE_URL
+        value: "https://api.razorpay.com/v1"
+      - key: SSLCOMMERZ_STORE_ID
+        sync: false
+      - key: SSLCOMMERZ_STORE_PASSWORD
+        sync: false
+      - key: SSLCOMMERZ_BASE_URL
+        value: "https://sandbox.sslcommerz.com"
+      - key: AAMARPAY_STORE_ID
+        sync: false
+      - key: AAMARPAY_SIGNATURE_KEY
+        sync: false
+      - key: AAMARPAY_BASE_URL
+        value: "https://sandbox.aamarpay.com"
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: FLUTTERWAVE_PUBLIC_KEY
+        sync: false
+      - key: FLUTTERWAVE_SECRET_KEY
+        sync: false
+      - key: MERCADOPAGO_ACCESS_TOKEN
+        sync: false
+      - key: SQUARE_ACCESS_TOKEN
+        sync: false
+      - key: SQUARE_LOCATION_ID
+        sync: false
+      - key: ADYEN_API_KEY
+        sync: false
+      - key: ADYEN_MERCHANT_ACCOUNT
+        sync: false
+      - key: PHONEPE_MERCHANT_ID
+        sync: false
+      - key: PHONEPE_SALT_KEY
+        sync: false
+      - key: PHONEPE_BASE_URL
+        value: "https://api-preprod.phonepe.com/apis/pg-sandbox"

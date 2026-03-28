@@ -11,6 +11,7 @@ import {
   RefundResponse,
   WebhookVerificationResult,
 } from '../../common/types';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class NagadGateway implements IGateway {
@@ -64,7 +65,10 @@ export class NagadGateway implements IGateway {
   ): Promise<PaymentResponse> {
     try {
       const token = await this.getAccessToken();
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const callbackUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'return', gateway: this.type },
+      );
       const dateTime = new Date().toISOString();
 
       const response = await fetch(`${this.baseUrl}/api/auth/checkout/initialize`, {
@@ -82,7 +86,7 @@ export class NagadGateway implements IGateway {
           currency: currency || 'BDT',
           orderId: idempotencyKey,
           additionalData: JSON.stringify(metadata),
-          callbackUrl: returnUrl || `${baseUrl}/webhooks/nagad`,
+          callbackUrl: returnUrl || callbackUrl,
           merchantId: this.merchantId,
         }),
       });

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, FindOptionsWhere } from 'typeorm';
+import { Repository, FindOptionsWhere, SelectQueryBuilder } from 'typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { GatewayService } from '../../gateways/gateway.service';
 import { IdempotencyService } from './idempotency.service';
@@ -35,6 +35,25 @@ export interface TransactionFilters {
 @Injectable()
 export class TransactionsService {
   private readonly logger = new Logger(TransactionsService.name);
+
+  private applyDateFilters(
+    queryBuilder: SelectQueryBuilder<Transaction>,
+    filters?: Pick<TransactionFilters, 'startDate' | 'endDate'>,
+  ): SelectQueryBuilder<Transaction> {
+    if (filters?.startDate) {
+      queryBuilder.andWhere('t.created_at >= :startDate', {
+        startDate: filters.startDate,
+      });
+    }
+
+    if (filters?.endDate) {
+      queryBuilder.andWhere('t.created_at <= :endDate', {
+        endDate: filters.endDate,
+      });
+    }
+
+    return queryBuilder;
+  }
 
   constructor(
     @InjectRepository(Transaction)
@@ -176,26 +195,44 @@ export class TransactionsService {
     await this.transactionRepository.increment({ id }, 'refundedAmount', refundedAmount);
   }
 
-  async getTransactionStats(): Promise<{
+  async getTransactionStats(
+    filters?: Pick<TransactionFilters, 'startDate' | 'endDate'>,
+  ): Promise<{
     totalTransactions: number;
     totalAmount: number;
     totalRefunded: number;
-    byGateway: Record<string, { count: number; amount: number }>;
+    byGateway: Record<string, { count: number; amount: number; refundedAmount: number }>;
+    byStatus: Record<string, number>;
   }> {
-    const stats = await this.transactionRepository
+    const statsQuery = this.transactionRepository
       .createQueryBuilder('t')
       .select('t.gateway', 'gateway')
       .addSelect('COUNT(*)', 'count')
       .addSelect('SUM(t.amount)', 'totalAmount')
       .addSelect('SUM(t.refundedAmount)', 'totalRefunded')
-      .groupBy('t.gateway')
-      .getRawMany();
+      .groupBy('t.gateway');
+
+    this.applyDateFilters(statsQuery, filters);
+
+    const statusQuery = this.transactionRepository
+      .createQueryBuilder('t')
+      .select('t.status', 'status')
+      .addSelect('COUNT(*)', 'count')
+      .groupBy('t.status');
+
+    this.applyDateFilters(statusQuery, filters);
+
+    const [stats, byStatusStats] = await Promise.all([
+      statsQuery.getRawMany(),
+      statusQuery.getRawMany(),
+    ]);
 
     const result = {
       totalTransactions: 0,
       totalAmount: 0,
       totalRefunded: 0,
-      byGateway: {} as Record<string, { count: number; amount: number }>,
+      byGateway: {} as Record<string, { count: number; amount: number; refundedAmount: number }>,
+      byStatus: {} as Record<string, number>,
     };
 
     for (const stat of stats) {
@@ -205,7 +242,12 @@ export class TransactionsService {
       result.byGateway[stat.gateway] = {
         count: parseInt(stat.count, 10),
         amount: parseFloat(stat.totalAmount) || 0,
+        refundedAmount: parseFloat(stat.totalRefunded) || 0,
       };
+    }
+
+    for (const stat of byStatusStats) {
+      result.byStatus[stat.status] = parseInt(stat.count, 10);
     }
 
     return result;

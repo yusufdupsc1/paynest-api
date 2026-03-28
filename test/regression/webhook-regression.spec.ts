@@ -1,8 +1,10 @@
 import { Test } from "@nestjs/testing";
 import request from "supertest";
 import { GatewayType, WebhookProcessingStatus } from "../../src/common/types";
+import { GatewayService } from "../../src/gateways/gateway.service";
 import { HealthController } from "../../src/modules/health/health.controller";
 import { WebhooksController } from "../../src/modules/webhooks/webhooks.controller";
+import { WebhooksService } from "../../src/modules/webhooks/webhooks.service";
 import { createTestApp } from "../helpers/test-app";
 
 describe("Webhook regression contracts", () => {
@@ -53,16 +55,12 @@ describe("Webhook regression contracts", () => {
         controllers: [WebhooksController, HealthController],
         providers: [
           {
-            provide: WebhooksController,
-            useFactory: () => new WebhooksController(webhooksService as never),
+            provide: WebhooksService,
+            useValue: webhooksService,
           },
           {
-            provide: HealthController,
-            useFactory: () =>
-              new HealthController(
-                gatewayService as never,
-                webhooksService as never,
-              ),
+            provide: GatewayService,
+            useValue: gatewayService,
           },
         ],
       }),

@@ -60,8 +60,8 @@ The live UI is intentionally delivered as a static asset through [`ServeStaticMo
 ### Live Demo Workflow
 
 1. The NestJS server boots and serves the static dashboard shell from [`public/dashboard.html`](public/dashboard.html).
-2. The browser resolves [`API_URL`](public/dashboard.html:827) from the current origin by swapping the visible port to `3000`.
-3. The dashboard then issues a single startup fetch fan-out via [`Promise.all()`](public/dashboard.html:2081) for the required operational endpoints.
+2. The browser resolves [`API_URL`](public/dashboard.html:924) directly from the current origin for same-origin deployment.
+3. The dashboard then issues a single startup fetch fan-out via [`Promise.all()`](public/dashboard.html:2181) for the required operational endpoints.
 4. If any required response fails, the dashboard intentionally shows a connection-error state instead of presenting a misleading partial demo.
 5. Reviewers can then move through the seven dashboard views as a product walkthrough grounded in actual backend state.
 
@@ -70,7 +70,7 @@ The live UI is intentionally delivered as a static asset through [`ServeStaticMo
 - Hosted shell: `/` via static serving from [`src/app.module.ts`](src/app.module.ts:27)
 - API docs: `/docs` via Swagger from [`src/main.ts`](src/main.ts:23)
 - API routes: controller routes are mounted directly from NestJS controllers such as [`@Controller('health')`](src/modules/health/health.controller.ts:7) and [`@Controller('webhooks')`](src/modules/webhooks/webhooks.controller.ts:26)
-- Dashboard expectation: the current frontend copy and fetch logic references `/api/v1/...` for transactions, analytics, health, and refunds while still calling `/webhooks` directly. A live deployment therefore needs either matching route exposure upstream or a dashboard API base adjustment during deployment.
+- Dashboard expectation: the hosted shell now targets the live mounted controller routes directly, so same-origin deployment on Render should work without `/api/v1` proxy rewriting.
 
 ## Database Schema
 
@@ -183,13 +183,13 @@ The live UI is intentionally delivered as a static asset through [`ServeStaticMo
 
 The current hosted dashboard depends on the following HTTP responses during initial load:
 
-- `GET /api/v1/transactions?limit=50`
-- `GET /api/v1/analytics/summary`
-- `GET /api/v1/analytics/trends?days=14`
-- `GET /api/v1/health`
-- `GET /api/v1/health/gateways`
-- `GET /api/v1/refunds?limit=8`
-- `GET /api/v1/refunds/stats`
+- `GET /transactions?limit=50`
+- `GET /analytics/summary`
+- `GET /analytics/trends?days=14`
+- `GET /health`
+- `GET /health/gateways`
+- `GET /refunds?limit=8`
+- `GET /refunds/stats`
 - `GET /webhooks?limit=20`
 
 It also performs follow-up webhook queries for richer operator behavior:
@@ -197,7 +197,7 @@ It also performs follow-up webhook queries for richer operator behavior:
 - `GET /webhooks?limit=20&gateway=...&status=...&signatureStatus=...&replayable=...`
 - `GET /webhooks/:id`
 
-These fetches are encoded directly in [`public/dashboard.html`](public/dashboard.html:2031) and [`public/dashboard.html`](public/dashboard.html:2081). Reviewers should treat them as the source of truth for the current live demo contract.
+These fetches are encoded directly in [`public/dashboard.html`](public/dashboard.html:2181). Reviewers should treat them as the source of truth for the current live demo contract.
 
 ## Core Features
 

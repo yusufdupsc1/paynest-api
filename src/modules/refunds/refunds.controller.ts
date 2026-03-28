@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Get, Query, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get, Query, HttpCode, HttpStatus, NotFoundException } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { RefundsService, CreateRefundDto } from './refunds.service';
 import { Refund } from './entities/refund.entity';
@@ -49,7 +49,7 @@ export class RefundsController {
   async getRefund(@Param('id') id: string): Promise<Refund> {
     const refund = await this.refundsService.findOne(id);
     if (!refund) {
-      throw new Error(`Refund ${id} not found`);
+      throw new NotFoundException(`Refund ${id} not found`);
     }
     return refund;
   }

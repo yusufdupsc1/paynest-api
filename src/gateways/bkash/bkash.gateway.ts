@@ -11,6 +11,7 @@ import {
   RefundResponse,
   WebhookVerificationResult,
 } from '../../common/types';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class BkashGateway implements IGateway {
@@ -66,7 +67,10 @@ export class BkashGateway implements IGateway {
   ): Promise<PaymentResponse> {
     try {
       const token = await this.getAccessToken();
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const callbackUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'return', gateway: this.type },
+      );
 
       const response = await fetch(`${this.baseUrl}/checkout/payment/create`, {
         method: 'POST',
@@ -81,7 +85,7 @@ export class BkashGateway implements IGateway {
           intent: 'sale',
           merchantInvoiceNumber: idempotencyKey,
           merchantAssociationPayload: JSON.stringify({ idempotencyKey, ...metadata }),
-          callbackURL: returnUrl || `${baseUrl}/webhooks/bkash`,
+          callbackURL: returnUrl || callbackUrl,
         }),
       });
 

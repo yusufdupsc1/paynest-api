@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IGateway } from '../interfaces/gateway.interface';
 import { GatewayType, TransactionStatus, RefundStatus, PaymentCustomer, PaymentMetadata, PaymentResponse, RefundResponse, WebhookVerificationResult } from '../../common/types';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class FlutterwaveGateway implements IGateway {
@@ -20,7 +21,10 @@ export class FlutterwaveGateway implements IGateway {
 
   async createPayment(amount: number, currency: string, customer: PaymentCustomer, idempotencyKey: string, metadata?: PaymentMetadata, returnUrl?: string): Promise<PaymentResponse> {
     try {
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const redirectUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'return', gateway: this.type },
+      );
       const response = await fetch(`${this.baseUrl}/payments`, {
         method: 'POST',
         headers: {
@@ -31,7 +35,7 @@ export class FlutterwaveGateway implements IGateway {
           tx_ref: idempotencyKey,
           amount: amount.toString(),
           currency: currency || 'USD',
-          redirect_url: returnUrl || `${baseUrl}/webhooks/flutterwave`,
+          redirect_url: returnUrl || redirectUrl,
           customer: { email: customer.email, phonenumber: customer.phone, name: customer.name },
           meta: metadata,
         }),

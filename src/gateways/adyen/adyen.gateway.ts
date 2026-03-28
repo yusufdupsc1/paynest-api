@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IGateway } from '../interfaces/gateway.interface';
 import { GatewayType, TransactionStatus, RefundStatus, PaymentCustomer, PaymentMetadata, PaymentResponse, RefundResponse, WebhookVerificationResult } from '../../common/types';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class AdyenGateway implements IGateway {
@@ -20,6 +21,10 @@ export class AdyenGateway implements IGateway {
 
   async createPayment(amount: number, currency: string, customer: PaymentCustomer, idempotencyKey: string, metadata?: PaymentMetadata, returnUrl?: string): Promise<PaymentResponse> {
     try {
+      const adyenReturnUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'return', gateway: this.type },
+      );
       const response = await fetch(`${this.baseUrl}/payments`, {
         method: 'POST',
         headers: {
@@ -31,7 +36,7 @@ export class AdyenGateway implements IGateway {
           amount: { value: Math.round(amount * 100), currency: currency || 'USD' },
           reference: idempotencyKey,
           merchantAccount: this.merchantAccount,
-          returnUrl: returnUrl || 'http://localhost:3000/webhooks/adyen',
+          returnUrl: returnUrl || adyenReturnUrl,
           shopperEmail: customer.email,
           shopperReference: customer.phone,
           metadata: metadata,

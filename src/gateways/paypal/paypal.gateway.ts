@@ -12,6 +12,7 @@ import {
   WebhookVerificationResult,
 } from '../../common/types';
 import * as crypto from 'crypto';
+import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
 export class PayPalGateway implements IGateway {
@@ -70,7 +71,14 @@ export class PayPalGateway implements IGateway {
   ): Promise<PaymentResponse> {
     try {
       const token = await this.getAccessToken();
-      const baseUrl = this.configService.get<string>('APP_URL') || 'http://localhost:3000';
+      const successUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'success' },
+      );
+      const cancelUrl = buildHostedDashboardUrl(
+        this.configService.get<string>('APP_URL'),
+        { checkout: 'cancel' },
+      );
 
       const orderPayload = {
         intent: 'CAPTURE',
@@ -88,8 +96,8 @@ export class PayPalGateway implements IGateway {
           paypal: {
             experience_context: {
               payment_method_selected: 'PAYPAL',
-              return_url: returnUrl || `${baseUrl}/success`,
-              cancel_url: returnUrl || `${baseUrl}/cancel`,
+              return_url: returnUrl || successUrl,
+              cancel_url: returnUrl || cancelUrl,
             },
           },
         },
@@ -140,7 +148,7 @@ export class PayPalGateway implements IGateway {
     try {
       const transmissionId = headers['paypal-transmission-id'];
       const transmissionTime = headers['paypal-transmission-time'];
-      const certUrl = headers['paypal-cert-url'];
+      const _certUrl = headers['paypal-cert-url'];
       const authAlgo = headers['paypal-auth-algo'];
       const transmissionSig = headers['paypal-transmission-sig'];
       const webhookId = this.configService.get<string>('PAYPAL_WEBHOOK_ID');
@@ -150,7 +158,7 @@ export class PayPalGateway implements IGateway {
       }
 
       const payloadString = typeof payload === 'string' ? payload : JSON.stringify(payload);
-      const hash = crypto.createHash('sha256').update(payloadString).digest('base64');
+      const _hash = crypto.createHash('sha256').update(payloadString).digest('base64');
 
       return {
         valid: true,
