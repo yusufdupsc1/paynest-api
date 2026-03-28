@@ -1,14 +1,14 @@
-version: '3.8'
-
 services:
   app:
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile
+    env_file:
+      - ../.env
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       PORT: 3000
       DB_HOST: postgres
       DB_PORT: 5432
@@ -68,7 +68,6 @@ services:
     restart: unless-stopped
     networks:
       - payment-network
-    visible_only: true
 
 volumes:
   postgres_data:

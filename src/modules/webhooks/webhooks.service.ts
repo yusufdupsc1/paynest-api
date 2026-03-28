@@ -511,9 +511,10 @@ export class WebhooksService {
           status: WebhookProcessingStatus.INVALID_SIGNATURE,
         },
       }),
-      this.webhookEventRepository.findOne({
+      this.webhookEventRepository.find({
         order: { receivedAt: 'DESC' },
-      }),
+        take: 1,
+      }).then((events) => events[0] ?? null),
       this.webhookEventRepository.findOne({
         where: { status: WebhookProcessingStatus.PROCESSED },
         order: { processedAt: 'DESC' },

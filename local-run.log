@@ -1,0 +1,24 @@
+$ node dist/main
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +121ms[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +2ms[39m
+[33m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [33m   WARN[39m [38;5;3m[IdempotencyService] [39m[33mRedis not configured - using in-memory cache (not recommended for production)[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mServeStaticModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +5ms[39m
+[31m[Nest] 52394  - [39m03/29/2026, 12:07:58 AM [31m  ERROR[39m [38;5;3m[ExceptionHandler] [39m[31mSTRIPE_API_KEY is not configured[39m
+Error: STRIPE_API_KEY is not configured
+    at new StripeGateway (/home/neo/Music/webhook-reliability-lab/dist/gateways/stripe/stripe.gateway.js:30:19)
+    at Injector.instantiateClass (/home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/injector.js:373:19)
+    at callback (/home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/injector.js:65:45)
+    at async Injector.resolveConstructorParams (/home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/injector.js:145:24)
+    at async Injector.loadInstance (/home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/injector.js:70:13)
+    at async Injector.loadProvider (/home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/injector.js:98:9)
+    at async /home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/instance-loader.js:56:13
+    at async Promise.all (index 3)
+    at async InstanceLoader.createInstancesOfProviders (/home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/instance-loader.js:55:9)
+    at async /home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/injector/instance-loader.js:40:13
+error: script "start:prod" exited with code 1

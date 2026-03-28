@@ -1,0 +1,67 @@
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +59ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +1ms[39m
+[33m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [33m   WARN[39m [38;5;3m[IdempotencyService] [39m[33mRedis not configured - using in-memory cache (not recommended for production)[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mServeStaticModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +4ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRedisModule dependencies initialized[39m[38;5;3m +220ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mGatewayModule dependencies initialized[39m[38;5;3m +0ms[39m
+(node:123960) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmCoreModule dependencies initialized[39m[38;5;3m +507ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuditModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTransactionsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mHealthModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mWebhooksModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRefundsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTransactionsController {/transactions}:[39m[38;5;3m +474ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/transactions/initiate, POST} route[39m[38;5;3m +4ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/transactions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/transactions/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/transactions/stats/summary, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mWebhooksController {/webhooks}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/stripe, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/paypal, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/razorpay, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/bkash, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/nagad, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/admin/:id/replay, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/:gateway, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/webhooks/retry/:id, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRefundsController {/refunds}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/refunds, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/refunds, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/refunds/stats, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/refunds/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/analytics/summary, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/analytics/by-gateway, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/analytics/trends, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/analytics/refunds, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/health}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health/gateways, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +24ms[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[Bootstrap] [39m[32mApplication running on http://localhost:3107[39m
+[32m[Nest] 123960  - [39m03/29/2026, 1:35:35 AM [32m    LOG[39m [38;5;3m[Bootstrap] [39m[32mAPI Docs: http://localhost:3107/docs[39m
+[31m[Nest] 123960  - [39m03/29/2026, 1:35:38 AM [31m  ERROR[39m [38;5;3m[ExceptionsHandler] [39m[31mYou must provide selection conditions in order to find a single row.[39m
+Error: You must provide selection conditions in order to find a single row.
+    at EntityManager.findOne (/home/neo/Music/webhook-reliability-lab/node_modules/typeorm/entity-manager/EntityManager.js:619:19)
+    at Repository.findOne (/home/neo/Music/webhook-reliability-lab/node_modules/typeorm/repository/Repository.js:276:29)
+    at WebhooksService.getReliabilitySummary (/home/neo/Music/webhook-reliability-lab/dist/modules/webhooks/webhooks.service.js:371:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async HealthController.healthCheck (/home/neo/Music/webhook-reliability-lab/dist/modules/health/health.controller.js:24:29)
+    at async /home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/router/router-execution-context.js:46:28
+    at async /home/neo/Music/webhook-reliability-lab/node_modules/@nestjs/core/router/router-proxy.js:9:17
