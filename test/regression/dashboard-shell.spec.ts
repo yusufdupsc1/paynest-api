@@ -4,7 +4,7 @@ import { join } from "path";
 describe("Dashboard shell regression", () => {
   it("retains the operational multi-view sections and deeper portfolio data hooks", () => {
     const html = readFileSync(
-      join(process.cwd(), "public", "dashboard.html"),
+      join(process.cwd(), "public", "index.html"),
       "utf8",
     );
 

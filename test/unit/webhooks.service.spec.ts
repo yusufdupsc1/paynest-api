@@ -225,18 +225,24 @@ describe("WebhooksService", () => {
       .mockResolvedValueOnce(5)
       .mockResolvedValueOnce(2)
       .mockResolvedValueOnce(1);
-    webhookRepository.findOne
-      .mockResolvedValueOnce(
+    webhookRepository.find
+      .mockResolvedValueOnce([
         createWebhookEventFixture({
           receivedAt: new Date("2026-03-21T11:59:30.000Z"),
         }),
-      )
-      .mockResolvedValueOnce(
+      ])
+      .mockResolvedValueOnce([
         createWebhookEventFixture({
           status: WebhookProcessingStatus.PROCESSED,
           processedAt: new Date("2026-03-21T12:10:00.000Z"),
         }),
-      );
+      ]);
+    webhookRepository.findOne.mockResolvedValueOnce(
+      createWebhookEventFixture({
+        status: WebhookProcessingStatus.PROCESSED,
+        processedAt: new Date("2026-03-21T12:10:00.000Z"),
+      }),
+    );
 
     jest.spyOn(service, "getBacklogSummary").mockResolvedValue({
       total: 2,
