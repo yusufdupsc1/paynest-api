@@ -1,0 +1,13 @@
+.git
+.github
+.env*
+node_modules
+dist
+coverage
+screenshots
+*.log
+dump.rdb
+local-health.log
+local-run.log
+Dockerfile*
+.DS_Store

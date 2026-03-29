@@ -3,7 +3,7 @@
 ## Project Overview
 
 - **Project Name**: PayNest - Payment Orchestration and Webhook Reliability Lab
-- **Type**: NestJS backend API with a static hosted dashboard shell in [`public/dashboard.html`](public/dashboard.html)
+- **Type**: NestJS backend API with a static hosted dashboard shell in [`public/index.html`](public/index.html)
 - **Core Functionality**: Multi-gateway payment orchestration, durable webhook ingest, refund operations, audit-aware replay visibility, and portfolio-grade operational storytelling
 - **Target Users**: Reviewers, hiring teams, and operators evaluating how payment orchestration and webhook reliability can be presented as a credible control plane
 - **Current Product Surface**: Overview, Transactions, Webhooks, Reliability, Gateways, Refunds, and Analytics views backed by live API responses
@@ -45,7 +45,7 @@
 
 ### Hosted Surface Model
 
-The live UI is intentionally delivered as a static asset through [`ServeStaticModule.forRoot()`](src/app.module.ts:27) and rendered from [`public/dashboard.html`](public/dashboard.html). This keeps deployment simple while still demonstrating a broader operations product surface.
+The live UI is intentionally delivered as a static asset through [`ServeStaticModule.forRoot()`](src/app.module.ts:27) and rendered from [`public/index.html`](public/index.html). This keeps deployment simple while still demonstrating a broader operations product surface.
 
 ### Dashboard Views
 
@@ -59,9 +59,9 @@ The live UI is intentionally delivered as a static asset through [`ServeStaticMo
 
 ### Live Demo Workflow
 
-1. The NestJS server boots and serves the static dashboard shell from [`public/dashboard.html`](public/dashboard.html).
-2. The browser resolves [`API_URL`](public/dashboard.html:924) directly from the current origin for same-origin deployment.
-3. The dashboard then issues a single startup fetch fan-out via [`Promise.all()`](public/dashboard.html:2181) for the required operational endpoints.
+1. The NestJS server boots and serves the static dashboard shell from [`public/index.html`](public/index.html).
+2. The browser resolves [`API_URL`](public/index.html:924) directly from the current origin for same-origin deployment.
+3. The dashboard then issues a single startup fetch fan-out via [`Promise.all()`](public/index.html:2181) for the required operational endpoints.
 4. If any required response fails, the dashboard intentionally shows a connection-error state instead of presenting a misleading partial demo.
 5. Reviewers can then move through the seven dashboard views as a product walkthrough grounded in actual backend state.
 

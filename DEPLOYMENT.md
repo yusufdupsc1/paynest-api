@@ -9,7 +9,7 @@ Browser
   │
   ▼
 Render Web Service
-- serves `/` from [`public/dashboard.html`](public/dashboard.html)
+- serves `/` from [`public/index.html`](public/index.html)
 - serves `/docs` from [`src/main.ts`](src/main.ts:23)
 - serves live API routes from Nest controllers
   │                    │
@@ -28,7 +28,7 @@ Render Web Service
 This is the deployment posture the current codebase is optimized for:
 
 - one host for UI and API
-- same-origin requests from [`API_URL`](public/dashboard.html:924)
+- same-origin requests from [`API_URL`](public/index.html:924)
 - Render-compatible NestJS startup
 - Supabase for durable relational data
 - Upstash for Redis-backed reliability features
@@ -48,7 +48,7 @@ Your deployed app should make all of the following reachable from the same publi
 - `/analytics/trends`
 - `/webhooks`
 
-The dashboard currently loads its initial data from [`Promise.all()`](public/dashboard.html:2181) using these exact same-origin requests:
+The dashboard currently loads its initial data from [`Promise.all()`](public/index.html:2181) using these exact same-origin requests:
 
 - `GET /transactions?limit=50`
 - `GET /analytics/summary`
@@ -112,7 +112,7 @@ Health Check Path: /health
 
 ### Why npm-based commands are recommended on Render
 
-The repository uses Bun in CI and local guidance, but the project scripts in [`package.json`](package.json:6) remain npm-compatible. For Render free-tier simplicity, use the Node host with npm-based install/build/start commands.
+The repository is Bun-first in CI and Docker, but the project scripts in [`package.json`](package.json:6) remain npm-compatible. For Render free-tier simplicity, use the Node host with npm-based install/build/start commands unless you deliberately switch the platform to a Bun-native build image.
 
 ## Step 4: Configure Required Render Environment Variables
 
