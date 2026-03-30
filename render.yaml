@@ -33,6 +33,8 @@ services:
         sync: false
       - key: REDIS_PASSWORD
         sync: false
+      - key: REDIS_TLS
+        value: "true"
       - key: STRIPE_API_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET

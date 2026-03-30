@@ -87,10 +87,11 @@ If any of those fail, the UI intentionally falls into a connection-error state i
    - `REDIS_HOST`
    - `REDIS_PORT`
    - `REDIS_PASSWORD`
+   - `REDIS_TLS=true`
 
 ### Upstash Notes
 
-- [`RedisModule`](src/config/redis.module.ts:10) expects host, port, and optional password values.
+- [`RedisModule`](src/config/redis.module.ts:10) supports either `REDIS_URL` or the split host/port/password variables, and can enable TLS with `REDIS_TLS=true`.
 - If `REDIS_HOST` is missing, Redis-backed idempotency and retry support will not behave like the intended live demo.
 - Upstash free tier is sufficient for the portfolio/demo workload.
 
