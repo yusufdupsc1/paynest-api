@@ -11,33 +11,33 @@ import { GatewayType } from '../../../common/types';
 @Index(['date'])
 export class AnalyticsDaily {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ type: 'date' })
-  date: Date;
+  date!: Date;
 
   @Column({
     type: 'enum',
     enum: GatewayType,
     nullable: true,
   })
-  gateway: GatewayType;
+  gateway!: GatewayType | null;
 
   @Column({ name: 'total_transactions', default: 0 })
-  totalTransactions: number;
+  totalTransactions!: number;
 
   @Column({ name: 'total_amount', type: 'decimal', precision: 15, scale: 2, default: 0 })
-  totalAmount: number;
+  totalAmount!: number;
 
   @Column({ name: 'total_refunds', type: 'decimal', precision: 15, scale: 2, default: 0 })
-  totalRefunds: number;
+  totalRefunds!: number;
 
   @Column({ name: 'net_amount', type: 'decimal', precision: 15, scale: 2, default: 0 })
-  netAmount: number;
+  netAmount!: number;
 
   @Column({ name: 'failed_transactions', default: 0 })
-  failedTransactions: number;
+  failedTransactions!: number;
 
   @Column({ name: 'pending_transactions', default: 0 })
-  pendingTransactions: number;
+  pendingTransactions!: number;
 }

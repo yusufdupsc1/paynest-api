@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { configureApp } from './app.factory';
 
@@ -8,10 +9,15 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const app = configureApp(await NestFactory.create(AppModule));
 
+  app.use(helmet());
+
   const config = new DocumentBuilder()
     .setTitle('PayNest - Payment Dashboard API')
     .setDescription('Unified payment gateway orchestration API')
     .setVersion('1.0')
+    .addBearerAuth()
+    .addSecurityRequirements('bearer')
+    .addTag('auth', 'Authentication')
     .addTag('transactions', 'Transaction management')
     .addTag('webhooks', 'Webhook receivers')
     .addTag('refunds', 'Refund operations')

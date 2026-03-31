@@ -48,7 +48,7 @@ export class RefundsService {
 
     const response = await this.gatewayService.createRefund(
       transaction.gateway,
-      transaction.externalId,
+      transaction.externalId ?? '',
       dto.amount,
       dto.reason,
     );

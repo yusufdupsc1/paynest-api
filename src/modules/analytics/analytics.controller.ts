@@ -1,6 +1,6 @@
-import { BadRequestException, Controller, Get, Query } from "@nestjs/common";
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { AnalyticsService } from "./analytics.service";
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { AnalyticsService } from './analytics.service';
 
 const DATE_ONLY_QUERY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const DATE_PREFIX_QUERY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})(?:$|[T\s])/;
@@ -19,7 +19,7 @@ function getDaysInMonth(year: number, month: number): number {
 
 function assertCalendarDateExists(
   value: string,
-  boundary: "start" | "end",
+  boundary: 'start' | 'end',
 ): void {
   const datePrefixMatch = value.match(DATE_PREFIX_QUERY_PATTERN);
 
@@ -28,9 +28,9 @@ function assertCalendarDateExists(
   }
 
   const [, yearString, monthString, dayString] = datePrefixMatch;
-  const year = Number.parseInt(yearString, 10);
-  const month = Number.parseInt(monthString, 10);
-  const day = Number.parseInt(dayString, 10);
+  const year = Number.parseInt(yearString!, 10);
+  const month = Number.parseInt(monthString!, 10);
+  const day = Number.parseInt(dayString!, 10);
 
   if (month < 1 || month > 12 || day < 1 || day > getDaysInMonth(year, month)) {
     throw new BadRequestException(`Invalid ${boundary}Date query parameter`);
@@ -39,7 +39,7 @@ function assertCalendarDateExists(
 
 function parseAnalyticsDateQuery(
   value: string | undefined,
-  boundary: "start" | "end",
+  boundary: 'start' | 'end',
 ): Date | undefined {
   if (!value) {
     return undefined;
@@ -51,7 +51,7 @@ function parseAnalyticsDateQuery(
 
   if (DATE_ONLY_QUERY_PATTERN.test(normalizedValue)) {
     const parsedDate = new Date(
-      boundary === "start"
+      boundary === 'start'
         ? `${normalizedValue}T00:00:00.000Z`
         : `${normalizedValue}T23:59:59.999Z`,
     );
@@ -75,20 +75,21 @@ function parseAnalyticsDateQuery(
   return parsedDate;
 }
 
-@ApiTags("analytics")
-@Controller("analytics")
+@ApiTags('analytics')
+@ApiBearerAuth()
+@Controller('analytics')
 export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
-  @Get("summary")
-  @ApiOperation({ summary: "Get dashboard summary" })
-  @ApiQuery({ name: "startDate", required: false })
-  @ApiQuery({ name: "endDate", required: false })
-  @ApiResponse({ status: 200, description: "Dashboard summary" })
-  @ApiResponse({ status: 400, description: "Invalid date query" })
+  @Get('summary')
+  @ApiOperation({ summary: 'Get dashboard summary' })
+  @ApiQuery({ name: 'startDate', required: false })
+  @ApiQuery({ name: 'endDate', required: false })
+  @ApiResponse({ status: 200, description: 'Dashboard summary' })
+  @ApiResponse({ status: 400, description: 'Invalid date query' })
   async getSummary(
-    @Query("startDate") startDate?: string,
-    @Query("endDate") endDate?: string,
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
   ): Promise<{
     totalTransactions: number;
     totalAmount: number;
@@ -98,20 +99,20 @@ export class AnalyticsController {
     byGateway: Record<string, { count: number; amount: number }>;
     byStatus: Record<string, number>;
   }> {
-    const start = parseAnalyticsDateQuery(startDate, "start");
-    const end = parseAnalyticsDateQuery(endDate, "end");
+    const start = parseAnalyticsDateQuery(startDate, 'start');
+    const end = parseAnalyticsDateQuery(endDate, 'end');
     return this.analyticsService.getSummary(start, end);
   }
 
-  @Get("by-gateway")
-  @ApiOperation({ summary: "Get analytics by gateway" })
-  @ApiQuery({ name: "startDate", required: false })
-  @ApiQuery({ name: "endDate", required: false })
-  @ApiResponse({ status: 200, description: "Gateway analytics" })
-  @ApiResponse({ status: 400, description: "Invalid date query" })
+  @Get('by-gateway')
+  @ApiOperation({ summary: 'Get analytics by gateway' })
+  @ApiQuery({ name: 'startDate', required: false })
+  @ApiQuery({ name: 'endDate', required: false })
+  @ApiResponse({ status: 200, description: 'Gateway analytics' })
+  @ApiResponse({ status: 400, description: 'Invalid date query' })
   async getByGateway(
-    @Query("startDate") startDate?: string,
-    @Query("endDate") endDate?: string,
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
   ): Promise<
     {
       gateway: string;
@@ -121,16 +122,16 @@ export class AnalyticsController {
       netAmount: number;
     }[]
   > {
-    const start = parseAnalyticsDateQuery(startDate, "start");
-    const end = parseAnalyticsDateQuery(endDate, "end");
+    const start = parseAnalyticsDateQuery(startDate, 'start');
+    const end = parseAnalyticsDateQuery(endDate, 'end');
     return this.analyticsService.getByGateway(start, end);
   }
 
-  @Get("trends")
-  @ApiOperation({ summary: "Get transaction trends" })
-  @ApiQuery({ name: "days", required: false, type: Number })
-  @ApiResponse({ status: 200, description: "Trends data" })
-  async getTrends(@Query("days") days?: number): Promise<
+  @Get('trends')
+  @ApiOperation({ summary: 'Get transaction trends' })
+  @ApiQuery({ name: 'days', required: false, type: Number })
+  @ApiResponse({ status: 200, description: 'Trends data' })
+  async getTrends(@Query('days') days?: number): Promise<
     {
       date: string;
       transactions: number;
@@ -141,9 +142,9 @@ export class AnalyticsController {
     return this.analyticsService.getTrends(days || 30);
   }
 
-  @Get("refunds")
-  @ApiOperation({ summary: "Get refund analytics" })
-  @ApiResponse({ status: 200, description: "Refund analytics" })
+  @Get('refunds')
+  @ApiOperation({ summary: 'Get refund analytics' })
+  @ApiResponse({ status: 200, description: 'Refund analytics' })
   async getRefundAnalytics(): Promise<{
     totalRefunds: number;
     totalAmount: number;

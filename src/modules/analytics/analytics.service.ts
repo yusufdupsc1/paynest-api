@@ -93,12 +93,15 @@ export class AnalyticsService {
       order: { date: 'ASC' },
     });
 
-    return analytics.map((a) => ({
-      date: a.date.toISOString().split('T')[0],
-      transactions: a.totalTransactions,
-      amount: parseFloat(a.totalAmount as unknown as string),
-      refunds: parseFloat(a.totalRefunds as unknown as string),
-    }));
+    return analytics.map((a) => {
+      const dateStr = a.date instanceof Date ? a.date.toISOString().split('T')[0] : String(a.date);
+      return {
+        date: dateStr ?? '',
+        transactions: a.totalTransactions,
+        amount: parseFloat(String(a.totalAmount)),
+        refunds: parseFloat(String(a.totalRefunds)),
+      };
+    });
   }
 
   async getRefundAnalytics(): Promise<{
@@ -121,12 +124,12 @@ export class AnalyticsService {
     let totalAmount = 0;
 
     for (const stat of stats) {
-      const amount = parseFloat(stat.totalRefunds) || 0;
-      byGateway[stat.gateway] = {
-        count: parseInt(stat.count, 10),
+      const amount = parseFloat(String(stat.totalRefunds)) || 0;
+      byGateway[stat.gateway as string] = {
+        count: parseInt(String(stat.count), 10),
         amount,
       };
-      totalRefunds += parseInt(stat.count, 10);
+      totalRefunds += parseInt(String(stat.count), 10);
       totalAmount += amount;
     }
 
@@ -153,13 +156,15 @@ export class AnalyticsService {
     const gatewayStats: Record<string, { transactions: number; amount: number; refunds: number }> = {};
 
     for (const tx of transactions) {
-      if (!gatewayStats[tx.gateway]) {
-        gatewayStats[tx.gateway] = { transactions: 0, amount: 0, refunds: 0 };
+      const gw = tx.gateway as string;
+      if (!gatewayStats[gw]) {
+        gatewayStats[gw] = { transactions: 0, amount: 0, refunds: 0 };
       }
-      gatewayStats[tx.gateway].transactions++;
-      gatewayStats[tx.gateway].amount += parseFloat(tx.amount as unknown as string);
+      const entry = gatewayStats[gw]!;
+      entry.transactions++;
+      entry.amount += parseFloat(String(tx.amount));
       if (tx.status === TransactionStatus.REFUNDED || tx.status === TransactionStatus.PARTIALLY_REFUNDED) {
-        gatewayStats[tx.gateway].refunds += parseFloat(tx.refundedAmount as unknown as string);
+        entry.refunds += parseFloat(String(tx.refundedAmount));
       }
     }
 

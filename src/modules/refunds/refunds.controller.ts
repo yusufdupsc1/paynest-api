@@ -1,9 +1,10 @@
 import { Controller, Post, Body, Param, Get, Query, HttpCode, HttpStatus, NotFoundException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { RefundsService, CreateRefundDto } from './refunds.service';
 import { Refund } from './entities/refund.entity';
 
 @ApiTags('refunds')
+@ApiBearerAuth()
 @Controller('refunds')
 export class RefundsController {
   constructor(private readonly refundsService: RefundsService) {}

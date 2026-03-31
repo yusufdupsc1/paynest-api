@@ -11,12 +11,13 @@ import {
   BadRequestException,
   Headers,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiHeader } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiHeader, ApiBearerAuth } from '@nestjs/swagger';
 import { TransactionsService, CreatePaymentDto, TransactionFilters } from './transactions.service';
 import { Transaction } from './entities/transaction.entity';
 import { GatewayType, TransactionStatus } from '../../common/types';
 
 @ApiTags('transactions')
+@ApiBearerAuth()
 @Controller('transactions')
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
@@ -41,7 +42,7 @@ export class TransactionsController {
     return {
       success: transaction.status !== TransactionStatus.FAILED,
       transaction,
-      paymentUrl: transaction.paymentUrl,
+      paymentUrl: transaction.paymentUrl ?? undefined,
     };
   }
 

@@ -21,12 +21,16 @@ import {
   WebhookProcessingStatus,
   WebhookSignatureStatus,
 } from '../../common/types';
+import { Public } from '../auth/decorators/public.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/roles.enum';
 
 @ApiTags('webhooks')
 @Controller('webhooks')
 export class WebhooksController {
   constructor(private readonly webhooksService: WebhooksService) {}
 
+  @Public()
   @Post('stripe')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Handle Stripe webhooks' })
@@ -44,11 +48,12 @@ export class WebhooksController {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.STRIPE,
       payload: rawBody,
-      headers: request.headers,
+      headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
   }
 
+  @Public()
   @Post('paypal')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Handle PayPal webhooks' })
@@ -60,11 +65,12 @@ export class WebhooksController {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.PAYPAL,
       payload: body,
-      headers: request.headers,
+      headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
   }
 
+  @Public()
   @Post('razorpay')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Handle Razorpay webhooks' })
@@ -81,11 +87,12 @@ export class WebhooksController {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.RAZORPAY,
       payload: body,
-      headers: request.headers,
+      headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
   }
 
+  @Public()
   @Post('bkash')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Handle bKash webhooks' })
@@ -97,11 +104,12 @@ export class WebhooksController {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.BKASH,
       payload: body,
-      headers: request.headers,
+      headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
   }
 
+  @Public()
   @Post('nagad')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Handle Nagad webhooks' })
@@ -113,11 +121,12 @@ export class WebhooksController {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.NAGAD,
       payload: body,
-      headers: request.headers,
+      headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
   }
 
+  @Roles(Role.ADMIN, Role.OPERATOR)
   @Post('admin/:id/replay')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Replay a stored webhook event' })
@@ -130,6 +139,7 @@ export class WebhooksController {
     return this.webhooksService.replayWebhook(id, body?.reason);
   }
 
+  @Public()
   @Post(':gateway')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Handle generic gateway webhook' })
@@ -143,7 +153,7 @@ export class WebhooksController {
     const result = await this.webhooksService.processWebhook({
       gateway,
       payload: body,
-      headers: request.headers,
+      headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
   }
@@ -188,6 +198,7 @@ export class WebhooksController {
     return event;
   }
 
+  @Roles(Role.ADMIN, Role.OPERATOR)
   @Post('retry/:id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Retry a failed webhook' })

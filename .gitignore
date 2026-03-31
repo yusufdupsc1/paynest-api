@@ -38,6 +38,7 @@ dump.rdb
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.examples
 
 # vercel
 .vercel
