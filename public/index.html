@@ -925,6 +925,15 @@
     const DEMO_EMAIL = 'demo@paynest.io';
     const DEMO_PASSWORD = 'PayNestDemo#2026';
     const DEMO_SESSION_KEY = 'paynest-demo-session';
+    const DEMO_TOKEN_KEY = 'paynest-jwt-token';
+
+    let jwtToken = localStorage.getItem(DEMO_TOKEN_KEY) || '';
+
+    function apiFetch(path, options = {}) {
+      const headers = { ...(options.headers || {}) };
+      if (jwtToken) headers['Authorization'] = `Bearer ${jwtToken}`;
+      return fetch(`${API_URL}${path}`, { ...options, headers });
+    }
 
     const state = {
       transactions: [],
@@ -2128,7 +2137,7 @@
       if (signatureValue !== 'all') params.set('signatureStatus', signatureValue);
       if (replayableValue !== 'all') params.set('replayable', replayableValue);
 
-      const response = await fetch(`${API_URL}/webhooks?${params.toString()}`);
+      const response = await apiFetch(`/webhooks?${params.toString()}`);
       if (!response.ok) throw new Error('Failed to fetch webhook feed');
 
       return response.json();
@@ -2140,7 +2149,7 @@
       }
 
       try {
-        const response = await fetch(`${API_URL}/webhooks/${webhookId}`);
+        const response = await apiFetch(`/webhooks/${webhookId}`);
         if (!response.ok) throw new Error('Failed to fetch webhook detail');
         const detail = await response.json();
         state.webhookDetailCache[webhookId] = detail;
@@ -2179,14 +2188,14 @@
     async function fetchData() {
       try {
         const [txRes, analyticsRes, analyticsTrendsRes, gatewaysRes, refundsRes, refundStatsRes, webhooksRes, healthRes] = await Promise.all([
-          fetch(`${API_URL}/transactions?limit=50`),
-          fetch(`${API_URL}/analytics/summary`),
-          fetch(`${API_URL}/analytics/trends?days=14`),
-          fetch(`${API_URL}/health/gateways`),
-          fetch(`${API_URL}/refunds?limit=8`),
-          fetch(`${API_URL}/refunds/stats`),
-          fetch(`${API_URL}/webhooks?limit=20`),
-          fetch(`${API_URL}/health`),
+          apiFetch(`/transactions?limit=50`),
+          apiFetch(`/analytics/summary`),
+          apiFetch(`/analytics/trends?days=14`),
+          apiFetch(`/health/gateways`),
+          apiFetch(`/refunds?limit=8`),
+          apiFetch(`/refunds/stats`),
+          apiFetch(`/webhooks?limit=20`),
+          apiFetch(`/health`),
         ]);
 
         if (![txRes, analyticsRes, analyticsTrendsRes, gatewaysRes, refundsRes, refundStatsRes, webhooksRes, healthRes].every((response) => response.ok)) {
@@ -2259,7 +2268,7 @@
       document.getElementById('loginError').classList.add('hidden');
     }
 
-    document.getElementById('demoLoginForm').addEventListener('submit', (event) => {
+    document.getElementById('demoLoginForm').addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const email = document.getElementById('loginEmail').value.trim().toLowerCase();
@@ -2272,6 +2281,22 @@
         return;
       }
 
+      try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'admin', password: 'admin123' }),
+        });
+        if (!res.ok) throw new Error('Login failed');
+        const data = await res.json();
+        jwtToken = data.accessToken;
+        localStorage.setItem(DEMO_TOKEN_KEY, jwtToken);
+      } catch (err) {
+        errorNode.textContent = 'Could not reach auth service. Ensure the backend is running.';
+        errorNode.classList.remove('hidden');
+        return;
+      }
+
       persistDemoSession();
       errorNode.classList.add('hidden');
       showDashboard();
@@ -2279,6 +2304,8 @@
 
     document.getElementById('useDemoCredentials').addEventListener('click', applyDemoCredentials);
     document.getElementById('logoutButton').addEventListener('click', () => {
+      jwtToken = '';
+      localStorage.removeItem(DEMO_TOKEN_KEY);
       clearDemoSession();
       showLanding();
     });
@@ -2316,9 +2343,11 @@
 
     applyDemoCredentials();
 
-    if (isDemoAuthenticated()) {
+    if (isDemoAuthenticated() && jwtToken) {
       showDashboard();
     } else {
+      clearDemoSession();
+      localStorage.removeItem(DEMO_TOKEN_KEY);
       showLanding();
     }
   </script>
