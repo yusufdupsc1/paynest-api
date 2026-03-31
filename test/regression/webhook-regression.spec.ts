@@ -17,7 +17,7 @@ import { JwtStrategy } from '../../src/modules/auth/strategies/jwt.strategy';
 import { LocalStrategy } from '../../src/modules/auth/strategies/local.strategy';
 import { JwtAuthGuard } from '../../src/modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../src/modules/auth/guards/roles.guard';
-import { createTestApp, getAuthToken } from '../helpers/test-app';
+import { createTestApp, getAuthToken, API_PREFIX } from '../helpers/test-app';
 
 describe('Webhook regression contracts', () => {
   it('keeps replay and backlog contracts stable for hardened webhook flows', async () => {
@@ -71,7 +71,7 @@ describe('Webhook regression contracts', () => {
     const token = await getAuthToken(app);
 
     await request(app.getHttpServer())
-      .post('/webhooks/admin/webhook-event-invalid/replay')
+      .post(`${API_PREFIX}/webhooks/admin/webhook-event-invalid/replay`)
       .set('Authorization', `Bearer ${token}`)
       .send({ reason: 'verify_invalid_signature_guard' })
       .expect(200)
@@ -83,6 +83,7 @@ describe('Webhook regression contracts', () => {
         });
       });
 
+    // Health is excluded from prefix
     await request(app.getHttpServer())
       .get('/health')
       .expect(200)

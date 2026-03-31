@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD, APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
-import { join } from 'path';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { RefundsModule } from './modules/refunds/refunds.module';
@@ -35,10 +33,6 @@ import { ErrorInterceptor } from './common/interceptors/error.interceptor';
       ttl: 60000,
       limit: 100,
     }]),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/',
-    }),
     ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

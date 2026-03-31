@@ -11,6 +11,11 @@ async function bootstrap() {
 
   app.use(helmet());
 
+  // Global API prefix — all routes except health/docs get /api/v1
+  app.setGlobalPrefix('api/v1', {
+    exclude: ['health', 'health/(.*)', 'docs', 'docs/(.*)'],
+  });
+
   const config = new DocumentBuilder()
     .setTitle('PayNest - Payment Dashboard API')
     .setDescription('Unified payment gateway orchestration API')
@@ -32,6 +37,7 @@ async function bootstrap() {
   await app.listen(port);
   logger.log(`Application running on http://localhost:${port}`);
   logger.log(`API Docs: http://localhost:${port}/docs`);
+  logger.log(`API Base: http://localhost:${port}/api/v1`);
 }
 
 bootstrap();

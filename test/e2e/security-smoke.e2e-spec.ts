@@ -18,7 +18,7 @@ import { JwtAuthGuard } from '../../src/modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../src/modules/auth/guards/roles.guard';
 import { canonicalPaymentRequest } from '../fixtures/requests';
 import { canonicalStripeWebhookPayload } from '../fixtures/webhooks';
-import { createTestApp, getAuthToken } from '../helpers/test-app';
+import { createTestApp, getAuthToken, API_PREFIX } from '../helpers/test-app';
 
 describe('Security smoke e2e', () => {
   jest.setTimeout(15000);
@@ -73,17 +73,17 @@ describe('Security smoke e2e', () => {
     const app = await buildApp();
 
     await request(app.getHttpServer())
-      .get('/transactions')
+      .get(`${API_PREFIX}/transactions`)
       .expect(401);
 
     await request(app.getHttpServer())
-      .post('/transactions/initiate')
+      .post(`${API_PREFIX}/transactions/initiate`)
       .set('idempotency-key', 'test-key')
       .send(canonicalPaymentRequest)
       .expect(401);
 
     await request(app.getHttpServer())
-      .get('/webhooks')
+      .get(`${API_PREFIX}/webhooks`)
       .expect(401);
 
     await app.close();
@@ -93,7 +93,7 @@ describe('Security smoke e2e', () => {
     const app = await buildApp();
 
     await request(app.getHttpServer())
-      .get('/transactions')
+      .get(`${API_PREFIX}/transactions`)
       .set('Authorization', 'Bearer invalid-token-here')
       .expect(401);
 
@@ -104,7 +104,7 @@ describe('Security smoke e2e', () => {
     const app = await buildApp();
 
     const response = await request(app.getHttpServer())
-      .post('/auth/login')
+      .post(`${API_PREFIX}/auth/login`)
       .send({ username: 'admin', password: 'admin123' });
 
     expect(response.status).toBe(201);
@@ -119,7 +119,7 @@ describe('Security smoke e2e', () => {
     const app = await buildApp();
 
     await request(app.getHttpServer())
-      .post('/auth/login')
+      .post(`${API_PREFIX}/auth/login`)
       .send({ username: 'admin', password: 'wrong-password' })
       .expect(401);
 
@@ -131,7 +131,7 @@ describe('Security smoke e2e', () => {
     const token = await getAuthToken(app);
 
     await request(app.getHttpServer())
-      .post('/transactions/initiate')
+      .post(`${API_PREFIX}/transactions/initiate`)
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json; charset=utf-8')
       .send(canonicalPaymentRequest)
@@ -145,7 +145,7 @@ describe('Security smoke e2e', () => {
     const app = await buildApp();
 
     await request(app.getHttpServer())
-      .post('/webhooks/stripe')
+      .post(`${API_PREFIX}/webhooks/stripe`)
       .set('Content-Type', 'application/json; charset=utf-8')
       .send(canonicalStripeWebhookPayload)
       .expect(400);
@@ -160,7 +160,7 @@ describe('Security smoke e2e', () => {
     const viewerToken = await getAuthToken(app, 'viewer', 'viewer123');
 
     await request(app.getHttpServer())
-      .post('/webhooks/admin/wh-1/replay')
+      .post(`${API_PREFIX}/webhooks/admin/wh-1/replay`)
       .set('Authorization', `Bearer ${viewerToken}`)
       .set('Content-Type', 'application/json; charset=utf-8')
       .send({ reason: 'test' })
@@ -176,7 +176,7 @@ describe('Security smoke e2e', () => {
     const operatorToken = await getAuthToken(app, 'operator', 'operator123');
 
     await request(app.getHttpServer())
-      .post('/webhooks/retry/wh-1')
+      .post(`${API_PREFIX}/webhooks/retry/wh-1`)
       .set('Authorization', `Bearer ${operatorToken}`)
       .expect(200);
 
@@ -189,14 +189,14 @@ describe('Security smoke e2e', () => {
     const app = await buildApp();
 
     await request(app.getHttpServer())
-      .post('/webhooks/stripe')
+      .post(`${API_PREFIX}/webhooks/stripe`)
       .set('stripe-signature', 't=123,v1=sig')
       .set('Content-Type', 'application/json; charset=utf-8')
       .send(canonicalStripeWebhookPayload)
       .expect(200);
 
     await request(app.getHttpServer())
-      .post('/webhooks/bkash')
+      .post(`${API_PREFIX}/webhooks/bkash`)
       .set('Content-Type', 'application/json; charset=utf-8')
       .send({ payment_id: 'pay-1', status: 'success' })
       .expect(200);

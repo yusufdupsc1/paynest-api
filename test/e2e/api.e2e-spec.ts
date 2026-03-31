@@ -20,7 +20,7 @@ import { RolesGuard } from '../../src/modules/auth/guards/roles.guard';
 import { Reflector } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { canonicalPaymentRequest } from '../fixtures/requests';
-import { createTestApp, getAuthToken } from '../helpers/test-app';
+import { createTestApp, getAuthToken, API_PREFIX } from '../helpers/test-app';
 
 describe('API e2e', () => {
   jest.setTimeout(15000);
@@ -85,6 +85,7 @@ describe('API e2e', () => {
       }),
     );
 
+    // Health is excluded from global prefix
     await request(app.getHttpServer())
       .get('/health')
       .expect(200)
@@ -118,12 +119,13 @@ describe('API e2e', () => {
       }),
     );
 
+    // API routes now have /api/v1 prefix
     await request(app.getHttpServer())
-      .get('/transactions')
+      .get(`${API_PREFIX}/transactions`)
       .expect(401);
 
     await request(app.getHttpServer())
-      .post('/transactions/initiate')
+      .post(`${API_PREFIX}/transactions/initiate`)
       .set('idempotency-key', 'test-key')
       .send(canonicalPaymentRequest)
       .expect(401);
@@ -164,7 +166,7 @@ describe('API e2e', () => {
     const token = await getAuthToken(app);
 
     await request(app.getHttpServer())
-      .post('/transactions/initiate')
+      .post(`${API_PREFIX}/transactions/initiate`)
       .set('Authorization', `Bearer ${token}`)
       .set('idempotency-key', 'idem-e2e-001')
       .set('Content-Type', 'application/json; charset=utf-8')
@@ -208,7 +210,7 @@ describe('API e2e', () => {
     const adminToken = await getAuthToken(app, 'admin', 'admin123');
 
     await request(app.getHttpServer())
-      .post('/webhooks/admin/webhook-event-001/replay')
+      .post(`${API_PREFIX}/webhooks/admin/webhook-event-001/replay`)
       .set('Authorization', `Bearer ${adminToken}`)
       .set('Content-Type', 'application/json; charset=utf-8')
       .send({ reason: 'regression_verification' })
@@ -223,7 +225,7 @@ describe('API e2e', () => {
     const viewerToken = await getAuthToken(app, 'viewer', 'viewer123');
 
     await request(app.getHttpServer())
-      .post('/webhooks/admin/webhook-event-001/replay')
+      .post(`${API_PREFIX}/webhooks/admin/webhook-event-001/replay`)
       .set('Authorization', `Bearer ${viewerToken}`)
       .set('Content-Type', 'application/json; charset=utf-8')
       .send({ reason: 'should_fail' })
@@ -284,12 +286,14 @@ describe('API e2e', () => {
 
     const token = await getAuthToken(app);
 
+    // Health excluded from prefix
     await request(app.getHttpServer())
       .get('/health')
       .expect(200);
 
+    // API routes under /api/v1
     await request(app.getHttpServer())
-      .post('/transactions/initiate')
+      .post(`${API_PREFIX}/transactions/initiate`)
       .set('Authorization', `Bearer ${token}`)
       .set('idempotency-key', 'idem-e2e-001')
       .set('Content-Type', 'application/json; charset=utf-8')
@@ -300,7 +304,7 @@ describe('API e2e', () => {
       });
 
     await request(app.getHttpServer())
-      .get('/webhooks?gateway=stripe&limit=10')
+      .get(`${API_PREFIX}/webhooks?gateway=stripe&limit=10`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect(({ body }) => {
@@ -308,7 +312,7 @@ describe('API e2e', () => {
       });
 
     await request(app.getHttpServer())
-      .get('/webhooks/webhook-event-001')
+      .get(`${API_PREFIX}/webhooks/webhook-event-001`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect(({ body }) => {
