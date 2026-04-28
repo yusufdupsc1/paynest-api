@@ -119,6 +119,8 @@ The repository is Bun-first in CI and Docker, but the project scripts in [`packa
 
 Set the following variables in Render before the first successful boot.
 
+If you want a copy-paste template aligned to the live Vercel frontend (`https://paynesto.vercel.app`), use [`RENDER_STEP1_ENV_SHEET.md`](RENDER_STEP1_ENV_SHEET.md).
+
 ### Core application
 
 ```text

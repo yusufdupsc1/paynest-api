@@ -3,18 +3,22 @@ services:
     name: paynest-api
     env: node
     region: oregon
-    buildCommand: bun install --frozen-lockfile && bun run build-check
-    startCommand: bun run start:prod
+    buildCommand: npm ci && npm run build-check
+    startCommand: npm run start:prod
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: "production"
       - key: PORT
         value: "3000"
+      - key: APP_URL
+        sync: false
+      - key: APP_ORIGIN
+        sync: false
 
       # CORS: Set to your Vercel frontend URL
       - key: CORS_ORIGIN
-        sync: false
+        value: "https://paynesto.vercel.app"
 
       # Database (Supabase)
       - key: DB_SYNCHRONIZE
