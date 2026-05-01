@@ -6,6 +6,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { getValidatedJwtSecret } from './auth-env.validation';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { LocalStrategy } from './strategies/local.strategy';
       useFactory: (configService: ConfigService) => {
         const expiresIn = configService.get<string>('JWT_EXPIRES_IN', '24h');
         return {
-          secret: configService.get<string>('JWT_SECRET', 'paynest-dev-secret-change-in-production'),
+          secret: getValidatedJwtSecret(configService),
           signOptions: { expiresIn: expiresIn as unknown as number },
         };
       },

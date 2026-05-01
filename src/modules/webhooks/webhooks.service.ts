@@ -34,6 +34,8 @@ interface ProcessWebhookResult {
   status: WebhookProcessingStatus;
 }
 
+type SafeWebhookEvent = Omit<WebhookEvent, 'rawBody' | 'headers'>;
+
 @Injectable()
 export class WebhooksService {
   private readonly logger = new Logger(WebhooksService.name);
@@ -44,6 +46,16 @@ export class WebhooksService {
     WebhookProcessingStatus.FAILED,
     WebhookProcessingStatus.DUPLICATE,
   ];
+  private readonly SENSITIVE_HEADER_NAMES = new Set([
+    'authorization',
+    'cookie',
+    'set-cookie',
+    'stripe-signature',
+    'paypal-transmission-sig',
+    'x-razorpay-signature',
+    'x-paystack-signature',
+    'verif-hash',
+  ]);
 
   constructor(
     @InjectRepository(WebhookEvent)
@@ -81,7 +93,7 @@ export class WebhooksService {
     event.normalizedEventKey = normalizedEventKey;
     event.payload = parsedPayload;
     event.rawBody = rawBody;
-    event.headers = normalizedHeaders;
+    event.headers = this.redactHeaders(normalizedHeaders);
     event.receivedAt = event.receivedAt || new Date();
     event.signatureValid = verification.valid;
     event.signatureStatus = this.resolveSignatureStatus(gateway, verification.valid);
@@ -373,7 +385,7 @@ export class WebhooksService {
     limit: number = 20,
     filters: WebhookEventFilters = {},
   ): Promise<{
-    data: WebhookEvent[];
+    data: SafeWebhookEvent[];
     total: number;
     page: number;
     limit: number;
@@ -391,11 +403,12 @@ export class WebhooksService {
       this.getEventFeedSummary(where),
     ]);
 
-    return { data, total, page, limit, summary };
+    return { data: data.map((event) => this.toSafeWebhookEvent(event)), total, page, limit, summary };
   }
 
-  async findOne(eventId: string): Promise<WebhookEvent | null> {
-    return this.webhookEventRepository.findOne({ where: { id: eventId } });
+  async findOne(eventId: string): Promise<SafeWebhookEvent | null> {
+    const event = await this.webhookEventRepository.findOne({ where: { id: eventId } });
+    return event ? this.toSafeWebhookEvent(event) : null;
   }
 
   async getBacklogSummary(): Promise<WebhookBacklogSummary> {
@@ -554,6 +567,18 @@ export class WebhooksService {
       acc[key] = Array.isArray(value) ? value.join(', ') : String(value);
       return acc;
     }, {});
+  }
+
+  private redactHeaders(headers: Record<string, string>): Record<string, string> {
+    return Object.entries(headers).reduce<Record<string, string>>((acc, [key, value]) => {
+      acc[key] = this.SENSITIVE_HEADER_NAMES.has(key.toLowerCase()) ? '[redacted]' : value;
+      return acc;
+    }, {});
+  }
+
+  private toSafeWebhookEvent(event: WebhookEvent): SafeWebhookEvent {
+    const { rawBody: _rawBody, headers: _headers, ...safeEvent } = event;
+    return safeEvent;
   }
 
   private parsePayload(payload: string | Record<string, unknown>): Record<string, unknown> {

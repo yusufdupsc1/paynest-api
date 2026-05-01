@@ -150,6 +150,13 @@ export class WebhooksController {
     @Body() body: Record<string, unknown>,
     @Req() request: Request,
   ): Promise<{ received: boolean }> {
+    const safeGenericGateways: GatewayType[] = [];
+    if (!safeGenericGateways.includes(gateway)) {
+      throw new BadRequestException(
+        `Generic webhook route is not enabled for ${gateway}. Use the provider-specific webhook endpoint.`,
+      );
+    }
+
     const result = await this.webhooksService.processWebhook({
       gateway,
       payload: body,
@@ -158,6 +165,7 @@ export class WebhooksController {
     return { received: result.success };
   }
 
+  @Roles(Role.ADMIN, Role.OPERATOR)
   @Get()
   @ApiOperation({ summary: 'List webhook events' })
   @ApiResponse({ status: 200, description: 'List of webhook events' })
@@ -183,6 +191,7 @@ export class WebhooksController {
     });
   }
 
+  @Roles(Role.ADMIN, Role.OPERATOR)
   @Get(':id')
   @ApiOperation({ summary: 'Get stored webhook event details' })
   @ApiParam({ name: 'id', description: 'Webhook event ID' })

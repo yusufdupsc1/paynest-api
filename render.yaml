@@ -3,14 +3,20 @@ services:
     name: paynest-api
     env: node
     region: oregon
-    buildCommand: bun install --frozen-lockfile && bun run build-check
-    startCommand: bun run start:prod
+    buildCommand: npm ci && npm run preflight:env && npm run build-check
+    startCommand: npm run start:prod
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: "production"
       - key: PORT
         value: "3000"
+
+      # CRITICAL: App URL for production (set to your Render URL)
+      - key: APP_URL
+        sync: false
+      - key: APP_ORIGIN
+        sync: false
 
       # CORS: Set to your Vercel frontend URL
       - key: CORS_ORIGIN
@@ -30,7 +36,7 @@ services:
       - key: DB_DATABASE
         sync: false
 
-      # Redis (Upstash)
+      # Redis (Upstash). The app and preflight also support REDIS_URL; this blueprint uses split vars.
       - key: REDIS_HOST
         sync: false
       - key: REDIS_PORT

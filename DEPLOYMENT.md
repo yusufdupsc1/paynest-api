@@ -2,16 +2,16 @@
 
 ## Recommended Live Stack
 
-For the cleanest portfolio deployment, run PayNest as a single public service on Render, backed by Supabase PostgreSQL and Upstash Redis:
+For the cleanest portfolio deployment, run PayNest as an API-only service on Render, backed by Supabase PostgreSQL and Upstash Redis, with the Next.js frontend deployed separately on Vercel:
 
 ```text
 Browser
   │
   ▼
 Render Web Service
-- serves `/` from [`public/index.html`](public/index.html)
 - serves `/docs` from [`src/main.ts`](src/main.ts:23)
-- serves live API routes from Nest controllers
+- serves live API routes from Nest controllers under `/api/v1/*`
+- exposes `/health` outside the API prefix
   │                    │
   │                    └── Upstash Redis
   │                        - idempotency keys
@@ -27,36 +27,35 @@ Render Web Service
 
 This is the deployment posture the current codebase is optimized for:
 
-- one host for UI and API
-- same-origin requests from [`API_URL`](public/index.html:924)
+- Render hosts the API only
+- Vercel hosts the frontend and calls Render through `NEXT_PUBLIC_API_URL`
 - Render-compatible NestJS startup
 - Supabase for durable relational data
 - Upstash for Redis-backed reliability features
 
 ## What Must Work In Production
 
-Your deployed app should make all of the following reachable from the same public origin:
+Your deployed API should make all of the following reachable from the Render origin:
 
-- `/`
 - `/docs`
 - `/health`
 - `/health/gateways`
-- `/transactions`
-- `/refunds`
-- `/refunds/stats`
-- `/analytics/summary`
-- `/analytics/trends`
-- `/webhooks`
+- `/api/v1/transactions`
+- `/api/v1/refunds`
+- `/api/v1/refunds/stats`
+- `/api/v1/analytics/summary`
+- `/api/v1/analytics/trends`
+- `/api/v1/webhooks`
 
-The dashboard currently loads its initial data from [`Promise.all()`](public/index.html:2181) using these exact same-origin requests:
+The Vercel frontend should call the Render API origin with these `/api/v1` routes:
 
-- `GET /transactions?limit=50`
-- `GET /analytics/summary`
-- `GET /analytics/trends?days=14`
+- `GET /api/v1/transactions?limit=50`
+- `GET /api/v1/analytics/summary`
+- `GET /api/v1/analytics/trends?days=14`
 - `GET /health/gateways`
-- `GET /refunds?limit=8`
-- `GET /refunds/stats`
-- `GET /webhooks?limit=20`
+- `GET /api/v1/refunds?limit=8`
+- `GET /api/v1/refunds/stats`
+- `GET /api/v1/webhooks?limit=20`
 - `GET /health`
 
 If any of those fail, the UI intentionally falls into a connection-error state instead of masking deployment problems.
@@ -82,17 +81,14 @@ If any of those fail, the UI intentionally falls into a connection-error state i
 ## Step 2: Provision Upstash Redis
 
 1. Create an Upstash Redis database.
-2. Copy the Redis connection details.
-3. Set these in Render:
-   - `REDIS_HOST`
-   - `REDIS_PORT`
-   - `REDIS_PASSWORD`
-   - `REDIS_TLS=true`
+2. Copy either the Redis connection URL or the split host/port/password values.
+3. Set either `REDIS_URL=rediss://...` or the split values `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`, and `REDIS_TLS=true` in Render.
 
 ### Upstash Notes
 
 - [`RedisModule`](src/config/redis.module.ts:10) supports either `REDIS_URL` or the split host/port/password variables, and can enable TLS with `REDIS_TLS=true`.
-- If `REDIS_HOST` is missing, Redis-backed idempotency and retry support will not behave like the intended live demo.
+- `npm run preflight:env` accepts either `REDIS_URL` or the split Redis variables. In production, `REDIS_URL` must use `rediss://`.
+- If both `REDIS_URL` and `REDIS_HOST` are missing, Redis-backed idempotency and retry support will not behave like the intended live demo.
 - Upstash free tier is sufficient for the portfolio/demo workload.
 
 ## Step 3: Create the Render Web Service
@@ -106,7 +102,7 @@ If any of those fail, the UI intentionally falls into a connection-error state i
 
 ```text
 Environment: Node
-Build Command: npm install && npm run build-check
+Build Command: npm ci && npm run preflight:env && npm run build-check
 Start Command: npm run start:prod
 Health Check Path: /health
 ```
@@ -126,8 +122,44 @@ NODE_ENV=production
 PORT=3000
 APP_URL=https://your-render-service.onrender.com
 APP_ORIGIN=https://your-render-service.onrender.com
+CORS_ORIGIN=https://your-frontend-origin.example
 DB_SYNCHRONIZE=false
 ```
+
+### Authentication
+
+Production auth configuration is strict. The app fails during startup when any of these values are missing, weak, or still set to demo/placeholder defaults.
+
+```text
+JWT_SECRET=<unique-random-secret-at-least-32-characters>
+JWT_EXPIRES_IN=24h
+ADMIN_PASSWORD=<unique-admin-password>
+OPERATOR_PASSWORD=<unique-operator-password>
+VIEWER_PASSWORD=<unique-viewer-password>
+```
+
+Auth requirements:
+
+- `JWT_SECRET` must be unique, random, at least 32 characters, and must not equal demo values such as `paynest-dev-secret-change-in-production`, `test-secret`, or `change-me-to-a-random-64-char-string`.
+- `ADMIN_PASSWORD`, `OPERATOR_PASSWORD`, and `VIEWER_PASSWORD` must all be set to non-default values.
+- Do not use local/demo passwords such as `admin123`, `operator123`, `viewer123`, `password`, `changeme`, or `change-me-*` placeholders in production.
+- Local development still falls back to demo credentials when these values are absent, but startup logs warnings so the fallback is visible.
+
+### Environment preflight
+
+Run the preflight before deployment to catch missing or malformed environment variables before runtime startup checks:
+
+```bash
+npm run preflight:env
+```
+
+For CI or deploy-readiness checks, run:
+
+```bash
+npm run test:deploy-readiness
+```
+
+The preflight loads `.env` when present, respects variables already supplied by the shell or Render, and reports only variable names with actionable fixes.
 
 ### Supabase PostgreSQL
 
@@ -141,13 +173,22 @@ DB_DATABASE=<supabase-db-name>
 
 ### Upstash Redis
 
+Use either a single TLS Redis URL:
+
+```text
+REDIS_URL=rediss://default:<upstash-redis-password>@<upstash-redis-host>:<upstash-redis-port>
+```
+
+Or use the split variables from `render.yaml`:
+
 ```text
 REDIS_HOST=<upstash-redis-host>
 REDIS_PORT=<upstash-redis-port>
 REDIS_PASSWORD=<upstash-redis-password>
+REDIS_TLS=true
 ```
 
-## Step 5: Add Gateway API Keys
+## Step 5: Add Gateway API Keys From render.yaml
 
 ### Important runtime note
 
@@ -158,18 +199,40 @@ Other gateway credentials are strongly recommended if you want the full multi-pr
 ### Stripe
 
 ```text
-STRIPE_API_KEY=
-STRIPE_WEBHOOK_SECRET=
+STRIPE_API_KEY=<stripe-secret-key>
+STRIPE_WEBHOOK_SECRET=<stripe-webhook-secret>
 ```
 
 ### PayPal
 
 ```text
-PAYPAL_CLIENT_ID=
-PAYPAL_CLIENT_SECRET=
+PAYPAL_CLIENT_ID=<paypal-client-id>
+PAYPAL_CLIENT_SECRET=<paypal-client-secret>
 PAYPAL_ENVIRONMENT=sandbox
-PAYPAL_WEBHOOK_ID=
+PAYPAL_WEBHOOK_ID=<paypal-webhook-id>
 ```
+
+### Razorpay
+
+```text
+RAZORPAY_KEY_ID=<razorpay-key-id>
+RAZORPAY_KEY_SECRET=<razorpay-key-secret>
+RAZORPAY_WEBHOOK_SECRET=<razorpay-webhook-secret>
+```
+
+These are the gateway keys present in [`render.yaml`](render.yaml). Additional provider credentials below are optional and should be added only when you are actively validating that provider.
+
+Configure provider webhook URLs against the Render API origin:
+
+```text
+Stripe:   https://your-render-service.onrender.com/api/v1/webhooks/stripe
+PayPal:   https://your-render-service.onrender.com/api/v1/webhooks/paypal
+Razorpay: https://your-render-service.onrender.com/api/v1/webhooks/razorpay
+```
+
+The generic `/api/v1/webhooks/:gateway` route remains present for compatibility but intentionally fails closed. Use only the explicit provider webhook URLs above for production-like validation.
+
+### Optional additional provider credentials
 
 ### bKash
 
@@ -190,15 +253,6 @@ NAGAD_MERCHANT_KEY=
 NAGAD_USERNAME=
 NAGAD_PASSWORD=
 NAGAD_BASE_URL=https://sandbox.mynagad.com
-```
-
-### Razorpay
-
-```text
-RAZORPAY_KEY_ID=
-RAZORPAY_KEY_SECRET=
-RAZORPAY_WEBHOOK_SECRET=
-RAZORPAY_BASE_URL=https://api.razorpay.com/v1
 ```
 
 ### SSLCommerz
@@ -285,20 +339,31 @@ If `APP_URL` is malformed, the app now fails fast instead of silently producing 
 
 [`render.yaml`](render.yaml) now reflects the same Render + Supabase + Upstash deployment posture documented here. You can use it as a baseline, but you still need to provide your real secret values in Render.
 
+## Manual Deploy Checklist
+
+1. Create a Render Web Service using Node.
+2. Set every env var listed in [`render.yaml`](render.yaml) and [`RENDER_STEP1_ENV_SHEET.md`](RENDER_STEP1_ENV_SHEET.md) with real values.
+3. Apply Supabase migrations from [`supabase/migrations`](supabase/migrations), including the webhook schema alignment migration if the database was created from an older baseline.
+4. Deploy with `npm ci && npm run preflight:env && npm run build-check` and `npm run start:prod`.
+5. Verify `https://your-render-service.onrender.com/health` returns `status: ok`.
+6. Verify `https://your-render-service.onrender.com/docs` loads Swagger.
+7. Verify the frontend environment has `NEXT_PUBLIC_API_URL=https://your-render-service.onrender.com` and is not pointing to localhost.
+
 ## Step 8: Verify The Deployment
 
 After the first successful deploy, verify all of the following:
 
-1. `/` loads the landing page and demo login handoff.
-2. `/docs` loads Swagger.
-3. `/health` returns a JSON payload with gateway and webhook posture.
-4. `/health/gateways` returns supported gateway metadata.
-5. `/transactions?limit=5` returns transaction JSON.
-6. `/refunds?limit=5` returns refund JSON.
-7. `/refunds/stats` returns refund summary JSON.
-8. `/analytics/summary` returns analytics summary JSON.
-9. `/analytics/trends?days=14` returns trend data or an empty array.
-10. `/webhooks?limit=20` returns inbox data and summary metadata.
+1. `/docs` loads Swagger.
+2. `/health` returns a JSON payload with gateway and webhook posture.
+3. `/health/gateways` returns supported gateway metadata.
+4. `/api/v1/transactions?limit=5` returns transaction JSON.
+5. `/api/v1/refunds?limit=5` returns refund JSON.
+6. `/api/v1/refunds/stats` returns refund summary JSON.
+7. `/api/v1/analytics/summary` returns analytics summary JSON.
+8. `/api/v1/analytics/trends?days=14` returns trend data or an empty array.
+9. `/api/v1/webhooks?limit=20` returns inbox data and summary metadata for admin/operator users.
+
+Webhook inbox and detail endpoints are restricted to admin/operator roles because stored webhook records can contain provider operational data.
 
 ## Recommended Demo Seed Strategy
 
@@ -320,10 +385,21 @@ Without seeded records, the app will still deploy correctly, but the dashboard w
 
 ## Troubleshooting
 
+### Top 5 deployment failure modes
+
+1. CORS blocked: set `CORS_ORIGIN` to the deployed frontend origin, redeploy the API, then retry from the browser.
+2. Missing Stripe key on boot: set `STRIPE_API_KEY` in Render; the app intentionally fails startup without it.
+3. Bad DB credentials: verify `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, and `DB_DATABASE` against Supabase connection details.
+4. Redis unavailable: verify either `REDIS_URL=rediss://...` or `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`, and `REDIS_TLS=true` for Upstash.
+5. Frontend still points to localhost: set frontend `NEXT_PUBLIC_API_URL` to the Render API origin and redeploy the frontend.
+
 ### App boots locally but fails on Render
 
 Check:
 
+- `npm run preflight:env` passes with the same environment values configured in Render
+- `JWT_SECRET` is present, at least 32 characters, and not a demo/placeholder value
+- `ADMIN_PASSWORD`, `OPERATOR_PASSWORD`, and `VIEWER_PASSWORD` are present and non-default
 - `STRIPE_API_KEY` is present
 - `APP_URL` is a valid absolute `https://...` URL
 - Supabase credentials are correct

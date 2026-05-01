@@ -69,7 +69,7 @@ export class WebhookEvent {
   @Column({ name: 'signature_valid', type: 'boolean', nullable: true })
   signatureValid!: boolean | null;
 
-  @Column({ name: 'duplicate_of_event_id', type: 'varchar', nullable: true })
+  @Column({ name: 'duplicate_of_event_id', type: 'varchar', nullable: true, length: 512 })
   duplicateOfEventId!: string | null;
 
   @Column({ name: 'received_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

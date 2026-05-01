@@ -13,6 +13,7 @@
     "lint-check": "eslint \"{src,test}/**/*.ts\"",
     "typecheck": "tsc --noEmit",
     "type-check": "tsc --noEmit",
+    "preflight:env": "node scripts/preflight-env.js",
     "test": "jest --config jest.config.ts",
     "test:unit": "jest --config jest.config.ts --selectProjects unit",
     "test:integration": "jest --config jest.config.ts --selectProjects integration",
@@ -20,7 +21,8 @@
     "test:regression": "jest --config jest.config.ts --selectProjects regression",
     "test:security-smoke": "jest --config jest.config.ts --selectProjects e2e --runTestsByPath test/e2e/security-smoke.e2e-spec.ts",
     "test:performance-smoke": "jest --config jest.config.ts --selectProjects regression --runTestsByPath test/regression/performance-smoke.spec.ts",
-    "test:release-gate": "bun run lint-check && bun run type-check && bun run test:unit -- --runInBand && bun run test:integration -- --runInBand && bun run test:e2e -- --runInBand && bun run test:regression -- --runInBand && bun run test:performance-smoke -- --runInBand && bun run build-check",
+    "test:deploy-readiness": "npm run preflight:env && npm run -s type-check",
+    "test:release-gate": "npm run lint-check && npm run type-check && npm run test:unit -- --runInBand && npm run test:integration -- --runInBand && npm run test:e2e -- --runInBand && npm run test:regression -- --runInBand && npm run test:performance-smoke -- --runInBand && npm run build-check",
     "test:cov": "jest --config jest.config.ts --coverage",
     "migration:generate": "typeorm migration:generate -d src/config/data-source.ts",
     "migration:run": "typeorm migration:run -d src/config/data-source.ts"

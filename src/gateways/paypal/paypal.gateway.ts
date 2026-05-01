@@ -11,7 +11,6 @@ import {
   RefundResponse,
   WebhookVerificationResult,
 } from '../../common/types';
-import * as crypto from 'crypto';
 import { buildHostedDashboardUrl } from '../utils/public-app-url.util';
 
 @Injectable()
@@ -148,23 +147,51 @@ export class PayPalGateway implements IGateway {
     try {
       const transmissionId = headers['paypal-transmission-id'];
       const transmissionTime = headers['paypal-transmission-time'];
-      const _certUrl = headers['paypal-cert-url'];
+      const certUrl = headers['paypal-cert-url'];
       const authAlgo = headers['paypal-auth-algo'];
       const transmissionSig = headers['paypal-transmission-sig'];
       const webhookId = this.configService.get<string>('PAYPAL_WEBHOOK_ID');
 
-      if (!transmissionId || !transmissionTime || !authAlgo || !transmissionSig || !webhookId) {
+      if (!webhookId) {
+        return { valid: false, error: 'Missing PAYPAL_WEBHOOK_ID' };
+      }
+
+      if (!transmissionId || !transmissionTime || !certUrl || !authAlgo || !transmissionSig) {
         return { valid: false, error: 'Missing PayPal webhook headers' };
       }
 
-      const payloadString = typeof payload === 'string' ? payload : JSON.stringify(payload);
-      const _hash = crypto.createHash('sha256').update(payloadString).digest('base64');
+      const webhookEvent = typeof payload === 'string'
+        ? JSON.parse(payload) as Record<string, unknown>
+        : payload;
+      const token = await this.getAccessToken();
+      const response = await fetch(`${this.baseUrl}/v1/notifications/verify-webhook-signature`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          auth_algo: authAlgo,
+          cert_url: certUrl,
+          transmission_id: transmissionId,
+          transmission_sig: transmissionSig,
+          transmission_time: transmissionTime,
+          webhook_id: webhookId,
+          webhook_event: webhookEvent,
+        }),
+      });
+
+      if (!response.ok) {
+        return { valid: false, error: `PayPal webhook verification failed: ${response.statusText}` };
+      }
+
+      const verification = await response.json() as { verification_status?: string };
 
       return {
-        valid: true,
-        eventId: transmissionId,
-        eventType: (payload as Record<string, unknown>)?.event_type as string || 'unknown',
-        payload,
+        valid: verification.verification_status === 'SUCCESS',
+        eventId: webhookEvent.id as string || transmissionId,
+        eventType: webhookEvent.event_type as string || 'unknown',
+        payload: webhookEvent,
       };
     } catch (error) {
       return {

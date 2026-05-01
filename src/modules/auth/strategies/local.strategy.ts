@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { ConfigService } from '@nestjs/config';
 import { Role } from '../roles.enum';
+import { getValidatedAuthPasswords } from '../auth-env.validation';
 
 interface ValidatedUser {
   id: string;
@@ -17,11 +18,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({ usernameField: 'username' });
 
-    const adminPassword = this.configService.get<string>('ADMIN_PASSWORD', 'admin123');
+    const passwords = getValidatedAuthPasswords(this.configService);
     this.validUsers = {
-      admin: { password: adminPassword, role: Role.ADMIN, id: '1' },
-      operator: { password: this.configService.get<string>('OPERATOR_PASSWORD', 'operator123'), role: Role.OPERATOR, id: '2' },
-      viewer: { password: this.configService.get<string>('VIEWER_PASSWORD', 'viewer123'), role: Role.VIEWER, id: '3' },
+      admin: { password: passwords.admin, role: Role.ADMIN, id: '1' },
+      operator: { password: passwords.operator, role: Role.OPERATOR, id: '2' },
+      viewer: { password: passwords.viewer, role: Role.VIEWER, id: '3' },
     };
   }
 

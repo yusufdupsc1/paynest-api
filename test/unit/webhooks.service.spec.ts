@@ -88,6 +88,10 @@ describe("WebhooksService", () => {
         status: WebhookProcessingStatus.INVALID_SIGNATURE,
         signatureStatus: WebhookSignatureStatus.INVALID,
         signatureValid: false,
+        headers: expect.objectContaining({
+          "stripe-signature": "[redacted]",
+          "content-type": "application/json",
+        }),
       }),
     );
     expect(transactionsService.findByExternalId).not.toHaveBeenCalled();
@@ -118,6 +122,44 @@ describe("WebhooksService", () => {
     expect(transactionsService.updateStatus).not.toHaveBeenCalled();
   });
 
+  it("persists malformed string payloads as raw payload when verification supplies no parsed payload", async () => {
+    webhookRepository.findOne.mockResolvedValue(null);
+    webhookRepository.create.mockImplementation(
+      (entity) =>
+        ({
+          retryCount: 0,
+          replayCount: 0,
+          receivedAt: new Date("2026-03-21T12:00:00.000Z"),
+          ...entity,
+        }) as WebhookEvent,
+    );
+    webhookRepository.save.mockImplementation(async (event) => event);
+    gatewayService.verifyWebhook.mockResolvedValue({
+      valid: true,
+      eventId: "evt_malformed_001",
+      eventType: "unknown.event",
+    });
+
+    const result = await service.processWebhook({
+      gateway: GatewayType.STRIPE,
+      payload: "{not-json",
+      headers: canonicalStripeHeaders,
+    });
+
+    expect(result).toEqual({
+      success: true,
+      eventId: "evt_malformed_001",
+      status: WebhookProcessingStatus.PROCESSED,
+    });
+    expect(webhookRepository.save).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventId: "evt_malformed_001",
+        payload: { raw: "{not-json" },
+      }),
+    );
+    expect(transactionsService.updateStatus).not.toHaveBeenCalled();
+  });
+
   it("records blocked replay attempts for invalid-signature events", async () => {
     const invalidEvent = createWebhookEventFixture({
       id: "webhook-event-invalid",
@@ -145,6 +187,21 @@ describe("WebhooksService", () => {
         gateway: invalidEvent.gateway,
       }),
     );
+  });
+
+  it("does not retry events that already reached max retries", async () => {
+    const exhaustedEvent = createWebhookEventFixture({
+      id: "webhook-event-exhausted",
+      status: WebhookProcessingStatus.FAILED,
+      retryCount: 5,
+    });
+    webhookRepository.findOne.mockResolvedValue(exhaustedEvent);
+
+    const result = await service.retryWebhook(exhaustedEvent.id);
+
+    expect(result).toEqual({ success: false, message: "Max retries exceeded" });
+    expect(webhookRepository.save).not.toHaveBeenCalled();
+    expect(transactionsService.findByExternalId).not.toHaveBeenCalled();
   });
 
   it("builds backlog summary from persisted webhook states", async () => {
@@ -213,6 +270,8 @@ describe("WebhooksService", () => {
       byStatus: { [WebhookProcessingStatus.FAILED]: 1 },
       bySignatureStatus: { [WebhookSignatureStatus.VALID]: 1 },
     });
+    expect(result.data[0]).not.toHaveProperty("rawBody");
+    expect(result.data[0]).not.toHaveProperty("headers");
   });
 
   it("builds reliability summary for dashboard-facing operational cues", async () => {
