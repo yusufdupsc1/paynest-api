@@ -23,33 +23,24 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 
-function parseDatabaseUrl(url: string): {
-  host: string;
-  port: number;
-  username: string;
-  password: string;
-  database: string;
-} | null {
-  try {
-    const parsed = new URL(url);
-    return {
-      host: parsed.hostname,
-      port: parseInt(parsed.port) || 5432,
-      username: decoded(parsed.username),
-      password: decoded(parsed.password),
-      database: parsed.pathname.slice(1), // remove leading '/'
-    };
-  } catch {
-    return null;
-  }
-}
-
 function decoded(value: string | null): string {
   if (!value) return '';
   try {
     return decodeURIComponent(value);
   } catch {
     return value;
+  }
+}
+
+async function resolveHostToIPv4(host: string): Promise<string> {
+  try {
+    const dns = require('dns').promises;
+    const result = await dns.lookup(host, { family: 4 });
+    console.error(`[TypeOrm] Resolved ${host} → IPv4: ${result.address}`);
+    return result.address;
+  } catch (err) {
+    console.error(`[TypeOrm] IPv4 DNS lookup failed for ${host}: ${err.message}. Using hostname directly.`);
+    return host;
   }
 }
 
@@ -66,7 +57,7 @@ function decoded(value: string | null): string {
     ScheduleModule.forRoot(),
      TypeOrmModule.forRootAsync({
        imports: [ConfigModule],
-       useFactory: (configService: ConfigService) => {
+       useFactory: async (configService: ConfigService) => {
          const rawSynchronize = configService.get<string | boolean | undefined>('DB_SYNCHRONIZE');
          const synchronize = typeof rawSynchronize === 'boolean'
            ? rawSynchronize
@@ -74,56 +65,69 @@ function decoded(value: string | null): string {
              ? configService.get('NODE_ENV') !== 'production'
              : rawSynchronize.trim().toLowerCase() === 'true';
 
-         // Prefer DATABASE_URL if available (Prisma-style connection string)
+         // Try DATABASE_URL first
          const databaseUrl = configService.get<string>('DATABASE_URL');
-
-         // Common extra options for pg driver to force IPv4
-         // This is the critical fix for ENETUNREACH errors
-         const pgExtra = {
-           // @ts-ignore - pg driver supports the 'family' option (4 = IPv4, 6 = IPv6)
-           family: 4,
-         };
-
+         
          if (databaseUrl) {
-           // Parse URL to extract components - ensures TypeORM passes family correctly
-           const parsed = parseDatabaseUrl(databaseUrl);
-           if (parsed) {
+           try {
+             const parsed = new URL(databaseUrl);
+             const host = parsed.hostname;
+             const port = parseInt(parsed.port) || 5432;
+             const username = decoded(parsed.username);
+             const password = decoded(parsed.password);
+             const database = parsed.pathname.slice(1);
+             
+             // Resolve hostname to IPv4 to bypass IPv6 ENETUNREACH
+             const resolvedHost = await resolveHostToIPv4(host);
+             
+             console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}`);
+             
              return {
                type: 'postgres',
-               host: parsed.host,
-               port: parsed.port,
-               username: parsed.username,
-               password: parsed.password,
-               database: parsed.database,
+               host: resolvedHost,
+               port,
+               username,
+               password,
+               database,
                entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
                synchronize,
                logging: false,
-               extra: pgExtra,
+               extra: {
+                 // @ts-ignore - forces IPv4 sockets
+                 family: 4,
+               },
              };
+           } catch (err) {
+             console.error(`[TypeOrm] Failed to parse DATABASE_URL: ${err.message}. Falling back to DB_* vars.`);
            }
-           // Fallback to URL string if parsing fails
-           return {
-             type: 'postgres',
-             url: databaseUrl,
-             entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
-             synchronize,
-             logging: false,
-             extra: pgExtra,
-           };
          }
+         
+         // Fallback to DB_* environment variables
+         const host = configService.get('DB_HOST', 'localhost');
+         const port = configService.get<number>('DB_PORT', 5432);
+         const username = configService.get('DB_USERNAME', 'postgres');
+         const password = configService.get('DB_PASSWORD', 'postgres');
+         const database = configService.get('DB_DATABASE', 'payment_dashboard');
+         
+         // Resolve to IPv4
+         const resolvedHost = await resolveHostToIPv4(host);
+         
+         console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}`);
 
-         // Fallback: use individual DB_* variables
          return {
            type: 'postgres',
-           host: configService.get('DB_HOST', 'localhost'),
-           port: configService.get<number>('DB_PORT', 5432),
-           username: configService.get('DB_USERNAME', 'postgres'),
-           password: configService.get('DB_PASSWORD', 'postgres'),
-           database: configService.get('DB_DATABASE', 'payment_dashboard'),
+           host: resolvedHost,
+           port,
+           username,
+           password,
+           database,
            entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
            synchronize,
            logging: false,
-           extra: pgExtra,
+           extra: {
+             // @ts-ignore
+             family: 4,
+           },
          };
        },
        inject: [ConfigService],
