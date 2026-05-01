@@ -44,17 +44,19 @@ import { ErrorInterceptor } from './common/interceptors/error.interceptor';
             ? configService.get('NODE_ENV') !== 'production'
             : rawSynchronize.trim().toLowerCase() === 'true';
 
-        return {
-          type: 'postgres',
-          host: configService.get('DB_HOST', 'localhost'),
-          port: configService.get<number>('DB_PORT', 5432),
-          username: configService.get('DB_USERNAME', 'postgres'),
-          password: configService.get('DB_PASSWORD', 'postgres'),
-          database: configService.get('DB_DATABASE', 'payment_dashboard'),
-          entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
-          synchronize,
-          logging: false,
-        };
+         return {
+           type: 'postgres',
+           host: configService.get('DB_HOST', 'localhost'),
+           port: configService.get<number>('DB_PORT', 5432),
+           username: configService.get('DB_USERNAME', 'postgres'),
+           password: configService.get('DB_PASSWORD', 'postgres'),
+           database: configService.get('DB_DATABASE', 'payment_dashboard'),
+           entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
+           synchronize,
+           logging: false,
+           // Force IPv4 to avoid ENETUNREACH errors with IPv6 addresses
+           family: 4,
+         };
       },
       inject: [ConfigService],
     }),
