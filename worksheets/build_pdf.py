@@ -13,8 +13,9 @@ from html.parser import HTMLParser
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 
-SRC = "/home/user/paynest-api/worksheets/day-21-30-worksheets.html"
-OUT = "/home/user/paynest-api/worksheets/day-21-30-worksheets.pdf"
+SRC = sys.argv[1] if len(sys.argv) > 1 else \
+    "/home/user/paynest-api/worksheets/day-21-30-worksheets.html"
+OUT = sys.argv[2] if len(sys.argv) > 2 else SRC.rsplit(".", 1)[0] + ".pdf"
 
 BENG_R = "/tmp/fonts/NotoBengali-Regular.ttf"
 BENG_B = "/tmp/fonts/NotoBengali-Bold.ttf"
@@ -39,9 +40,22 @@ EMOJI_MAP = {
     "🔍": "", "🖨️": "", "⏱": "", "📄": "", "🧠": "", "⚠️": "!", "🔴": "",
     "🟢": "", "😊": "", "️": "",
 }
-EMOJI_RE = re.compile(
-    "[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\uFE0F\u200d]"
+KEEP_SYMBOLS = set("★☆✓✔→←↑↓●○■□▲▼△▽◆◇≥≤")
+
+EMOJI_RANGES = (
+    (0x1F000, 0x1FAFF),   # pictographs
+    (0x2600, 0x27BF),     # misc symbols & dingbats (stars kept via KEEP_SYMBOLS)
+    (0x2B00, 0x2BFF),
+    (0xFE00, 0xFE0F),     # variation selectors
+    (0x200D, 0x200D),     # ZWJ
 )
+
+
+def _is_emoji(ch: str) -> bool:
+    if ch in KEEP_SYMBOLS:
+        return False
+    cp = ord(ch)
+    return any(lo <= cp <= hi for lo, hi in EMOJI_RANGES)
 
 
 SCALE = 1.0          # vertical/space scale (auto-fit per section)
@@ -59,7 +73,7 @@ def fs(v: float) -> float:
 def clean(text: str) -> str:
     for k, v in EMOJI_MAP.items():
         text = text.replace(k, v)
-    text = EMOJI_RE.sub("", text)
+    text = "".join(ch for ch in text if not _is_emoji(ch))
     return text
 
 
@@ -214,7 +228,7 @@ class Book:
 
     @property
     def bottom(self):
-        return self.pdf.h - self.MB - 5
+        return self.pdf.h - self.MB - 8
 
     def new_page(self, footer=None):
         if self.pageno:
@@ -510,7 +524,7 @@ class Book:
     # -- shape grids ------------------------------------------------------ #
     def grid(self, node, maze=False):
         rows = node.find_all("tr")
-        cell = sc(6.6) if not maze else sc(6.0)
+        cell = max(sc(6.6), 5.6) if not maze else max(sc(6.0), 5.2)
         h = len(rows) * cell
         self.need(h + 2)
         p = self.pdf
@@ -560,13 +574,13 @@ class Book:
             brand = node.kids("div", "brand")
             h1 = node.kids("h1")
             sub = node.kids("div", "sub")
-            h = sc(3.0)
+            h = max(sc(3.0), 2.4)
             if brand:
-                h += sc(3.3)
+                h += max(sc(3.3), 2.9)
             if h1:
-                h += sc(5.4)
+                h += max(sc(5.4), 4.8)
             if sub:
-                h += sc(3.4)
+                h += max(sc(3.4), 3.0)
             self.need(h)
             self.box(self.ML, self.y, self.W, h, fill=SOFT, border=NAVY, lw=0.7, radius=1.0)
             p = self.pdf
@@ -576,13 +590,13 @@ class Book:
                 p.set_text_color(*TEAL)
                 p.set_xy(self.ML, y)
                 p.cell(self.W, 3.2, clean(brand[0].text()), align="C")
-                y += sc(3.3)
+                y += max(sc(3.3), 2.9)
             if h1:
                 p.set_font("beng", "B", fs(12.0))
                 p.set_text_color(*NAVY)
                 p.set_xy(self.ML, y)
-                p.cell(self.W, sc(5.2), clean(h1[0].text()), align="C")
-                y += sc(5.4)
+                p.cell(self.W, max(sc(5.2), 4.6), clean(h1[0].text()), align="C")
+                y += max(sc(5.4), 4.8)
             if sub:
                 p.set_font("beng", "", fs(6.9))
                 p.set_text_color(*MUTED)
@@ -970,7 +984,7 @@ def main():
     scales = []
     for i, sec in enumerate(sections):
         best, pages = 1.0, None
-        for cand in (1.0, 0.96, 0.92, 0.88, 0.84, 0.80, 0.76, 0.72, 0.68, 0.64):
+        for cand in (1.0, 0.96, 0.92, 0.88, 0.84, 0.80, 0.76, 0.72, 0.68, 0.64, 0.60):
             n = section_pages(sec, cand)
             if pages is None or n < pages:
                 pages, best = n, cand
