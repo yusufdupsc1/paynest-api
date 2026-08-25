@@ -74,3 +74,11 @@ python3 make_workbook.py                                              # HTML ত
 * **Files:** 
   * `day-61-90-workbook.pdf` — A4, 45 পৃষ্ঠা (Print Ready)
   * `day-61-90-workbook.html` — HTML Source
+
+### Revision & Concrete Learning Workbook (Day 91–120)
+* **Target:** Master Revision & Mock Tests (4th Month)
+* **Focus:** Consolidating Months 1, 2, and 3. Speed drills, logic visualization, error correction, and brain retention.
+* **Special:** Contains 30 full mock test days, a comprehensive answer key with reasoning, and 5 "Concrete Learning" Master Tricks.
+* **Files:** 
+  * `day-91-120-revision.pdf` — A4, 43 পৃষ্ঠা (Print Ready)
+  * `day-91-120-revision.html` — HTML Source
