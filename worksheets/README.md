@@ -80,5 +80,5 @@ python3 make_workbook.py                                              # HTML ত
 * **Focus:** Consolidating Months 1, 2, and 3. Speed drills, logic visualization, error correction, and brain retention.
 * **Special:** Contains 30 full mock test days, a comprehensive answer key with reasoning, and 5 "Concrete Learning" Master Tricks.
 * **Files:** 
-  * `day-91-120-revision.pdf` — A4, 43 পৃষ্ঠা (Print Ready)
+  * `day-91-120-revision.pdf` — A4, ৩৭ পৃষ্ঠা (Print Ready)
   * `day-91-120-revision.html` — HTML Source
