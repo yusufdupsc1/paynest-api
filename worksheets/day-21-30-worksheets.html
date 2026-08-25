@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primary Olympiad Preparation Program — Day 21-30 Worksheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12202e; --muted:#5b6b7c; --line:#c9d4de; --soft:#eef4f8;
+    --navy:#123a5e; --teal:#0f6b6b; --gold:#8a6a10; --red:#a5352f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:#e8edf1; color:var(--ink);
+    font-family:'Noto Sans Bengali','Hind Siliguri','Noto Sans',system-ui,'Segoe UI',sans-serif;
+    font-size:12.4px; line-height:1.62;
+  }
+  .toolbar{
+    position:sticky; top:0; z-index:9; background:var(--navy); color:#fff;
+    display:flex; gap:10px; align-items:center; justify-content:center; padding:8px;
+    font-size:12px; box-shadow:0 2px 8px rgba(0,0,0,.2)
+  }
+  .toolbar button{
+    font:inherit; font-weight:600; background:#fff; color:var(--navy); border:0;
+    padding:6px 14px; border-radius:5px; cursor:pointer
+  }
+  .paper{
+    width:210mm; min-height:297mm; margin:18px auto; padding:13mm 12mm 12mm;
+    background:#fff; box-shadow:0 3px 14px rgba(0,0,0,.14); position:relative;
+  }
+  /* ---------- masthead ---------- */
+  .masthead{border:2px solid var(--navy); border-radius:4px; text-align:center; padding:7px 8px 8px; background:var(--soft)}
+  .brand{font-size:10.5px; letter-spacing:1.6px; font-weight:700; color:var(--teal); font-family:'Noto Sans',sans-serif}
+  .masthead h1{margin:2px 0 1px; font-size:19px; font-weight:700; color:var(--navy); letter-spacing:.3px}
+  .masthead .sub{font-size:10.5px; color:var(--muted); font-family:'Noto Sans',sans-serif; letter-spacing:.4px}
+  /* ---------- meta ---------- */
+  table.meta{width:100%; border-collapse:collapse; margin-top:7px; font-size:11.6px}
+  table.meta td{border:1px solid var(--line); padding:4px 7px}
+  table.meta td.k{background:#f7fafc; font-weight:600; white-space:nowrap; width:1%}
+  table.meta td.v{min-width:70px}
+  .dayno{font-weight:700; color:var(--red); font-size:13px}
+  /* ---------- boxes ---------- */
+  .row2{display:flex; gap:8px; margin-top:7px; align-items:stretch}
+  .box{border:1px solid var(--line); border-radius:4px; padding:6px 9px; flex:1}
+  .box h4{margin:0 0 3px; font-size:11px; letter-spacing:.6px; color:var(--teal); font-family:'Noto Sans',sans-serif; text-transform:uppercase}
+  .box ol,.box ul{margin:0; padding-left:16px}
+  .box li{margin:1px 0}
+  table.dist{width:100%; border-collapse:collapse; font-size:11px}
+  table.dist th,table.dist td{border:1px solid var(--line); padding:2.5px 5px; text-align:center}
+  table.dist th{background:#f7fafc; font-weight:600}
+  table.dist td.l{text-align:left}
+  /* ---------- sections ---------- */
+  .sec{margin-top:10px; break-inside:avoid}
+  .sec-head{
+    display:flex; justify-content:space-between; align-items:center; gap:8px;
+    background:var(--navy); color:#fff; padding:4px 9px; border-radius:3px;
+    font-weight:700; font-size:12.6px; letter-spacing:.2px
+  }
+  .sec-head .badge{background:#fff; color:var(--navy); font-size:11px; padding:1px 8px; border-radius:10px}
+  .sec.b .sec-head{background:var(--teal)}
+  .sec.c .sec-head{background:var(--gold)}
+  .grp{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin:7px 0 2px; padding:2px 4px 2px 6px; background:var(--soft);
+    border-left:3px solid var(--navy); font-weight:600; font-size:12px
+  }
+  .sec.b .grp{border-left-color:var(--teal)}
+  .sec.c .grp{border-left-color:var(--gold)}
+  .grp .gm{font-size:10.5px; color:var(--muted); font-weight:600; white-space:nowrap}
+  .hint{font-size:10.8px; color:var(--muted); font-style:italic; margin:2px 0 3px 6px}
+  .method{border:1px dashed var(--teal); background:#f3fbfb; border-radius:4px; padding:4px 8px; margin:3px 0; font-size:11.2px}
+  .method b{color:var(--teal)}
+  /* ---------- questions ---------- */
+  ol.q{margin:0; padding-left:22px}
+  ol.q>li{position:relative; padding:1.5px 30px 1.5px 0; margin:0}
+  ol.q>li .m{position:absolute; right:0; top:1px; font-size:10.5px; color:var(--muted); border:1px solid var(--line); border-radius:3px; padding:0 4px; background:#fbfdff}
+  .ln{display:inline-block; border-bottom:1px dotted #47586a; vertical-align:baseline}
+  .ln-s{min-width:44px} .ln-m{min-width:96px} .ln-l{min-width:170px}
+  .ln-full{display:block; width:100%; height:17px; border-bottom:1px dotted #47586a; margin-top:3px}
+  .opt{font-weight:600; color:var(--navy)}
+  .passage{border:1px solid var(--line); border-left:4px solid var(--gold); background:#fffdf5; padding:6px 10px; margin:4px 0; font-size:12px}
+  .passage .pt{font-size:10px; letter-spacing:.8px; color:var(--gold); font-weight:700; font-family:'Noto Sans',sans-serif}
+  .passage p{margin:2px 0; font-family:'Noto Sans',sans-serif}
+  .cols2{display:flex; gap:14px}
+  .cols2>*{flex:1}
+  /* shapes */
+  .sh{font-size:15px; letter-spacing:2px; line-height:1.2}
+  .r{color:#c0392b} .b{color:#1f5fa8} .g{color:#1e7d4f} .y{color:#c9950a} .p{color:#7048a0}
+  table.grid{border-collapse:collapse; margin:3px 0}
+  table.grid td{border:1px solid #7b8b99; width:30px; height:30px; text-align:center; vertical-align:middle; font-size:15px; font-weight:600}
+  table.grid td.blank{background:#fff7d6}
+  table.maze{border-collapse:collapse; margin:4px 0}
+  table.maze td{border:1px solid #7b8b99; width:26px; height:26px; text-align:center; font-size:11px; font-weight:700; color:var(--navy)}
+  /* ---------- score footer ---------- */
+  .scorebox{margin-top:11px; border:1.5px solid var(--navy); border-radius:4px; overflow:hidden}
+  .scorebox table{width:100%; border-collapse:collapse; font-size:11.4px}
+  .scorebox th,.scorebox td{border:1px solid var(--line); padding:3px 6px; text-align:center}
+  .scorebox th{background:var(--soft); font-weight:600}
+  .scorebox td.tot{font-weight:700; color:var(--red)}
+  .sign{display:flex; justify-content:space-between; font-size:11px; padding:5px 8px; color:var(--muted)}
+  .pagefoot{position:absolute; bottom:6mm; left:12mm; right:12mm; display:flex; justify-content:space-between;
+    font-size:9.6px; color:#8496a6; border-top:1px solid var(--line); padding-top:3px; font-family:'Noto Sans',sans-serif}
+  /* ---------- answer key / tricks ---------- */
+  h2.big{background:var(--navy); color:#fff; margin:0 0 8px; padding:6px 10px; border-radius:3px; font-size:16px}
+  h3.sub{margin:12px 0 4px; font-size:13.5px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:2px}
+  table.ans{width:100%; border-collapse:collapse; font-size:11.2px; margin-bottom:6px}
+  table.ans th,table.ans td{border:1px solid var(--line); padding:3px 6px; vertical-align:top}
+  table.ans th{background:var(--soft); font-weight:600; text-align:left}
+  table.ans td.d{white-space:nowrap; font-weight:700; color:var(--navy); text-align:center; width:38px}
+  .trick{border:1px solid var(--line); border-left:4px solid var(--teal); background:#f6fbfb; border-radius:4px; padding:6px 10px; margin:6px 0; break-inside:avoid}
+  .trick h5{margin:0 0 2px; font-size:12.2px; color:var(--teal)}
+  .trick p{margin:0; font-size:11.6px}
+  .note{border:1px solid #e3c98f; background:#fffaf0; border-left:4px solid var(--gold); padding:6px 10px; border-radius:4px; font-size:11.6px; margin:8px 0}
+  pre.mono{font-family:'Noto Sans',ui-monospace,monospace; font-size:11px; background:#f7fafc; border:1px solid var(--line); border-radius:4px; padding:8px 10px; white-space:pre-wrap; margin:6px 0}
+  .cert{border:4px double var(--navy); border-radius:6px; padding:24px; text-align:center; margin-top:26px}
+  .cert h1{font-size:26px; color:var(--navy); margin:6px 0}
+  .cert .name{border-bottom:1.5px solid var(--ink); display:inline-block; min-width:280px; height:26px; margin:8px 0}
+  @media print{
+    body{background:#fff}
+    .toolbar{display:none}
+    .paper{width:auto; min-height:0; margin:0; padding:0; box-shadow:none; page-break-after:always}
+    .paper:last-child{page-break-after:auto}
+    .pagefoot{position:static; margin-top:10px}
+    @page{size:A4; margin:11mm}
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <span>Day 21–30 • সম্পূর্ণ প্রশ্নপত্র সেট (৩০ নম্বর × ১০ দিন) + উত্তরপত্র</span>
+  <button onclick="window.print()">🖨️ প্রিন্ট / PDF সংরক্ষণ</button>
+</div>
+
+<!-- ============================= COVER ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র — চতুর্থ পর্ব</h1>
+    <div class="sub">DAY 21 – DAY 30 &nbsp;|&nbsp; English Language Skills • Mathematics &amp; Mental Reasoning • Analytical Ability</div>
+  </header>
+
+  <table class="meta">
+    <tr>
+      <td class="k">শিক্ষার্থীর নাম</td><td class="v"></td>
+      <td class="k">বয়স</td><td class="v"></td>
+      <td class="k">অভিভাবক/শিক্ষক</td><td class="v"></td>
+    </tr>
+    <tr>
+      <td class="k">পর্ব</td><td class="v">সপ্তাহ ৪ (দিন ২১–৩০)</td>
+      <td class="k">দৈনিক পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">দৈনিক সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="row2">
+    <div class="box">
+      <h4>পরীক্ষার কাঠামো (প্রতিদিন অপরিবর্তিত)</h4>
+      <table class="dist">
+        <tr><th>সেকশন</th><th>বিষয়</th><th>উপ-দক্ষতা</th><th>নম্বর</th></tr>
+        <tr><td>A</td><td class="l">English Language Skills</td><td class="l">A1 Phonics/Vocabulary ৩ • A2 Grammar/Sentence ৩ • A3 Comprehension ২ • A4 Writing ২</td><td>১০</td></tr>
+        <tr><td>B</td><td class="l">Mathematics &amp; Mental Reasoning</td><td class="l">B1 Mental Math ৪ • B2 Number Concept ২ • B3 Pattern ২ • B4 Word Problem ২</td><td>১০</td></tr>
+        <tr><td>C</td><td class="l">Analytical Ability</td><td class="l">C1 Classification ৩ • C2 Pattern ৩ • C3 Analogy ২ • C4 Sequencing ২</td><td>১০</td></tr>
+        <tr><th colspan="3">সর্বমোট</th><th>৩০</th></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="box">
+      <h4>এই পর্বের দৈনিক টপিক মানচিত্র</h4>
+      <table class="dist">
+        <tr><th>দিন</th><th>Section A (English)</th><th>Section B (Math)</th><th>Section C (Analytical)</th></tr>
+        <tr><td>২১</td><td class="l">সপ্তাহ ৩ মূল্যায়ন (মিশ্র)</td><td class="l">মিশ্র রিভিউ</td><td class="l">মিশ্র রিভিউ</td></tr>
+        <tr><td>২২</td><td class="l">Category Words (শ্রেণিভুক্ত শব্দ)</td><td class="l">যোগ ≤১০০ (হাতে রাখা সহ)</td><td class="l">Advanced Classification (২ বৈশিষ্ট্য)</td></tr>
+        <tr><td>২৩</td><td class="l">Compound Words</td><td class="l">বিয়োগ ≤১০০ (ধার করা সহ)</td><td class="l">Pattern Grid ৩×৩</td></tr>
+        <tr><td>২৪</td><td class="l">Sentence Formation (S+V+O)</td><td class="l">টাকা-পয়সা</td><td class="l">Analogy (বিভিন্ন ধরন)</td></tr>
+        <tr><td>২৫</td><td class="l">Punctuation ( . ? ! )</td><td class="l">২-ধাপ Word Problem</td><td class="l">Advanced Sequencing (৫ ধাপ)</td></tr>
+        <tr><td>২৬</td><td class="l">৫-লাইন Passage + Inference</td><td class="l">মিশ্র Review (সব operation)</td><td class="l">Direction ও সরল Maze</td></tr>
+        <tr><td>২৭</td><td class="l">ছবি দেখে ২টি বাক্য লেখা</td><td class="l">২-নিয়ম Advanced Pattern</td><td class="l">Mixed Mock (সহজ)</td></tr>
+        <tr><td>২৮</td><td class="l">Spelling Dictation (৫ শব্দ)</td><td class="l">Mental Math Speed Drill</td><td class="l">Mixed Mock (মাঝারি)</td></tr>
+        <tr><td>২৯</td><td class="l">পূর্ণ রিভিউ (সব উপ-দক্ষতা)</td><td class="l">পূর্ণ রিভিউ</td><td class="l">পূর্ণ রিভিউ</td></tr>
+        <tr><td>৩০</td><td class="l" colspan="3"><b>🏁 FINAL ASSESSMENT — Day 1 এর সাথে তুলনামূলক মূল্যায়ন</b></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="box">
+      <h4>পরীক্ষা পরিচালনার নির্দেশাবলী (অভিভাবক/শিক্ষকের জন্য)</h4>
+      <ol>
+        <li>প্রতিদিন একই সময়ে বসান — অভ্যাস তৈরি হলে মনোযোগ বাড়ে।</li>
+        <li>ক্রম: <b>Section A → বিরতি ৫ মিনিট → Section B → বিরতি ৫ মিনিট → Section C</b>।</li>
+        <li>B1 (Mental Math) অংশে টাইমার চালু করুন — প্রতি প্রশ্নে সর্বোচ্চ ২০ সেকেন্ড।</li>
+        <li>পরীক্ষা চলাকালীন কোনো সাহায্য নয়; শেষ হওয়ার পর একসাথে বসে ভুল আলোচনা করুন।</li>
+        <li>ভুল উত্তরগুলো <b>Wrong Answer Journal</b>-এ তুলে রাখুন — পরদিনের ওয়ার্ম-আপে সেগুলো আসবে।</li>
+        <li>প্রতিদিনের স্কোর শেষ পৃষ্ঠার <b>Progress Tracking Sheet</b>-এ লিখুন।</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h4>শিক্ষার্থীর জন্য নির্দেশ</h4>
+      <ol>
+        <li>প্রতিটি প্রশ্ন <b>দুইবার</b> পড়ো, তারপর উত্তর লেখো।</li>
+        <li>নির্ধারিত দাগ ( <span class="ln ln-m"></span> ) এর উপরে পরিষ্কার করে লেখো।</li>
+        <li>যেখানে "বৃত্ত দাও" লেখা আছে, সেখানে সঠিক উত্তরটির চারপাশে গোল দাগ দাও।</li>
+        <li>কঠিন প্রশ্নে আটকে গেলে দাগ দিয়ে রেখে পরেরটিতে যাও, শেষে ফিরে এসো।</li>
+        <li>শেষ করে একবার সব উত্তর মিলিয়ে দেখো।</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>মূল্যায়ন মানদণ্ড:</b> ২৭–৩০ = A+ (Excellent, কঠিনতা বাড়ান) &nbsp;|&nbsp; ২২–২৬ = A (Good) &nbsp;|&nbsp; ১৭–২১ = B (Average, দুর্বল উপ-দক্ষতায় ১ দিন অতিরিক্ত) &nbsp;|&nbsp; ১২–১৬ = C (পূর্বের দিনে ফিরে পুনঃশিক্ষা) &nbsp;|&nbsp; ১২-এর নিচে = D (হাতে-কলমে উপকরণ দিয়ে ১:১ পুনঃশিক্ষা আবশ্যক)
+  </div>
+
+  <div class="pagefoot"><span>Primary Olympiad Preparation Program — Day 21–30</span><span>Cover / নির্দেশিকা</span></div>
+</section>
+
+<!-- ============================= DAY 21 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>সাপ্তাহিক মূল্যায়ন পরীক্ষা — সপ্তাহ ৩</h1>
+    <div class="sub">DAILY PRACTICE &amp; ASSESSMENT SHEET</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২১</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+  <div class="note" style="margin:6px 0"><b>বিশেষ নির্দেশ:</b> এটি সপ্তাহ ৩ (দিন ১৫–২০) এর মূল্যায়ন পরীক্ষা। এই স্কোর Day 14 এর সাথে তুলনা করে অগ্রগতি নির্ণয় করা হবে। কোনো সাহায্য ছাড়া একা সম্পন্ন করতে দিন।</div>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Phonics &amp; Vocabulary (Digraph ও Synonym)</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>কোন শব্দে <b>"ch"</b> ধ্বনি আছে? বৃত্ত দাও — <span class="opt">Chair / Ship</span> <span class="m">১</span></li>
+      <li>"thin" শব্দটি সম্পূর্ণ করো: <b>th _ n</b> — সঠিক বর্ণে বৃত্ত দাও <span class="opt">i / o</span> <span class="m">১</span></li>
+      <li>Synonym লেখো: <b>Big</b> = <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>সঠিক Article বসাও: I saw <span class="ln ln-s"></span> owl. <span class="opt">(a / an)</span> <span class="m">১</span></li>
+      <li>সঠিক Verb বৃত্ত দাও: She <span class="opt">go / goes</span> to school. <span class="m">১</span></li>
+      <li>বাক্যটি শুদ্ধ করে লেখো (বড় হাতের অক্ষর ও দাঁড়ি সহ): <i>rina likes mango</i> <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>Rana has a big kite. He flies it on Friday. The kite is blue and white.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>রানার ঘুড়ির রং কী কী? <span class="ln ln-m"></span> ও <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>সে কোন দিন ঘুড়ি ওড়ায়? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>বহুবচন লেখো: One box → Two <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>"chair" শব্দ দিয়ে একটি সম্পূর্ণ বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Mental Math Speed Round</span><span class="gm">৪ নম্বর</span></div>
+    <div class="hint">প্রতিটি প্রশ্নের জন্য সর্বোচ্চ ২০ সেকেন্ড — টাইমার চালু করুন।</div>
+    <ol class="q">
+      <li>34 + 15 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>46 − 23 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>2 × 7 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Half of 16 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>58 সংখ্যাটিতে দশক স্থানের অঙ্ক <span class="ln ln-s"></span> এবং একক স্থানের অঙ্ক <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>"Half past 6" মানে ঘড়িতে কত সময়? <span class="ln ln-s"></span> : <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>5, 10, 15, <span class="ln ln-s"></span>, 25 <span class="m">১</span></li>
+      <li>50, 45, 40, <span class="ln ln-s"></span>, 30 <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>রিয়ার কাছে ৪৫ টাকা ছিল। সে ১৮ টাকা দিয়ে একটি খাতা কিনল। তার কাছে এখন কত টাকা বাকি আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Odd One Out / Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Rose &nbsp; Lily &nbsp; Carrot &nbsp; Tulip</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">5 &nbsp; 10 &nbsp; 15 &nbsp; 18</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Circle &nbsp; Square &nbsp; Triangle &nbsp; Yellow</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>2, 2, 4, 2, 2, 4, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li><span class="sh"><span class="r">▲</span><span class="r">▲</span><span class="b">●</span><span class="r">▲</span><span class="r">▲</span><span class="b">●</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>নিচের গ্রিডের খালি ঘরে সঠিক আকৃতি আঁকো:
+        <table class="grid"><tr><td class="r">●</td><td class="b">■</td></tr><tr><td class="b">■</td><td class="blank"></td></tr></table>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Cow : Milk :: Hen : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Hand : Glove :: Foot : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>সঠিক ক্রমে ১, ২, ৩, ৪ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] ফল ধরা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বীজ বপন &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] ফুল ফোটা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] চারাগাছ</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 21 — Weekly Assessment (Week 3)</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 22 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">CATEGORY WORDS • ADDITION UP TO 100 (WITH CARRY) • ADVANCED CLASSIFICATION</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২২</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Category Words (শ্রেণিভুক্ত শব্দ)</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>Apple, Mango, Banana — এরা সবাই <span class="ln ln-m"></span> <span class="opt">(Fruits / Animals)</span> <span class="m">১</span></li>
+      <li>Red, Blue, Green — এরা সবাই <span class="ln ln-m"></span> <span class="opt">(Colours / Shapes)</span> <span class="m">১</span></li>
+      <li>Dog, Cow, Cat — এরা সবাই <span class="ln ln-m"></span> <span class="opt">(Birds / Animals)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>I have three <span class="ln ln-m"></span> <span class="opt">(mango / mangoes)</span> <span class="m">১</span></li>
+      <li><span class="ln ln-s"></span> orange is sweet. <span class="opt">(A / An)</span> <span class="m">১</span></li>
+      <li>Colours <span class="ln ln-s"></span> beautiful. <span class="opt">(is / are)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>In my basket there are apples, mangoes and bananas. All of them are fruits. I like mangoes best.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>ঝুড়িতে কী কী আছে? (যেকোনো দুটি লেখো) <span class="ln ln-m"></span> , <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>লেখকের সবচেয়ে প্রিয় ফল কোনটি? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>তিনটি প্রাণীর নাম ইংরেজিতে লেখো: <span class="ln ln-m"></span> , <span class="ln ln-m"></span> , <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>যেকোনো একটি রঙের নাম ব্যবহার করে একটি বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Addition up to 100 — হাতে রাখা সহ</span><span class="gm">৪ নম্বর</span></div>
+    <div class="method"><b>পদ্ধতি:</b> একক ঘর আগে যোগ করো। যোগফল ১০ বা তার বেশি হলে একক অঙ্কটি নিচে লেখো এবং <b>১ হাতে রেখে</b> দশক ঘরে যোগ করো। যেমন: 47 + 35 → একক 7+5 = 12 (২ লেখো, ১ হাতে) → দশক 4+3+1 = 8 → <b>82</b></div>
+    <ol class="q">
+      <li>47 + 35 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>58 + 26 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>39 + 44 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>65 + 27 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>82 সংখ্যাটিতে দশক অঙ্ক <span class="ln ln-s"></span> ও একক অঙ্ক <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>৭ দশক ৬ একক = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>10, 20, 30, <span class="ln ln-s"></span>, 50 <span class="m">১</span></li>
+      <li>25, 30, 35, <span class="ln ln-s"></span>, 45 <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>একটি দোকানে ৪৮টি খাতা ছিল। নতুন করে আরও ২৫টি খাতা আনা হলো। দোকানে এখন মোট কয়টি খাতা আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Advanced Classification — ২টি বৈশিষ্ট্য একসাথে</span><span class="gm">৩ নম্বর</span></div>
+    <div class="method"><b>পদ্ধতি:</b> প্রথমে দেখো <b>রং</b> মিলছে কি না, তারপর দেখো <b>আকার</b> মিলছে কি না। যেটি দুটির অন্তত একটিতে আলাদা, সেটিই ভিন্ন।</div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও:
+        <span class="sh">(ক) <span class="r">⬤</span> বড়-লাল &nbsp; (খ) <span class="r">⬤</span> বড়-লাল &nbsp; (গ) <span class="b">•</span> ছোট-নীল &nbsp; (ঘ) <span class="r">⬤</span> বড়-লাল</span> <span class="m">১</span></li>
+      <li>কোনটি ৪-এর গুণিতক নয়? <span class="opt">4 &nbsp; 8 &nbsp; 12 &nbsp; 15</span> <span class="m">১</span></li>
+      <li>নিচের শব্দগুলো দুটি দলে ভাগ করো — <i>Apple, Dog, Banana, Cat, Mango, Cow</i>
+        <div style="margin-top:2px">Fruits: <span class="ln ln-l"></span></div>
+        <div>Animals: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li><span class="sh"><span class="r">▲</span><span class="b">●</span><span class="b">●</span><span class="r">▲</span><span class="b">●</span><span class="b">●</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>3, 6, 9, 12, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>গ্রিডের খালি ঘরে সঠিক সংখ্যা লেখো (প্রতি সারিতে ২ করে বাড়ছে):
+        <table class="grid"><tr><td>2</td><td>4</td></tr><tr><td>6</td><td class="blank"></td></tr></table>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Fish : Water :: Bird : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Big : Small :: Fast : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>সঠিক ক্রমে ১, ২, ৩, ৪ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] ভাত রান্না করা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] চাল ধোয়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] ভাত খাওয়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বাজার থেকে চাল আনা</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 22 — Category Words • Carry Addition • Advanced Classification</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 23 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">COMPOUND WORDS • SUBTRACTION UP TO 100 (WITH BORROW) • 3×3 PATTERN GRID</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৩</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Compound Words (যুক্ত শব্দ)</span><span class="gm">৩ নম্বর</span></div>
+    <div class="method"><b>নিয়ম:</b> দুটি আলাদা শব্দ জোড়া লাগিয়ে একটি নতুন শব্দ তৈরি হয় — যেমন Sun + Flower = <b>Sunflower</b>।</div>
+    <ol class="q">
+      <li>Sun + flower = <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Rain + bow = <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Foot + ball = <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>"Butterfly" শব্দটি ভেঙে দুটি শব্দ লেখো: <span class="ln ln-m"></span> + <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>সঠিকটিতে বৃত্ত দাও: <span class="opt">Blackboard / Black board</span> is on the wall. <span class="m">১</span></li>
+      <li>I see a rain<span class="ln ln-s"></span> in the sky. <span class="opt">(bow / box)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>After the rain, a rainbow came out in the sky. Mina saw it from her window.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>বৃষ্টির পরে আকাশে কী দেখা গেল? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>মিনা কোথা থেকে সেটি দেখল? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>Tooth + brush = <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>যেকোনো একটি compound word দিয়ে একটি বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Subtraction up to 100 — ধার করা সহ</span><span class="gm">৪ নম্বর</span></div>
+    <div class="method"><b>পদ্ধতি:</b> একক ঘরে উপরের অঙ্ক ছোট হলে পাশের দশক ঘর থেকে <b>১ দশক ধার</b> নাও (= ১০ একক)। যেমন: 72 − 38 → 2 থেকে 8 যায় না, তাই 12 − 8 = 4; দশকে 6 − 3 = 3 → <b>34</b></div>
+    <ol class="q">
+      <li>72 − 38 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>85 − 49 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>63 − 27 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>90 − 56 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>কোন সংখ্যা থেকে ২০ বিয়োগ করলে ৪৫ হয়? <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>১০০ − ১ = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>100, 90, 80, <span class="ln ln-s"></span>, 60 <span class="m">১</span></li>
+      <li>2, 4, 8, 16, <span class="ln ln-s"></span> <span class="hint" style="display:inline">(নিয়ম: প্রতিবার দ্বিগুণ)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>একটি বইয়ে মোট ৮০টি পাতা আছে। রনি ৩৫টি পাতা পড়ে ফেলেছে। আর কত পাতা পড়া বাকি আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Square &nbsp; Rectangle &nbsp; Triangle &nbsp; Ball</span> <span class="m">১</span></li>
+      <li>কোনটি ৩-এর গুণিতক নয়? <span class="opt">21 &nbsp; 24 &nbsp; 27 &nbsp; 29</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Shirt, Rice, Pant, Fish, Frock, Egg</i>
+        <div style="margin-top:2px">পোশাক: <span class="ln ln-l"></span></div>
+        <div>খাবার: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Grid 3×3</span><span class="gm">৩ নম্বর</span></div>
+    <div class="method"><b>পদ্ধতি:</b> প্রথমে <b>সারি</b> (বাম → ডান) ধরে নিয়ম খোঁজো, তারপর <b>কলাম</b> (উপর → নিচ) ধরে মিলিয়ে দেখো।</div>
+    <ol class="q" start="4">
+      <li>খালি ঘরে সঠিক আকৃতি আঁকো:
+        <table class="grid">
+          <tr><td class="r">●</td><td class="b">■</td><td class="g">▲</td></tr>
+          <tr><td class="b">■</td><td class="g">▲</td><td class="r">●</td></tr>
+          <tr><td class="g">▲</td><td class="r">●</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid">
+          <tr><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>2</td><td>4</td><td>6</td></tr>
+          <tr><td>3</td><td>6</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid">
+          <tr><td>5</td><td>10</td><td>15</td></tr>
+          <tr><td>20</td><td>25</td><td>30</td></tr>
+          <tr><td>35</td><td>40</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Bee : Honey :: Cow : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Doctor : Hospital :: Teacher : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>চিঠি পাঠানোর সঠিক ক্রমে ১, ২, ৩, ৪ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] খামে ভরা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] ডাকবাক্সে ফেলা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] চিঠি লেখা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] স্ট্যাম্প লাগানো</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 23 — Compound Words • Borrow Subtraction • 3×3 Grid</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<!-- ============================= DAY 24 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">SENTENCE FORMATION (S + V + O) • MONEY • ANALOGY</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৪</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Sentence Formation — শব্দ সাজিয়ে বাক্য</span><span class="gm">৩ নম্বর</span></div>
+    <div class="method"><b>নিয়ম:</b> ইংরেজি বাক্যের ক্রম — <b>Subject (কে) + Verb (কী করে) + Object (কী নিয়ে)</b>। যেমন: Rana (S) + plays (V) + football (O)।</div>
+    <ol class="q">
+      <li>plays / Rana / football → <span class="ln ln-l"></span> <span class="m">১</span></li>
+      <li>eats / rice / She → <span class="ln ln-l"></span> <span class="m">১</span></li>
+      <li>a book / I / read → <span class="ln ln-l"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>বাক্যের Verb-এ দাগ দাও: <b>Birds fly in the sky.</b> <span class="m">১</span></li>
+      <li>বাক্যের Object কোনটি? <b>Mina eats an apple.</b> → <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>নিজে বাক্য বানাও — Subject: <b>He</b>, Verb: <b>reads</b>, Object: <b>a book</b> <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>Rahim goes to the shop. He buys a pen. The pen costs ten taka.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>রহিম কী কিনল? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>কলমটির দাম কত? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>"drinks" শব্দটি ব্যবহার করে S + V + O কাঠামোয় একটি বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>তোমার প্রিয় খাবার নিয়ে একটি বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. টাকা-পয়সা (Money) — Mental Round</span><span class="gm">৪ নম্বর</span></div>
+    <ol class="q">
+      <li>১০ টাকা + ৫ টাকা = <span class="ln ln-s"></span> টাকা <span class="m">১</span></li>
+      <li>২০ টাকা − ৭ টাকা = <span class="ln ln-s"></span> টাকা <span class="m">১</span></li>
+      <li>২টি ৫০ টাকার নোট = <span class="ln ln-s"></span> টাকা <span class="m">১</span></li>
+      <li>১০০ টাকা − ৬০ টাকা = <span class="ln ln-s"></span> টাকা <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept (টাকার ভাঙতি)</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>৫০ টাকা ভাঙাতে কয়টি ১০ টাকার নোট লাগবে? <span class="ln ln-s"></span> টি <span class="m">১</span></li>
+      <li>২৫ টাকা + ২৫ টাকা = <span class="ln ln-s"></span> টাকা — এটি কোন একটি নোটের সমান? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>5, 10, 20, 40, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>100, 95, 90, <span class="ln ln-s"></span>, 80 <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>রিনার কাছে ৫০ টাকা ছিল। সে ২০ টাকার একটি চকলেট এবং ১৫ টাকার একটি চিপস কিনল। তার কাছে এখন কত টাকা বাকি?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">৫ টাকার নোট &nbsp; ১০ টাকার নোট &nbsp; ৫০ টাকার নোট &nbsp; চাল</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Bus &nbsp; Car &nbsp; Rickshaw &nbsp; River</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Pen, Spoon, Pencil, Plate, Eraser, Glass</i>
+        <div style="margin-top:2px">পড়ার জিনিস: <span class="ln ln-l"></span></div>
+        <div>খাওয়ার জিনিস: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li><span class="sh"><span class="r">●</span><span class="g">▲</span><span class="b">■</span><span class="r">●</span><span class="g">▲</span><span class="b">■</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>1, 3, 5, 7, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid"><tr><td>10</td><td>20</td></tr><tr><td>30</td><td class="blank"></td></tr></table>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Shop : Buy :: School : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Bird : Nest :: Bee : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>কেনাকাটার সঠিক ক্রমে ১, ২, ৩, ৪ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] টাকা দেওয়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] দোকানে যাওয়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বাড়ি ফেরা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] জিনিস বাছাই করা</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 24 — Sentence Formation • Money • Analogy</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 25 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">PUNCTUATION ( . ? ! ) • TWO-STEP WORD PROBLEMS • ADVANCED SEQUENCING</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৫</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Punctuation — সঠিক চিহ্ন বসাও</span><span class="gm">৩ নম্বর</span></div>
+    <div class="method"><b>নিয়ম:</b> সাধারণ বাক্যের শেষে <b>দাঁড়ি (.)</b> • প্রশ্নের শেষে <b>প্রশ্নবোধক (?)</b> • বিস্ময়/আনন্দ প্রকাশে <b>বিস্ময়সূচক (!)</b></div>
+    <ol class="q">
+      <li>What is your name <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>I am happy <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Wow, what a big fish <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>শুদ্ধ করে লেখো: <i>where is my bag</i> <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>শুদ্ধ করে লেখো: <i>i love my mother</i> <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>কোন বাক্যে প্রশ্নবোধক চিহ্ন বসবে? বৃত্ত দাও — <span class="opt">(ক) He is my friend &nbsp; (খ) Are you ready</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>Are you coming to the party? Yes, I am! It starts at five o'clock.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>পার্টি কখন শুরু হবে? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>প্যাসেজে কয়টি প্রশ্নবোধক চিহ্ন (?) আছে? <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>একটি প্রশ্নবোধক বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>একটি বিস্ময়সূচক বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Mental Math (মিশ্র ধাপ)</span><span class="gm">৪ নম্বর</span></div>
+    <div class="hint">বাম থেকে ডানে ধাপে ধাপে হিসাব করো।</div>
+    <ol class="q">
+      <li>25 + 18 − 10 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>40 − 15 + 5 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>(2 × 6) + 8 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Half of 20 + 5 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>৩ দশক ৯ একক = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>৯৯-এর পরের সংখ্যা কোনটি? <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>1, 2, 4, 7, 11, <span class="ln ln-s"></span> <span class="hint" style="display:inline">(নিয়ম: +১, +২, +৩, +৪ …)</span> <span class="m">১</span></li>
+      <li><span class="sh"><span class="g">▲</span><span class="b">■</span><span class="b">■</span><span class="g">▲</span><span class="b">■</span><span class="b">■</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Two-Step Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <div class="method"><b>RUCSAC পদ্ধতি:</b> পড়ো → সংখ্যায় দাগ দাও → কোন কাজ (+ না −) ঠিক করো → সমাধান করো → উত্তর লেখো → যাচাই করো।</div>
+    <ol class="q" start="9">
+      <li>করিমের কাছে ৬০ টাকা ছিল। সে ২৫ টাকা দিয়ে একটি বই কিনল, তারপর বাবা তাকে ৩০ টাকা দিলেন। এখন করিমের কাছে কত টাকা আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Happy &nbsp; Sad &nbsp; Angry &nbsp; Table</span> <span class="m">১</span></li>
+      <li>কোনটি ৪-এর গুণিতক নয়? <span class="opt">12 &nbsp; 16 &nbsp; 20 &nbsp; 25</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Sun, Chair, Moon, Table, Star, Bed</i>
+        <div style="margin-top:2px">আকাশের জিনিস: <span class="ln ln-l"></span></div>
+        <div>ঘরের আসবাব: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>3, 6, 12, 24, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>A, B, C, A, B, C, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid">
+          <tr><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>4</td><td>5</td><td>6</td></tr>
+          <tr><td>7</td><td>8</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Pen : Write :: Knife : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Fire : Hot :: Ice : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Advanced Sequencing — ৫ ধাপ</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>সকালবেলার কাজগুলো সঠিক ক্রমে ১ থেকে ৫ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] নাস্তা করা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] স্কুলে যাওয়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] ঘুম থেকে ওঠা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] স্কুলের পোশাক পরা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] দাঁত মাজা</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 25 — Punctuation • Two-Step Word Problem • 5-Step Sequencing</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 26 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">PASSAGE WITH INFERENCE • MIXED OPERATIONS REVIEW • DIRECTION &amp; MAZE</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৬</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Vocabulary</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>"Thirsty" শব্দের অর্থ কী? বৃত্ত দাও — <span class="opt">তৃষ্ণার্ত / ক্ষুধার্ত</span> <span class="m">১</span></li>
+      <li>Opposite লেখো: Hot ↔ <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Synonym লেখো: Big = <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>He <span class="ln ln-s"></span> water. <span class="opt">(drink / drinks)</span> <span class="m">১</span></li>
+      <li>The crow <span class="ln ln-s"></span> clever. <span class="opt">(is / are)</span> <span class="m">১</span></li>
+      <li><span class="ln ln-s"></span> crow was thirsty. <span class="opt">(A / An)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension + Inference</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE CAREFULLY</span>
+      <p>One hot day a crow was very thirsty. He looked for water everywhere.</p>
+      <p>At last he found a pot with a little water in it. He put small stones into the pot.</p>
+      <p>The water came up and the crow drank it happily.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>কাক পাত্রের ভিতরে কী ফেলেছিল? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li><b>চিন্তা করে উত্তর দাও:</b> কাকটি বুদ্ধিমান ছিল — আমরা কীভাবে বুঝলাম? <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>গল্পটি থেকে তুমি কী শিখলে — একটি বাক্যে লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>বহুবচন লেখো: One stone → Two <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Mixed Operations — Mental Round</span><span class="gm">৪ নম্বর</span></div>
+    <ol class="q">
+      <li>56 + 37 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>74 − 29 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>2 × 9 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Half of 18 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>৬৩ ও ৬৫ — এই দুইয়ের মাঝের সংখ্যা কোনটি? <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>ছোট থেকে বড় ক্রমে সাজাও: 81, 18, 88 → <span class="ln ln-l"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>6, 12, 18, <span class="ln ln-s"></span>, 30 <span class="m">১</span></li>
+      <li>90, 80, 70, <span class="ln ln-s"></span>, 50 <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>একটি ক্লাসে ৩৫ জন শিক্ষার্থী ছিল। ১২ জন ছুটিতে গেল, পরে ৫ জন নতুন ভর্তি হলো। এখন ক্লাসে কতজন শিক্ষার্থী আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">North &nbsp; South &nbsp; East &nbsp; Red</span> <span class="m">১</span></li>
+      <li>কোনটি ৩-এর গুণিতক নয়? <span class="opt">3 &nbsp; 6 &nbsp; 9 &nbsp; 13</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Up, Mango, Down, Orange, Left, Litchi</i>
+        <div style="margin-top:2px">দিক: <span class="ln ln-l"></span></div>
+        <div>ফল: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li><span class="sh">→ ↑ → ↑ →</span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>4, 8, 12, 16, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক আকৃতি আঁকো:
+        <table class="grid"><tr><td class="g">▲</td><td class="b">■</td></tr><tr><td class="b">■</td><td class="blank"></td></tr></table>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Up : Down :: Left : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Morning : Sunrise :: Evening : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Direction &amp; Maze</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>নিচের গ্রিডে <b>S</b> (Start) ঘর থেকে নির্দেশ অনুসরণ করে পথ আঁকো এবং যে ঘরে পৌঁছাবে সেখানে <b>★</b> আঁকো।<br>
+        <b>নির্দেশ:</b> ডানে ২ ঘর → উপরে ১ ঘর → ডানে ১ ঘর
+        <table class="maze">
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td>S</td><td></td><td></td><td></td></tr>
+        </table>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 26 — Inference Passage • Mixed Review • Direction &amp; Maze</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 27 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">PICTURE DESCRIPTION • TWO-RULE PATTERNS • MIXED MOCK (EASY)</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৭</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="passage"><span class="pt">LOOK AT THE PICTURE / দৃশ্যটি কল্পনা করো</span>
+      <p>একটি বাগান। বাগানে <b>একটি লম্বা গাছ</b> আছে। গাছের ডালে <b>একটি পাখি</b> বসে আছে। গাছের পাশে <b>একটি লাল ফুল</b> ফুটে আছে।</p>
+    </div>
+
+    <div class="grp"><span>A1. Vocabulary &amp; Spelling</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>"Garden" শব্দটি কোন বর্ণ দিয়ে শুরু? <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>বহুবচন লেখো: One tree → Two <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>"Flower" শব্দটি বানান করে লেখো: <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>There <span class="ln ln-s"></span> two birds. <span class="opt">(is / are)</span> <span class="m">১</span></li>
+      <li>The flower <span class="ln ln-s"></span> red. <span class="opt">(is / are)</span> <span class="m">১</span></li>
+      <li>শব্দ সাজিয়ে বাক্য লেখো: in / tree / a / garden / the / is <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>This is a garden. There is a tall tree in it. A bird sits on the tree. A red flower grows near the tree.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>পাখিটি কোথায় বসে আছে? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>ফুলটি কোথায় জন্মেছে? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing — ছবি দেখে ২টি বাক্য</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>উপরের দৃশ্যটি নিয়ে প্রথম বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>দ্বিতীয় বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Mental Math Speed Round</span><span class="gm">৪ নম্বর</span></div>
+    <ol class="q">
+      <li>48 + 26 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>71 − 35 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>2 × 8 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Half of 14 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>৪ দশক ০ একক = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>সবচেয়ে ছোট সংখ্যায় বৃত্ত দাও: <span class="opt">69 &nbsp; 96 &nbsp; 66</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Two-Rule Pattern (উন্নত)</span><span class="gm">২ নম্বর</span></div>
+    <div class="method"><b>পদ্ধতি:</b> এখানে <b>একটি নয়, দুটি নিয়ম</b> পালা করে কাজ করে। প্রতি দুটি সংখ্যার পার্থক্য আলাদা করে লিখে দেখো।</div>
+    <ol class="q" start="7">
+      <li>1, 2, 4, 5, 7, 8, <span class="ln ln-s"></span> <span class="hint" style="display:inline">(+১, +২, +১, +২ …)</span> <span class="m">১</span></li>
+      <li>20, 18, 21, 19, 22, <span class="ln ln-s"></span> <span class="hint" style="display:inline">(−২, +৩, −২, +৩ …)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>একটি গাছে ২৫টি আম ছিল। ঝড়ে ৯টি আম পড়ে গেল, পরে নতুন করে ১২টি আম ধরল। এখন গাছে কয়টি আম আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability (Mixed Mock — সহজ)</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Circle &nbsp; Ball &nbsp; Wheel &nbsp; Box</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">10 &nbsp; 20 &nbsp; 25 &nbsp; 30</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Cow, Rose, Goat, Lily</i>
+        <div style="margin-top:2px">প্রাণী: <span class="ln ln-l"></span></div>
+        <div>ফুল: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li><span class="sh"><span class="r">●</span><span class="b">■</span><span class="r">●</span><span class="b">■</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>2, 4, 6, 8, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li><span class="sh"><span class="g">▲</span><span class="g">▲</span><span class="b">■</span><span class="g">▲</span><span class="g">▲</span><span class="b">■</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Tree : Leaf :: Book : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Teacher : Student :: Mother : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>সঠিক ক্রমে ১, ২, ৩, ৪ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] পড়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বই ব্যাগে রাখা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বই খোলা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বই বন্ধ করা</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 27 — Picture Description • Two-Rule Pattern • Mixed Mock (Easy)</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<!-- ============================= DAY 28 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+    <div class="sub">SPELLING DICTATION • MENTAL MATH SPEED DRILL • MIXED MOCK (MEDIUM)</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৮</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Spelling Dictation (শব্দ ১–৩)</span><span class="gm">৩ নম্বর</span></div>
+    <div class="method"><b>শিক্ষকের জন্য:</b> প্রতিটি শব্দ <b>দুইবার</b> স্পষ্ট করে পড়ুন, শিশু শুনে লিখবে। শব্দগুলো উত্তরপত্রে দেওয়া আছে — প্রশ্নপত্রে দেখাবেন না।</div>
+    <ol class="q">
+      <li>শব্দ ১: <span class="ln ln-l"></span> <span class="m">১</span></li>
+      <li>শব্দ ২: <span class="ln ln-l"></span> <span class="m">১</span></li>
+      <li>শব্দ ৩: <span class="ln ln-l"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. সঠিক বানান চেনা</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>সঠিক বানানে বৃত্ত দাও: <span class="opt">freind / friend</span> <span class="m">১</span></li>
+      <li>সঠিক বানানে বৃত্ত দাও: <span class="opt">skool / school</span> <span class="m">১</span></li>
+      <li>সঠিক বানানে বৃত্ত দাও: <span class="opt">wather / water</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>My friend goes to my school. We drink water at lunch time.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>আমার বন্ধু কোথায় যায়? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>তারা দুপুরের খাবারের সময় কী পান করে? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Spelling Dictation (শব্দ ৪–৫)</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>শব্দ ৪: <span class="ln ln-l"></span> <span class="m">১</span></li>
+      <li>শব্দ ৫: <span class="ln ln-l"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Speed Drill — প্রতি প্রশ্নে ১৫ সেকেন্ড</span><span class="gm">৪ নম্বর</span></div>
+    <div class="hint">⏱ টাইমার বাধ্যতামূলক। লক্ষ্য: চারটি প্রশ্ন ১ মিনিটের মধ্যে।</div>
+    <ol class="q">
+      <li>27 + 9 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>50 − 16 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>2 × 10 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Half of 12 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>৯ দশক ৯ একক = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>১০০-এর আগের সংখ্যা কোনটি? <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>7, 14, 21, <span class="ln ln-s"></span>, 35 <span class="m">১</span></li>
+      <li>64, 32, 16, <span class="ln ln-s"></span> <span class="hint" style="display:inline">(নিয়ম: প্রতিবার অর্ধেক)</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Two-Step Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>একটি বাক্সে ২টি করে বল আছে। এমন ৯টি বাক্সে মোট কয়টি বল? এরপর ৫টি বল হারিয়ে গেলে কয়টি বল বাকি থাকবে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability (Mixed Mock — মাঝারি)</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">2 &nbsp; 3 &nbsp; 5 &nbsp; 9</span> <span class="hint" style="display:inline">(কোনটিকে ১ ও নিজেকে ছাড়াও অন্য সংখ্যা দিয়ে ভাগ করা যায়?)</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Whisper &nbsp; Shout &nbsp; Talk &nbsp; Jump</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Triangle, Monday, Square, Sunday</i>
+        <div style="margin-top:2px">আকৃতি: <span class="ln ln-l"></span></div>
+        <div>বার: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>1, 1, 2, 3, 5, <span class="ln ln-s"></span> <span class="hint" style="display:inline">(নিয়ম: আগের দুটি সংখ্যার যোগফল)</span> <span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid">
+          <tr><td>2</td><td>4</td><td>6</td></tr>
+          <tr><td>8</td><td>10</td><td>12</td></tr>
+          <tr><td>14</td><td>16</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+      <li>A, A, B, B, C, C, <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Foot : Shoe :: Head : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Hen : Chick :: Cow : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Advanced Sequencing — ৫ ধাপ</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>চা তৈরির সঠিক ক্রমে ১ থেকে ৫ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] চিনি মেশানো &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] পানি ফোটানো &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] চা পান করা &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] চা পাতা দেওয়া &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] ছেঁকে কাপে ঢালা</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 28 — Dictation • Speed Drill • Mixed Mock (Medium)</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 29 ============================= -->
+<section class="paper">
+  <header class="masthead">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>পূর্ণ পুনরালোচনা পত্র (Full Review)</h1>
+    <div class="sub">ALL SUB-SKILLS MIXED — FINAL ASSESSMENT এর আগের দিনের প্রস্তুতি</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">২৯</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+  <div class="note" style="margin:6px 0"><b>আজকের লক্ষ্য:</b> নতুন কিছু শেখানো নয় — আত্মবিশ্বাস তৈরি করা। যে প্রশ্নে ভুল হবে, আজই সেটি হাতে-কলমে বুঝিয়ে দিন, কারণ আগামীকাল চূড়ান্ত মূল্যায়ন।</div>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Vocabulary Review</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>বহুবচন লেখো: One box → Two <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Synonym লেখো: Quick = <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Compound word লেখো: Rain + bow = <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar Review</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>I have <span class="ln ln-s"></span> umbrella. <span class="opt">(a / an)</span> <span class="m">১</span></li>
+      <li>They <span class="ln ln-s"></span> football. <span class="opt">(play / plays)</span> <span class="m">১</span></li>
+      <li>সঠিক চিহ্ন বসাও: How are you <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>Tomorrow is a holiday. We will go to my grandmother's house. She lives in a village.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>আগামীকাল কী? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>দাদি/নানি কোথায় থাকেন? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>"village" শব্দটি দিয়ে একটি সম্পূর্ণ বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>Dictation — শিক্ষক বলবেন, তুমি লেখো: <span class="ln ln-l"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Mental Math Review</span><span class="gm">৪ নম্বর</span></div>
+    <ol class="q">
+      <li>66 + 28 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>93 − 47 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>2 × 7 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>Half of 20 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>৭৫ সংখ্যাটির দশক স্থানের অঙ্ক কত? <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>সবচেয়ে বড় সংখ্যায় বৃত্ত দাও: <span class="opt">59 &nbsp; 95 &nbsp; 55</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>3, 6, 9, <span class="ln ln-s"></span>, 15 <span class="m">১</span></li>
+      <li>1, 2, 4, 8, <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Two-Step Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>মায়ের কাছে ১০০ টাকা ছিল। তিনি ৪৫ টাকার সবজি এবং ২৫ টাকার মাছ কিনলেন। তাঁর কাছে এখন কত টাকা আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Rose &nbsp; Tulip &nbsp; Lily &nbsp; Carrot</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">4 &nbsp; 9 &nbsp; 16 &nbsp; 20</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Apple, Dog, Banana, Cat, Mango, Cow</i>
+        <div style="margin-top:2px">Fruits: <span class="ln ln-l"></span></div>
+        <div>Animals: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Completion</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li><span class="sh"><span class="g">▲</span><span class="r">●</span><span class="g">▲</span><span class="r">●</span></span> <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>5, 10, 15, 20, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid">
+          <tr><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>2</td><td>4</td><td>6</td></tr>
+          <tr><td>3</td><td>6</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Sun : Day :: Moon : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Pen : Write :: Scissors : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>সঠিক ক্রমে ১, ২, ৩, ৪ লেখো:
+        <div style="margin-top:3px">[ <span class="ln ln-s"></span> ] গাছ &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] বীজ &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] ফল &nbsp;&nbsp; [ <span class="ln ln-s"></span> ] চারা</div>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>আগামীকাল Final Assessment — আজকের ভুলগুলো আজই বুঝিয়ে দিন।</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 29 — Full Review</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<!-- ============================= DAY 30 ============================= -->
+<section class="paper">
+  <header class="masthead" style="border-width:3px">
+    <div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+    <h1>🏁 চূড়ান্ত মূল্যায়ন পরীক্ষা — FINAL ASSESSMENT</h1>
+    <div class="sub">DAY 30 &nbsp;|&nbsp; ৩০ দিনের সমাপনী পরীক্ষা — Day 1 এর সাথে তুলনামূলক বিশ্লেষণ হবে</div>
+  </header>
+  <table class="meta">
+    <tr>
+      <td class="k">নাম</td><td class="v"></td>
+      <td class="k">দিন</td><td class="v dayno">৩০</td>
+      <td class="k">তারিখ</td><td class="v"></td>
+      <td class="k">পূর্ণমান</td><td class="v">৩০</td>
+      <td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+    </tr>
+  </table>
+  <div class="note" style="margin:6px 0"><b>পরীক্ষার শর্ত:</b> সম্পূর্ণ একা, কোনো সাহায্য বা ইঙ্গিত ছাড়া। সময় কঠোরভাবে মাপুন। এই স্কোরই ৩০ দিনের প্রকৃত অগ্রগতির প্রমাণ (Evidence of Progress)।</div>
+
+  <div class="sec a">
+    <div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>A1. Phonics &amp; Vocabulary</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>কোন শব্দটি "sh" ধ্বনি দিয়ে শুরু? বৃত্ত দাও — <span class="opt">Ship / Cup</span> <span class="m">১</span></li>
+      <li>Synonym লেখো: Small = <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Compound word সম্পূর্ণ করো: Sun + <span class="ln ln-m"></span> = Sunflower <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A2. Grammar &amp; Sentence</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>I have <span class="ln ln-s"></span> apple. <span class="opt">(a / an)</span> <span class="m">১</span></li>
+      <li>বহুবচন লেখো: One box → Two <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>বাক্যটি শুদ্ধ করে লেখো: <i>she like cats</i> <span class="ln-full"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A3. Reading Comprehension</span><span class="gm">২ নম্বর</span></div>
+    <div class="passage"><span class="pt">READ THE PASSAGE</span>
+      <p>Tom went to the park. He saw a big dog. The dog was friendly.</p>
+      <p>Tom played with the dog. They both were very happy.</p>
+    </div>
+    <ol class="q" start="7">
+      <li>টম কোথায় গিয়েছিল? <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>কুকুরটি কেমন ছিল? <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>A4. Writing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>Subject + Verb + Object কাঠামোয় একটি সম্পূর্ণ বাক্য লেখো: <span class="ln-full"></span> <span class="m">১</span></li>
+      <li>Dictation — শিক্ষক বলবেন, তুমি লেখো: <span class="ln ln-l"></span> <span class="m">১</span></li>
+    </ol>
+  </div>
+
+  <div class="sec b">
+    <div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>B1. Mental Math Speed Round</span><span class="gm">৪ নম্বর</span></div>
+    <ol class="q">
+      <li>56 + 27 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>82 − 35 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>9 × 2 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>100 − 45 = <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B2. Number Concept</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="5">
+      <li>78 সংখ্যাটিতে একক অঙ্ক <span class="ln ln-s"></span> ও দশক অঙ্ক <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>সবচেয়ে বড় সংখ্যায় বৃত্ত দাও: <span class="opt">89 &nbsp; 98 &nbsp; 79</span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B3. Pattern</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>3, 6, 9, 12, <span class="ln ln-s"></span> <span class="m">১</span></li>
+      <li>100, 90, 80, <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>B4. Two-Step Word Problem</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li>করিমের কাছে ৪৫ টাকা ছিল। সে ২০ টাকার একটি বই ও ১০ টাকার একটি কলম কিনল। তার কাছে এখন কত টাকা আছে?
+        <span class="ln-full"></span><span class="ln-full"></span> <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="sec c">
+    <div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div>
+
+    <div class="grp"><span>C1. Advanced Classification</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q">
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">Rose &nbsp; Tulip &nbsp; Lily &nbsp; Carrot</span> <span class="m">১</span></li>
+      <li>ভিন্নটিতে বৃত্ত দাও: <span class="opt">4 &nbsp; 9 &nbsp; 16 &nbsp; 20</span> <span class="m">১</span></li>
+      <li>দুটি দলে ভাগ করো — <i>Apple, Dog, Banana, Cat, Mango, Cow</i>
+        <div style="margin-top:2px">Fruits: <span class="ln ln-l"></span></div>
+        <div>Animals: <span class="ln ln-l"></span></div>
+        <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C2. Pattern Grid</span><span class="gm">৩ নম্বর</span></div>
+    <ol class="q" start="4">
+      <li>খালি ঘরে সঠিক সংখ্যা লেখো:
+        <table class="grid">
+          <tr><td>2</td><td>4</td><td>6</td></tr>
+          <tr><td>4</td><td>8</td><td>12</td></tr>
+          <tr><td>6</td><td>12</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+      <li>খালি ঘরে সঠিক আকৃতি আঁকো:
+        <table class="grid">
+          <tr><td class="r">●</td><td class="b">■</td><td class="g">▲</td></tr>
+          <tr><td class="b">■</td><td class="g">▲</td><td class="r">●</td></tr>
+          <tr><td class="g">▲</td><td class="r">●</td><td class="blank"></td></tr>
+        </table><span class="m">১</span></li>
+      <li>1, 2, 4, 7, 11, <span class="ln ln-s"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C3. Analogy</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="7">
+      <li>Sun : Day :: Moon : <span class="ln ln-m"></span> <span class="m">১</span></li>
+      <li>Pen : Write :: Scissors : <span class="ln ln-m"></span> <span class="m">১</span></li>
+    </ol>
+
+    <div class="grp"><span>C4. Direction &amp; Sequencing</span><span class="gm">২ নম্বর</span></div>
+    <ol class="q" start="9">
+      <li><b>S</b> ঘর থেকে নির্দেশ অনুসরণ করে পথ আঁকো এবং শেষ ঘরে <b>★</b> আঁকো।<br>
+        <b>নির্দেশ:</b> উপরে ২ ঘর → ডানে ৩ ঘর → উপরে ১ ঘর
+        <table class="maze">
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td>S</td><td></td><td></td><td></td></tr>
+        </table>
+        <span class="m">২</span></li>
+    </ol>
+  </div>
+
+  <div class="scorebox">
+    <table>
+      <tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+      <tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+    </table>
+    <div class="sign"><span>Day 1 স্কোর: ______ / ৩০ &nbsp;&nbsp;→&nbsp;&nbsp; Day 30 স্কোর: ______ / ৩০ &nbsp;&nbsp;→&nbsp;&nbsp; উন্নতি: ______ %</span><span>স্বাক্ষর: ..............................</span></div>
+  </div>
+  <div class="pagefoot"><span>Day 30 — FINAL ASSESSMENT</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<!-- ============================= ANSWER KEY ============================= -->
+<section class="paper">
+  <h2 class="big">✅ উত্তরপত্র (ANSWER KEY) — Day 21 – Day 30</h2>
+  <div class="note"><b>মূল্যায়নের নিয়ম:</b> "(মুক্ত)" চিহ্নিত প্রশ্নগুলোর একটিমাত্র সঠিক উত্তর নেই — শিশুর লেখা বাক্যে <b>(১)</b> বড় হাতের অক্ষরে শুরু, <b>(২)</b> শেষে দাঁড়ি, <b>(৩)</b> অর্থবোধক — এই তিনটি থাকলে পূর্ণ নম্বর দিন।</div>
+
+  <h3 class="sub">📗 SECTION A — English Language Skills</h3>
+  <table class="ans">
+    <tr><th style="width:38px">দিন</th><th>উত্তরসমূহ (প্রশ্ন ১ → ১০)</th></tr>
+    <tr><td class="d">২১</td><td>১) Chair &nbsp; ২) i (thin) &nbsp; ৩) Large &nbsp; ৪) an &nbsp; ৫) goes &nbsp; ৬) <b>Rina likes mango.</b> &nbsp; ৭) Blue ও White &nbsp; ৮) Friday &nbsp; ৯) boxes &nbsp; ১০) (মুক্ত)</td></tr>
+    <tr><td class="d">২২</td><td>১) Fruits &nbsp; ২) Colours &nbsp; ৩) Animals &nbsp; ৪) mangoes &nbsp; ৫) An &nbsp; ৬) are &nbsp; ৭) Apples / Mangoes / Bananas (যেকোনো দুটি) &nbsp; ৮) Mangoes &nbsp; ৯) (মুক্ত) &nbsp; ১০) (মুক্ত)</td></tr>
+    <tr><td class="d">২৩</td><td>১) Sunflower &nbsp; ২) Rainbow &nbsp; ৩) Football &nbsp; ৪) Butter + fly &nbsp; ৫) Blackboard &nbsp; ৬) bow &nbsp; ৭) A rainbow &nbsp; ৮) From her window &nbsp; ৯) Toothbrush &nbsp; ১০) (মুক্ত)</td></tr>
+    <tr><td class="d">২৪</td><td>১) <b>Rana plays football.</b> &nbsp; ২) <b>She eats rice.</b> &nbsp; ৩) <b>I read a book.</b> &nbsp; ৪) fly &nbsp; ৫) an apple &nbsp; ৬) <b>He reads a book.</b> &nbsp; ৭) A pen &nbsp; ৮) Ten taka &nbsp; ৯–১০) (মুক্ত)</td></tr>
+    <tr><td class="d">২৫</td><td>১) ? &nbsp; ২) . &nbsp; ৩) ! &nbsp; ৪) <b>Where is my bag?</b> &nbsp; ৫) <b>I love my mother.</b> &nbsp; ৬) (খ) Are you ready &nbsp; ৭) At five o'clock &nbsp; ৮) ১টি &nbsp; ৯–১০) (মুক্ত)</td></tr>
+    <tr><td class="d">২৬</td><td>১) তৃষ্ণার্ত &nbsp; ২) Cold &nbsp; ৩) Large &nbsp; ৪) drinks &nbsp; ৫) is &nbsp; ৬) A &nbsp; ৭) Small stones (ছোট পাথর) &nbsp; ৮) কারণ সে পাথর ফেলে পানির স্তর উপরে তুলেছিল &nbsp; ৯) (মুক্ত — যেমন "বুদ্ধি খাটালে সমস্যার সমাধান হয়") &nbsp; ১০) stones</td></tr>
+    <tr><td class="d">২৭</td><td>১) G &nbsp; ২) trees &nbsp; ৩) F–L–O–W–E–R &nbsp; ৪) are &nbsp; ৫) is &nbsp; ৬) <b>There is a tree in the garden.</b> &nbsp; ৭) On the tree &nbsp; ৮) Near the tree &nbsp; ৯–১০) (মুক্ত)</td></tr>
+    <tr><td class="d">২৮</td><td><b>Dictation শব্দ:</b> ১) friend &nbsp; ২) school &nbsp; ৩) water &nbsp; | ৪) friend &nbsp; ৫) school &nbsp; ৬) water &nbsp; ৭) To my school &nbsp; ৮) Water &nbsp; | <b>শব্দ ৪:</b> ৯) happy &nbsp; <b>শব্দ ৫:</b> ১০) mother</td></tr>
+    <tr><td class="d">২৯</td><td>১) boxes &nbsp; ২) Fast &nbsp; ৩) Rainbow &nbsp; ৪) an &nbsp; ৫) play &nbsp; ৬) ? &nbsp; ৭) A holiday &nbsp; ৮) In a village &nbsp; ৯) (মুক্ত) &nbsp; ১০) Dictation: <b>holiday</b></td></tr>
+    <tr><td class="d">৩০</td><td>১) Ship &nbsp; ২) Little / Tiny &nbsp; ৩) flower &nbsp; ৪) an &nbsp; ৫) boxes &nbsp; ৬) <b>She likes cats.</b> &nbsp; ৭) To the park &nbsp; ৮) Friendly &nbsp; ৯) (মুক্ত) &nbsp; ১০) Dictation: <b>friend</b></td></tr>
+  </table>
+
+  <h3 class="sub">📘 SECTION B — Mathematics &amp; Mental Reasoning</h3>
+  <table class="ans">
+    <tr><th style="width:38px">দিন</th><th>B1 (১–৪)</th><th>B2 (৫–৬)</th><th>B3 (৭–৮)</th><th>B4 (৯)</th></tr>
+    <tr><td class="d">২১</td><td>49, 23, 14, 8</td><td>দশক ৫ / একক ৮; ৬:৩০</td><td>20; 35</td><td>৪৫ − ১৮ = <b>২৭ টাকা</b></td></tr>
+    <tr><td class="d">২২</td><td>82, 84, 83, 92</td><td>দশক ৮ / একক ২; ৭৬</td><td>40; 40</td><td>৪৮ + ২৫ = <b>৭৩টি</b></td></tr>
+    <tr><td class="d">২৩</td><td>34, 36, 36, 34</td><td>৬৫; ৯৯</td><td>70; 32</td><td>৮০ − ৩৫ = <b>৪৫ পাতা</b></td></tr>
+    <tr><td class="d">২৪</td><td>১৫, ১৩, ১০০, ৪০ টাকা</td><td>৫টি নোট; ৫০ টাকা = ৫০ টাকার নোট</td><td>80; 85</td><td>৫০ − (২০+১৫) = <b>১৫ টাকা</b></td></tr>
+    <tr><td class="d">২৫</td><td>33, 30, 20, 15</td><td>৩৯; ১০০</td><td>16; ▲</td><td>৬০ − ২৫ + ৩০ = <b>৬৫ টাকা</b></td></tr>
+    <tr><td class="d">২৬</td><td>93, 45, 18, 9</td><td>৬৪; 18, 81, 88</td><td>24; 60</td><td>৩৫ − ১২ + ৫ = <b>২৮ জন</b></td></tr>
+    <tr><td class="d">২৭</td><td>74, 36, 16, 7</td><td>৪০; ৬৬</td><td>10; 20</td><td>২৫ − ৯ + ১২ = <b>২৮টি</b></td></tr>
+    <tr><td class="d">২৮</td><td>36, 34, 20, 6</td><td>৯৯; ৯৯</td><td>28; 8</td><td>৯ × ২ = ১৮; ১৮ − ৫ = <b>১৩টি</b></td></tr>
+    <tr><td class="d">২৯</td><td>94, 46, 14, 10</td><td>৭; ৯৫</td><td>12; 16</td><td>১০০ − (৪৫+২৫) = <b>৩০ টাকা</b></td></tr>
+    <tr><td class="d">৩০</td><td>83, 47, 18, 55</td><td>একক ৮ / দশক ৭; ৯৮</td><td>15; 70</td><td>৪৫ − (২০+১০) = <b>১৫ টাকা</b></td></tr>
+  </table>
+
+  <h3 class="sub">📙 SECTION C — Analytical Ability</h3>
+  <table class="ans">
+    <tr><th style="width:38px">দিন</th><th>C1 (১–৩)</th><th>C2 (৪–৬)</th><th>C3 (৭–৮)</th><th>C4 (৯)</th></tr>
+    <tr><td class="d">২১</td><td>Carrot; 18; Yellow</td><td>2; ▲; ●</td><td>Egg; Shoe</td><td>বীজ বপন–১, চারাগাছ–২, ফুল ফোটা–৩, ফল ধরা–৪</td></tr>
+    <tr><td class="d">২২</td><td>(গ) ছোট-নীল; 15; Fruits: Apple, Banana, Mango / Animals: Dog, Cat, Cow</td><td>▲; 15; 8</td><td>Sky; Slow</td><td>চাল আনা–১, চাল ধোয়া–২, রান্না–৩, খাওয়া–৪</td></tr>
+    <tr><td class="d">২৩</td><td>Ball (একমাত্র ঘন/৩D বস্তু); 29; পোশাক: Shirt, Pant, Frock / খাবার: Rice, Fish, Egg</td><td>■; 9; 45</td><td>Milk; School</td><td>চিঠি লেখা–১, খামে ভরা–২, স্ট্যাম্প–৩, ডাকবাক্স–৪</td></tr>
+    <tr><td class="d">২৪</td><td>চাল; River; পড়ার: Pen, Pencil, Eraser / খাওয়ার: Spoon, Plate, Glass</td><td>●; 9; 40</td><td>Learn; Hive (মৌচাক)</td><td>দোকানে যাওয়া–১, বাছাই–২, টাকা দেওয়া–৩, বাড়ি ফেরা–৪</td></tr>
+    <tr><td class="d">২৫</td><td>Table; 25; আকাশ: Sun, Moon, Star / আসবাব: Chair, Table, Bed</td><td>48; A; 9</td><td>Cut; Cold</td><td>ওঠা–১, দাঁত মাজা–২, নাস্তা–৩, পোশাক পরা–৪, স্কুলে যাওয়া–৫</td></tr>
+    <tr><td class="d">২৬</td><td>Red; 13; দিক: Up, Down, Left / ফল: Mango, Orange, Litchi</td><td>↑; 20; ▲</td><td>Right; Sunset</td><td>★ বসবে <b>নিচ থেকে ২য় সারির ৩য় ঘরের ডান পাশে</b> — অর্থাৎ ৩য় সারি, ৪র্থ কলাম</td></tr>
+    <tr><td class="d">২৭</td><td>Box; 25; প্রাণী: Cow, Goat / ফুল: Rose, Lily</td><td>●; 10; ▲</td><td>Page; Child</td><td>বই খোলা–১, পড়া–২, বই বন্ধ–৩, ব্যাগে রাখা–৪</td></tr>
+    <tr><td class="d">২৮</td><td>9 (বাকি তিনটি মৌলিক সংখ্যা); Jump; আকৃতি: Triangle, Square / বার: Monday, Sunday</td><td>8; 18; D</td><td>Cap / Hat; Calf (বাছুর)</td><td>পানি ফোটানো–১, চা পাতা–২, চিনি–৩, ছেঁকে ঢালা–৪, পান করা–৫</td></tr>
+    <tr><td class="d">২৯</td><td>Carrot; 20; Fruits: Apple, Banana, Mango / Animals: Dog, Cat, Cow</td><td>▲; 25; 9</td><td>Night; Cut</td><td>বীজ–১, চারা–২, গাছ–৩, ফল–৪</td></tr>
+    <tr><td class="d">৩০</td><td>Carrot; 20; Fruits: Apple, Banana, Mango / Animals: Dog, Cat, Cow</td><td>18; ■; 16</td><td>Night; Cut</td><td>★ বসবে <b>সবার উপরের সারির শেষ (৪র্থ) ঘরে</b></td></tr>
+  </table>
+
+  <div class="pagefoot"><span>Answer Key — Day 21–30</span><span>উত্তরপত্র</span></div>
+</section>
+
+<!-- ============================= EXPLANATION + TRICKS ============================= -->
+<section class="paper">
+  <h2 class="big">🔍 গুরুত্বপূর্ণ প্রশ্নের ব্যাখ্যা ও শেখানোর সেরা কৌশল (Best Tricks)</h2>
+
+  <h3 class="sub">📗 Section A — English: শেখানোর ৫টি কৌশল</h3>
+
+  <div class="trick"><h5>কৌশল ১ — Category Words শেখানোর "তিন ঝুড়ি" পদ্ধতি (Day 22)</h5>
+  <p>ঘরে তিনটি আসল ঝুড়ি/বাটি রাখুন এবং লেবেল দিন — <b>Fruits / Animals / Colours</b>। কাগজে লেখা শব্দ-কার্ড শিশুকে ঝুড়িতে ফেলতে বলুন। শব্দকে "শ্রেণিতে ফেলা" শারীরিকভাবে করলে <i>semantic categorization</i> মস্তিষ্কে দ্রুত গেঁথে যায় — এটাই পরে Section C-এর Classification প্রশ্নেও সরাসরি কাজে লাগে।</p></div>
+
+  <div class="trick"><h5>কৌশল ২ — Compound Word শেখানোর "দুই কার্ড জোড়া" পদ্ধতি (Day 23)</h5>
+  <p>আলাদা দুটি কার্ডে <b>SUN</b> ও <b>FLOWER</b> লিখে পাশাপাশি ধরুন, তারপর কার্ড দুটি ছুঁইয়ে দিয়ে বলুন "এখন এরা এক হয়ে গেল — SUNFLOWER"। শিশু নিজে কার্ড জোড়া লাগিয়ে নতুন শব্দ বানাবে (rain+bow, tooth+brush, foot+ball)। এতে বানান মুখস্থ না করেই শব্দভাণ্ডার বাড়ে।</p></div>
+
+  <div class="trick"><h5>কৌশল ৩ — S + V + O শেখানোর "রঙিন ট্রেন" পদ্ধতি (Day 24)</h5>
+  <p>বাক্যকে তিন বগির ট্রেন ভাবুন — <b>সবুজ বগি = কে (Subject)</b>, <b>লাল বগি = কী করে (Verb)</b>, <b>নীল বগি = কী নিয়ে (Object)</b>। শিশু প্রতিটি শব্দ-কার্ড সঠিক রঙের বগিতে বসাবে। এলোমেলো শব্দ সাজানোর প্রশ্নে (Q1–3) ভুল প্রায় শূন্যে নেমে আসে।</p></div>
+
+  <div class="trick"><h5>কৌশল ৪ — Punctuation শেখানোর "কণ্ঠস্বর পরীক্ষা" পদ্ধতি (Day 25)</h5>
+  <p>বাক্যটি জোরে পড়তে বলুন। কণ্ঠস্বর <b>শেষে উপরে উঠলে → প্রশ্নবোধক (?)</b>, <b>জোরে/উত্তেজিত হলে → বিস্ময়সূচক (!)</b>, <b>সমান থাকলে → দাঁড়ি (.)</b>। চিহ্ন মুখস্থ করানোর বদলে কান দিয়ে চেনানো — এটি ৬-৭ বছর বয়সে সবচেয়ে নির্ভরযোগ্য পদ্ধতি।</p></div>
+
+  <div class="trick"><h5>কৌশল ৫ — Inference প্রশ্ন (Day 26 Q8) শেখানোর "গল্পের ভিতরের প্রমাণ" পদ্ধতি</h5>
+  <p>Inference মানে যা <b>সরাসরি লেখা নেই</b> কিন্তু বোঝা যায়। শিশুকে সবসময় জিজ্ঞেস করুন — <b>"গল্পের কোন লাইনটি পড়ে তুমি এটা বুঝলে?"</b> এবং সেই লাইনে পেন্সিল দিয়ে দাগ দিতে বলুন। "প্রমাণ দেখাও" অভ্যাসটিই পরবর্তীতে উচ্চতর কমপ্রিহেনশনের ভিত্তি।</p></div>
+
+  <h3 class="sub">📘 Section B — Mathematics: শেখানোর ৫টি কৌশল</h3>
+
+  <div class="trick"><h5>কৌশল ১ — হাতে রাখা যোগের "টিকিট পাঠানো" গল্প (Day 22)</h5>
+  <p>দুটি ঘর আঁকুন — <b>দশক | একক</b>। একক ঘরে ১০ পূর্ণ হলে বলুন "১০টি একক একসাথে হলে একটি দশকের টিকিট পায়, সেই টিকিটটি পাশের ঘরে চলে যায়"। ১০টি কাঠি বেঁধে একটি বান্ডিল বানিয়ে দেখালে ধারণাটি চোখে দেখা যায়, ফলে "হাতে ১ রাখা" আর অর্থহীন নিয়ম থাকে না।</p></div>
+
+  <div class="trick"><h5>কৌশল ২ — ধার করা বিয়োগের "প্রতিবেশীর কাছে ধার" গল্প (Day 23)</h5>
+  <p>একক ঘরে সংখ্যা কম পড়লে বলুন — "পাশের দশক ঘর থেকে ১টি বান্ডিল ধার নাও, বান্ডিল খুললেই ১০টি একক পাওয়া যায়"। ধার নেওয়ার পর দশক ঘরের সংখ্যা কেটে ১ কমিয়ে দিতে হবে — এই দুটি ধাপ সবসময় <b>একসাথে</b> করানো অভ্যাস করান, তাহলে ৯০% ভুল কমে যায়।</p></div>
+
+  <div class="trick"><h5>কৌশল ৩ — টাকার অঙ্ক শেখানোর "সত্যিকারের দোকান" পদ্ধতি (Day 24)</h5>
+  <p>ঘরে খেলনা দোকান বানান — জিনিসপত্রে দামের কাগজ লাগান, কাগজের নোট বানিয়ে দিন (৫, ১০, ২০, ৫০, ১০০)। শিশু কিনবে, ভাঙতি হিসাব করবে, ফেরত দেবে। টাকা-পয়সা <b>একমাত্র গণিত</b> যা দৈনন্দিন জীবনে প্রতিদিন লাগে — তাই এটি হাতে-কলমে শেখালে দ্রুততম ফল পাওয়া যায়।</p></div>
+
+  <div class="trick"><h5>কৌশল ৪ — ২-ধাপ Word Problem এর "দুই বাক্স" পদ্ধতি (Day 25, 28, 29, 30)</h5>
+  <p>খাতায় দুটি বাক্স আঁকতে বলুন — <b>ধাপ ১</b> ও <b>ধাপ ২</b>। প্রথম বাক্সে শুধু প্রথম হিসাবের ফল লিখবে, দ্বিতীয় বাক্সে চূড়ান্ত উত্তর। একসাথে পুরো সমস্যা মাথায় রাখতে গিয়েই ৬-৭ বছর বয়সীরা ভুল করে (working-memory overload) — বাক্সে ভাগ করলে চাপ অর্ধেক হয়ে যায়।</p></div>
+
+  <div class="trick"><h5>কৌশল ৫ — ২-নিয়ম Pattern চেনার "পার্থক্যের সিঁড়ি" পদ্ধতি (Day 27)</h5>
+  <p>সংখ্যার নিচে প্রতিটি জোড়ার পার্থক্য লিখতে বলুন: <b>1, 2, 4, 5, 7, 8 → +১, +২, +১, +২</b>। পার্থক্যগুলো লিখলেই লুকানো নিয়ম চোখে ভেসে ওঠে। এটি অলিম্পিয়াড-স্তরের সিকোয়েন্স প্রশ্নের মূল কৌশল — এখন থেকে অভ্যাস করালে পরের বছর অনেক এগিয়ে থাকবে।</p></div>
+
+  <div class="pagefoot"><span>Explanation &amp; Best Tricks (1/2)</span><span>Section A &amp; B</span></div>
+</section>
+
+<section class="paper">
+  <h3 class="sub" style="margin-top:0">📙 Section C — Analytical Ability: শেখানোর ৬টি কৌশল</h3>
+
+  <div class="trick"><h5>কৌশল ১ — ২-বৈশিষ্ট্যের Classification এর "দুই প্রশ্ন" পদ্ধতি (Day 22)</h5>
+  <p>প্রতিটি বস্তু দেখে পরপর <b>দুটি প্রশ্ন</b> করতে শেখান — "রং কী?" এবং "আকার কী?"। খাতায় ছোট ছক করে লিখুন (রং | আকার)। যে সারিটি বাকিদের সাথে অন্তত একটি কলামে মেলে না, সেটিই উত্তর। এলোমেলো অনুমানের বদলে <b>পদ্ধতিগত যাচাই</b> শেখানোই এখানে আসল শিক্ষা।</p></div>
+
+  <div class="trick"><h5>কৌশল ২ — ৩×৩ Grid এর "সারি স্ক্যান → কলাম স্ক্যান" পদ্ধতি (Day 23, 30)</h5>
+  <p>আঙুল দিয়ে প্রথমে <b>বাম থেকে ডানে</b> প্রতিটি সারি পড়ান, তারপর <b>উপর থেকে নিচে</b> প্রতিটি কলাম। দুই দিক থেকেই একই নিয়ম মিললে উত্তর নিশ্চিত। এটি প্রকৃত IQ/অলিম্পিয়াড টেস্টের স্ট্যান্ডার্ড কৌশল — একে "দুইবার নিশ্চিত করা" নিয়ম বলে শেখান।</p></div>
+
+  <div class="trick"><h5>কৌশল ৩ — Analogy সমাধানের "সম্পূর্ণ বাক্য" পদ্ধতি (Day 24, 26, 28)</h5>
+  <p>কখনো ফাঁকা জায়গায় সরাসরি অনুমান করতে দেবেন না। আগে জোরে বাক্য বানাতে বলুন — <b>"Bee মধু বানায়, তাহলে Cow কী দেয়?"</b> সম্পর্কটি মুখে উচ্চারণ করলেই উত্তর নিজে থেকে আসে। সম্পর্কের ধরনগুলো আলাদা করে চেনান: <i>উৎপাদন</i> (Cow→Milk), <i>বাসস্থান</i> (Bee→Hive), <i>কাজ</i> (Pen→Write), <i>বিপরীত</i> (Big→Small)।</p></div>
+
+  <div class="trick"><h5>কৌশল ৪ — Direction ও Maze এর "আঙুল হাঁটা" পদ্ধতি (Day 26, 30)</h5>
+  <p>পেন্সিল নয় — প্রথমে <b>আঙুল দিয়ে</b> ঘর গুনে হাঁটতে বলুন, প্রতিটি ধাপ মুখে বলবে ("ডানে এক, ডানে দুই...")। পথ নিশ্চিত হলে তবেই পেন্সিল চালাবে। এতে ভুল মুছে ফেলার ঝামেলা থাকে না এবং স্থান-ধারণা (spatial mapping) দৃঢ় হয়।</p></div>
+
+  <div class="trick"><h5>কৌশল ৫ — ৫-ধাপ Sequencing এর "প্রথম ও শেষ আগে" পদ্ধতি (Day 25, 28)</h5>
+  <p>পাঁচটি ধাপ একসাথে সাজাতে গেলে শিশু বিভ্রান্ত হয়। তাই নিয়ম করুন — <b>আগে সবচেয়ে প্রথম কাজটি (১) খুঁজে বের করো, তারপর সবচেয়ে শেষ কাজটি (৫)</b>, মাঝের তিনটি এরপর সহজ হয়ে যায়। এটি বিকল্প-হ্রাস (elimination) কৌশলের প্রাথমিক রূপ।</p></div>
+
+  <div class="trick"><h5>কৌশল ৬ — Mixed Mock দিনে (Day 27, 28) "সহজ আগে" পরীক্ষা-কৌশল</h5>
+  <p>চূড়ান্ত পরীক্ষার আগে অবশ্যই শেখান: <b>প্রথম রাউন্ডে শুধু যেগুলো সাথে সাথে পারো সেগুলো করো</b>, কঠিনগুলোতে ছোট দাগ দিয়ে রাখো, শেষে ফিরে এসো। ৭৫ মিনিটের পরীক্ষায় সময় ব্যবস্থাপনা শেখা একটি আলাদা দক্ষতা — এটি না শেখালে জানা প্রশ্নেও নম্বর হারায়।</p></div>
+
+  <h3 class="sub">📊 কেন এই ১০ দিনের কাঠামো এভাবে সাজানো হয়েছে</h3>
+  <table class="ans">
+    <tr><th>দিন</th><th>শিক্ষাগত যুক্তি (Pedagogical Rationale)</th></tr>
+    <tr><td class="d">২১</td><td>নতুন কিছু নয় — সপ্তাহ ৩ এর ধারণ (retention) মাপা। নতুন শেখার আগে পুরোনো ভিত পরীক্ষা করাই মানসম্মত পদ্ধতি।</td></tr>
+    <tr><td class="d">২২–২৩</td><td>ভাষায় <i>শব্দ গঠনের</i> নিয়ম (category, compound) আর গণিতে <i>স্থানীয় মানের</i> নিয়ম (carry, borrow) — দুটোই "নিয়ম প্রয়োগ" দক্ষতা, তাই একই দিনে দুই বিষয়ে একই ধরনের চিন্তা অনুশীলন হয়।</td></tr>
+    <tr><td class="d">২৪–২৫</td><td>বাক্য গঠন ও যতিচিহ্ন = লেখার কাঠামো; টাকা ও ২-ধাপ সমস্যা = বাস্তব জীবনের প্রয়োগ। এই পর্যায়ে শেখা <b>প্রয়োগমুখী</b> হয়।</td></tr>
+    <tr><td class="d">২৬–২৭</td><td>Inference ও ২-নিয়ম Pattern — প্রথমবারের মতো "সরাসরি উত্তর নেই, ভাবতে হবে" ধরনের প্রশ্ন। এটিই অলিম্পিয়াড-মানসিকতার সূচনা।</td></tr>
+    <tr><td class="d">২৮–২৯</td><td>গতি (speed) + পুনরালোচনা (review)। চূড়ান্ত পরীক্ষার আগে নতুন ধারণা নয় — আত্মবিশ্বাস ও দ্রুততা বাড়ানোই লক্ষ্য।</td></tr>
+    <tr><td class="d">৩০</td><td>Day 1 এর প্রশ্নকাঠামোর সাথে তুলনাযোগ্য চূড়ান্ত পরীক্ষা — এতে অগ্রগতি <b>অনুভূতি নয়, সংখ্যায়</b> প্রমাণ করা যায়।</td></tr>
+  </table>
+
+  <div class="pagefoot"><span>Explanation &amp; Best Tricks (2/2)</span><span>Section C + Rationale</span></div>
+</section>
+
+<!-- ============================= TRACKING + FINAL COMPARISON ============================= -->
+<section class="paper">
+  <h2 class="big">📊 অগ্রগতি ট্র্যাকিং ও চূড়ান্ত বিশ্লেষণ</h2>
+
+  <h3 class="sub">১. দৈনিক স্কোর শিট (Day 21–30)</h3>
+  <table class="ans">
+    <tr><th>দিন</th><th>English<br>(১০)</th><th>Math<br>(১০)</th><th>Analytical<br>(১০)</th><th>মোট<br>(৩০)</th><th>গ্রেড</th><th>সময়<br>(মিনিট)</th><th>সবচেয়ে দুর্বল উপ-দক্ষতা</th></tr>
+    <tr><td class="d">২১ 🏁</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২২</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৩</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৪</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৫</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৬</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৭</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৮</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">২৯</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="d">৩০ 🏆</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <h3 class="sub">২. উপ-দক্ষতা ভিত্তিক বিশ্লেষণ (Day 30 পরীক্ষার ভিত্তিতে)</h3>
+  <table class="ans">
+    <tr><th>Section A (English)</th><th>প্রাপ্ত</th><th>Section B (Math)</th><th>প্রাপ্ত</th><th>Section C (Analytical)</th><th>প্রাপ্ত</th></tr>
+    <tr><td>A1 Phonics / Vocabulary</td><td>___ / ৩</td><td>B1 Mental Math</td><td>___ / ৪</td><td>C1 Classification</td><td>___ / ৩</td></tr>
+    <tr><td>A2 Grammar / Sentence</td><td>___ / ৩</td><td>B2 Number Concept</td><td>___ / ২</td><td>C2 Pattern</td><td>___ / ৩</td></tr>
+    <tr><td>A3 Comprehension</td><td>___ / ২</td><td>B3 Pattern</td><td>___ / ২</td><td>C3 Analogy</td><td>___ / ২</td></tr>
+    <tr><td>A4 Writing</td><td>___ / ২</td><td>B4 Word Problem</td><td>___ / ২</td><td>C4 Sequencing</td><td>___ / ২</td></tr>
+  </table>
+
+  <h3 class="sub">৩. চূড়ান্ত তুলনা — Day 1 vs Day 30 (Measurable Outcome)</h3>
+  <table class="ans">
+    <tr><th>মাপকাঠি (KPI)</th><th>Day 1<br>(শুরু)</th><th>Day 14</th><th>Day 21</th><th>Day 30<br>(শেষ)</th><th>লক্ষ্যমাত্রা</th><th>অর্জিত?</th></tr>
+    <tr><td>English মোট স্কোর</td><td></td><td></td><td></td><td></td><td>৮ / ১০</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>Mathematics মোট স্কোর</td><td></td><td></td><td></td><td></td><td>৮ / ১০</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>Analytical মোট স্কোর</td><td></td><td></td><td></td><td></td><td>৮ / ১০</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>দৈনিক মোট (৩০)</td><td></td><td></td><td></td><td></td><td>২৪ / ৩০</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>Mental Math গতি (প্রতি প্রশ্ন)</td><td>___ সেকেন্ড</td><td></td><td></td><td>___ সেকেন্ড</td><td>১৫–২০ সেকেন্ড</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>সংখ্যার পরিসর (স্বচ্ছন্দ)</td><td>১–২০</td><td></td><td></td><td></td><td>১–১০০ (যোগ ও বিয়োগ)</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>স্বাধীনভাবে বাক্য লেখা</td><td>পারে না / আংশিক</td><td></td><td></td><td></td><td>২টি সম্পূর্ণ বাক্য</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>Passage পড়ার সাবলীলতা</td><td>শব্দ ধরে ধরে</td><td></td><td></td><td></td><td>৪–৫ লাইন প্রবাহে</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>Pattern চেনার স্তর</td><td>সরল AB</td><td></td><td></td><td></td><td>২-নিয়ম + ৩×৩ গ্রিড</td><td>হ্যাঁ / না</td></tr>
+    <tr><td>Classification স্তর</td><td>১ বৈশিষ্ট্য</td><td></td><td></td><td></td><td>২ বৈশিষ্ট্য</td><td>হ্যাঁ / না</td></tr>
+  </table>
+
+  <pre class="mono">উন্নতির হার নির্ণয়ের সূত্র:
+
+     উন্নতি (%) =  (Day 30 স্কোর − Day 1 স্কোর)  ÷  ৩০  ×  ১০০
+
+     উদাহরণ: Day 1 = ১৪, Day 30 = ২৫  →  (২৫ − ১৪) ÷ ৩০ × ১০০ = ৩৬.৬% উন্নতি</pre>
+
+  <h3 class="sub">৪. পরবর্তী মাসের সিদ্ধান্ত-নিয়ম (Adaptive Decision Rule)</h3>
+  <pre class="mono">যদি Day 30 মোট স্কোর ≥ ২৭  →  পরের মাসে কঠিনতা এক ধাপ বাড়ান:
+      • যোগ-বিয়োগ ৩ অঙ্কে নিন, ৩ ও ৪ এর নামতা শুরু করুন
+      • English: ছোট অনুচ্ছেদ লেখা (৩ বাক্য) ও past tense পরিচয়
+      • Analytical: Coding-decoding ও Mirror image পুনরায়, ৩×৩ গ্রিড কঠিনতর
+
+যদি Day 30 মোট স্কোর ২২–২৬  →  একই স্তরে আরও ১০ দিন, তবে গতি (speed) বাড়ানোর ওপর জোর
+
+যদি Day 30 মোট স্কোর ১৭–২১  →  যে সেকশনে সবচেয়ে কম, সেটিতে প্রতিদিন অতিরিক্ত ১৫ মিনিট
+      এবং হাতে-কলমে উপকরণ (কাঠি, কার্ড, কাগজের টাকা) ব্যবহার দ্বিগুণ করুন
+
+যদি Day 30 স্কোর &lt; ১৭  →  নতুন কিছু নয়। Day 1–15 এর ধারণাগুলো ১৫ দিন ধরে
+      পুনরায় শেখান, প্রশ্নসংখ্যা কমিয়ে ২০-এ আনুন, প্রতিদিনের সময় ৬০ মিনিট করুন
+
+যদি কোনো একটি উপ-দক্ষতা (যেমন C2 Pattern) টানা ৩ দিন ৫০% এর নিচে থাকে  →
+      পরদিন সেই উপ-দক্ষতায় ওয়ার্কশিট নয়, শুধু খেলা/হাতে-কলমে কার্যক্রম করান</pre>
+
+  <div class="note"><b>সবচেয়ে গুরুত্বপূর্ণ সূচক:</b> স্কোরের চেয়েও বড় KPI হলো — শিশু কি প্রতিদিন বসতে <b>আগ্রহী</b>? যদি ক্লান্তি বা ভয় তৈরি হয়, স্কোর ভালো হলেও পদ্ধতি ব্যর্থ। সপ্তাহে অন্তত একদিন শুধু খেলার মাধ্যমে গণিত ও শব্দ-খেলা রাখুন।</div>
+
+  <div class="cert">
+    <div style="letter-spacing:3px; font-size:11px; color:#0f6b6b; font-weight:700">CERTIFICATE OF COMPLETION</div>
+    <h1>৩০ দিনের অনুশীলন কর্মসূচি সফলভাবে সম্পন্ন</h1>
+    <div style="font-size:13px">এই সনদ প্রদান করা হলো</div>
+    <div class="name"></div>
+    <div style="font-size:13px">কে — যে ৩০ দিন ধরে প্রতিদিন English, Mathematics ও Analytical Ability অনুশীলন সম্পন্ন করেছে।</div>
+    <div style="margin-top:14px; font-size:13px">চূড়ান্ত স্কোর: <b>______ / ৩০</b> &nbsp;&nbsp;•&nbsp;&nbsp; উন্নতি: <b>______ %</b></div>
+    <div style="display:flex; justify-content:space-around; margin-top:34px; font-size:12px">
+      <div>...................................<br>তারিখ</div>
+      <div>...................................<br>অভিভাবক / শিক্ষক</div>
+    </div>
+  </div>
+
+  <div class="pagefoot"><span>Progress Tracking &amp; Final Analysis</span><span>Day 21–30</span></div>
+</section>
+
+</body>
+</html>
