@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 0; }
+  body { margin: 0; padding: 0; font-family: 'Noto Sans Bengali', sans-serif; font-size: 13px; line-height: 1.4; color: #111; }
+  .paper { width: 100%; height: 297mm; box-sizing: border-box; padding: 15mm 20mm; position: relative; page-break-after: always; background: #fff; }
+  h1 { font-size: 26px; text-align: center; color: #1a365d; margin: 0 0 10px 0; border-bottom: 2px solid #1a365d; padding-bottom: 5px; }
+  h2.big { font-size: 24px; text-align: center; color: #2b6cb0; margin-top: 30px; }
+  h3.sub { font-size: 16px; color: #fff; background: #2b6cb0; padding: 4px 10px; margin: 15px 0 10px 0; border-radius: 4px; }
+  .sec { margin-bottom: 20px; }
+  .sec h4 { font-size: 14px; font-weight: bold; color: #2c5282; margin: 0 0 5px 0; border-bottom: 1px dashed #cbd5e0; padding-bottom: 2px; }
+  .q { display: flex; margin-bottom: 5px; }
+  .q .idx { width: 25px; font-weight: bold; color: #4a5568; }
+  .q .txt { flex: 1; }
+  .q .mk { width: 35px; text-align: right; color: #718096; font-size: 11px; }
+  .hintbox { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 8px; margin-bottom: 10px; border-radius: 4px; font-size: 12px; }
+  .passbox { border: 1px solid #e2e8f0; background: #f8fafc; padding: 8px; font-style: italic; margin-bottom: 8px; border-radius: 4px; }
+  .pagefoot { position: absolute; bottom: 15mm; left: 20mm; right: 20mm; border-top: 1px solid #cbd5e0; padding-top: 5px; display: flex; justify-content: space-between; font-size: 11px; color: #a0aec0; }
+  
+  .trick { background: #fffaf0; border-left: 4px solid #f6ad55; padding: 10px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .trick h5 { margin: 0 0 5px 0; color: #dd6b20; font-size: 14px; }
+  .trick p { margin: 0; font-size: 13px; color: #4a5568; }
+  
+  .ans-box { font-size: 11.5px; border: 1px solid #e2e8f0; padding: 8px; margin-bottom: 10px; background: #fafafa; border-radius: 6px; break-inside: avoid; }
+  .ans-box h4 { margin: 0 0 5px 0; color: #2b6cb0; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; font-size: 13px; }
+  .ans-row { margin-bottom: 4px; }
+  .ans-row b { color: #2d3748; }
+  
+  .tracker { width: 100%; border-collapse: collapse; font-size: 11px; text-align: center; margin-top: 10px;}
+  .tracker th, .tracker td { border: 1px solid #cbd5e0; padding: 4px; }
+  .tracker th { background: #edf2f7; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<section class="paper">
+  <br><br><br><br>
+  <h1 style="font-size: 36px; border:none;">PRIMARY MATH OLYMPIAD & LOGIC</h1>
+  <h2 style="font-size: 24px; color: #4a5568;">MONTH 3 WORKBOOK (DAY 61 – 90)</h2>
+  <br><br>
+  <div style="text-align: center; font-size: 16px; color: #2d3748;">
+    <p>Target Age: 6-7 Years (Olympiad & Mastery Level)</p>
+    <p>Daily Routine: 30 Marks (English 10, Math 10, Logic 10)</p>
+    <p>Outcome Oriented & Measurable Growth</p>
+  </div>
+  <br><br><br>
+  <div class="trick" style="margin: 0 40px; border-color: #4299e1; background: #ebf8ff;">
+    <h5>গুরুত্বপূর্ণ নির্দেশিকা (Parents / Teachers):</h5>
+    <p>১. তৃতীয় মাসটি সবচেয়ে চ্যালেঞ্জিং। প্রতিদিন মাত্র ১৫-২০ মিনিট সময় দিন।<br>
+       ২. <b>নির্ভুল উত্তর ও ব্যাখ্যা:</b> ওয়ার্কবুকের শেষে প্রতিটি দিনের উত্তরের সাথে বিস্তারিত ব্যাখ্যা দেওয়া আছে।<br>
+       ৩. <b>Best Tricks:</b> শেষের পৃষ্ঠায় শেখানোর দারুণ কিছু কৌশল দেওয়া আছে, যা পড়াশোনাকে মজাদার করবে।<br>
+       ৪. ভুল হলে বকবেন না, ট্রিকসগুলো ব্যবহার করে বুঝিয়ে দিন।</p>
+  </div>
+  <div class="pagefoot"><span>PayNest API / Arena.ai</span><span>Month 3</span></div>
+</section>
+
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 61)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬১</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(slowly / slow)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>slowly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 8 = ? <span class="m">২</span></li><li>14 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4610 + 2615 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>A, B এর চেয়ে লম্বা। C, A এর চেয়ে লম্বা। সবচেয়ে খাটো কে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 61 — Day 61 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 62)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬২</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 5 = ? <span class="m">২</span></li><li>8 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4620 + 2625 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>৩টি বিড়াল ৩টি ইঁদুর ধরতে ৩ মিনিট সময় নেয়। ১০০টি বিড়াল ১০০টি ইঁদুর ধরতে কত মিনিট নেবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 62 — Day 62 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 63)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৩</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 8 = ? <span class="m">২</span></li><li>35 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4630 + 2635 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>তোমার কাছে ১০ টাকা আছে। তুমি ৫ টাকার কলম কিনলে। দোকানিকে ২০ টাকা দিলে সে কত ফেরত দেবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 63 — Day 63 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 64)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৪</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(happily / happy)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>happily</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 5 = ? <span class="m">২</span></li><li>16 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4640 + 2645 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>লাল, নীল, সবুজ রং পরপর সাজানো। ১০ নম্বর রং কী হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 64 — Day 64 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 65)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৫</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(ate / eat)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 8 = ? <span class="m">২</span></li><li>16 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4650 + 2655 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি ঘড়িতে ৩টা বাজে। আয়নায় দেখলে কয়টা বাজবে বলে মনে হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 65 — Day 65 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 66)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৬</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(quickly / quick)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>quickly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 5 = ? <span class="m">২</span></li><li>18 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4660 + 2665 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>পরপর তিনটি সংখ্যার যোগফল ৬। সংখ্যাগুলো কী কী? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 66 — Day 66 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 67)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৭</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(went / go)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 7 = ? <span class="m">২</span></li><li>16 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4670 + 2675 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 7 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>রাম শ্যামের চেয়ে ভারী, যদু রামের চেয়ে হালকা কিন্তু শ্যামের চেয়ে ভারী। মাঝখানে কে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 67 — Day 67 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 68)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৮</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(slowly / slow)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>slowly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 7 = ? <span class="m">২</span></li><li>20 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4680 + 2685 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 7 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি পিজ্জাকে ৩ বার কাটলে সর্বোচ্চ কয়টি টুকরো হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 68 — Day 68 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 69)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৬৯</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 8 = ? <span class="m">২</span></li><li>20 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4690 + 2695 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>যদি আজ সোমবার হয়, ১০ দিন পর কী বার হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 69 — Day 69 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 70)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭০</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>6 × 8 = ? <span class="m">২</span></li><li>20 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4700 + 2705 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 6 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি বানর ৩ ফুট ওঠে এবং ২ ফুট নিচে নেমে যায়। ৫ ফুট উঠতে কত দিন লাগবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 70 — Day 70 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 71)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭১</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(slowly / slow)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>slowly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>6 × 3 = ? <span class="m">২</span></li><li>20 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4710 + 2715 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 6 Tk. How much for 3 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>A, B এর চেয়ে লম্বা। C, A এর চেয়ে লম্বা। সবচেয়ে খাটো কে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 71 — Day 71 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 72)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭২</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(happily / happy)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(went / go)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>happily</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 8 = ? <span class="m">২</span></li><li>20 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4720 + 2725 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>৩টি বিড়াল ৩টি ইঁদুর ধরতে ৩ মিনিট সময় নেয়। ১০০টি বিড়াল ১০০টি ইঁদুর ধরতে কত মিনিট নেবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 72 — Day 72 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 73)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৩</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(happily / happy)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(went / go)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>happily</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>6 × 7 = ? <span class="m">২</span></li><li>40 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4730 + 2735 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 6 Tk. How much for 7 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>তোমার কাছে ১০ টাকা আছে। তুমি ৫ টাকার কলম কিনলে। দোকানিকে ২০ টাকা দিলে সে কত ফেরত দেবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 73 — Day 73 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 74)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৪</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(ate / eat)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 5 = ? <span class="m">২</span></li><li>32 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4740 + 2745 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>লাল, নীল, সবুজ রং পরপর সাজানো। ১০ নম্বর রং কী হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 74 — Day 74 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 75)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৫</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(happily / happy)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>happily</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 6 = ? <span class="m">২</span></li><li>30 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4750 + 2755 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 6 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি ঘড়িতে ৩টা বাজে। আয়নায় দেখলে কয়টা বাজবে বলে মনে হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 75 — Day 75 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 76)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৬</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(quickly / quick)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>quickly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 8 = ? <span class="m">২</span></li><li>28 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4760 + 2765 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>পরপর তিনটি সংখ্যার যোগফল ৬। সংখ্যাগুলো কী কী? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 76 — Day 76 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 77)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৭</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(happily / happy)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(went / go)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>happily</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>6 × 3 = ? <span class="m">২</span></li><li>32 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4770 + 2775 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 6 Tk. How much for 3 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>রাম শ্যামের চেয়ে ভারী, যদু রামের চেয়ে হালকা কিন্তু শ্যামের চেয়ে ভারী। মাঝখানে কে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 77 — Day 77 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 78)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৮</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 3 = ? <span class="m">২</span></li><li>45 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4780 + 2785 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 3 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি পিজ্জাকে ৩ বার কাটলে সর্বোচ্চ কয়টি টুকরো হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 78 — Day 78 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 79)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৭৯</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 6 = ? <span class="m">২</span></li><li>35 ÷ 5 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4790 + 2795 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 6 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>যদি আজ সোমবার হয়, ১০ দিন পর কী বার হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 79 — Day 79 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 80)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮০</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(slowly / slow)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>slowly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 8 = ? <span class="m">২</span></li><li>12 ÷ 3 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4800 + 2805 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি বানর ৩ ফুট ওঠে এবং ২ ফুট নিচে নেমে যায়। ৫ ফুট উঠতে কত দিন লাগবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 80 — Day 80 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 81)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮১</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(quickly / quick)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(ate / eat)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>quickly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 6 = ? <span class="m">২</span></li><li>32 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4810 + 2815 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 6 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>A, B এর চেয়ে লম্বা। C, A এর চেয়ে লম্বা। সবচেয়ে খাটো কে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 81 — Day 81 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 82)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮২</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 9 = ? <span class="m">২</span></li><li>8 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4820 + 2825 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 9 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>৩টি বিড়াল ৩টি ইঁদুর ধরতে ৩ মিনিট সময় নেয়। ১০০টি বিড়াল ১০০টি ইঁদুর ধরতে কত মিনিট নেবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 82 — Day 82 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 83)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৩</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(slowly / slow)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>slowly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 5 = ? <span class="m">২</span></li><li>28 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4830 + 2835 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>তোমার কাছে ১০ টাকা আছে। তুমি ৫ টাকার কলম কিনলে। দোকানিকে ২০ টাকা দিলে সে কত ফেরত দেবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 83 — Day 83 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 84)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৪</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(quickly / quick)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>quickly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 3 = ? <span class="m">২</span></li><li>32 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4840 + 2845 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 3 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>লাল, নীল, সবুজ রং পরপর সাজানো। ১০ নম্বর রং কী হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 84 — Day 84 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 85)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৫</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(ate / eat)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 8 = ? <span class="m">২</span></li><li>24 ÷ 3 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4850 + 2855 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 8 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি ঘড়িতে ৩টা বাজে। আয়নায় দেখলে কয়টা বাজবে বলে মনে হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 85 — Day 85 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 86)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৬</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(happily / happy)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(played / play)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>happily</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 5 = ? <span class="m">২</span></li><li>16 ÷ 4 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4860 + 2865 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>পরপর তিনটি সংখ্যার যোগফল ৬। সংখ্যাগুলো কী কী? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 86 — Day 86 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 87)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৭</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(ate / eat)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>8 × 3 = ? <span class="m">২</span></li><li>15 ÷ 3 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4870 + 2875 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 8 Tk. How much for 3 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>রাম শ্যামের চেয়ে ভারী, যদু রামের চেয়ে হালকা কিন্তু শ্যামের চেয়ে ভারী। মাঝখানে কে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 87 — Day 87 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 88)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৮</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(slowly / slow)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(saw / see)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(but / so)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>slowly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 7 = ? <span class="m">২</span></li><li>15 ÷ 3 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4880 + 2885 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 7 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি পিজ্জাকে ৩ বার কাটলে সর্বোচ্চ কয়টি টুকরো হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 88 — Day 88 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">MONTH 3 ADVANCED (DAY 89)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৮৯</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(went / go)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(because / but)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>9 × 5 = ? <span class="m">২</span></li><li>12 ÷ 2 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4890 + 2895 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 9 Tk. How much for 5 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>যদি আজ সোমবার হয়, ১০ দিন পর কী বার হবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 89 — Day 89 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+<section class="paper">
+<header class="masthead">
+<div class="brand">PRIMARY OLYMPIAD PREPARATION PROGRAM</div>
+<h1>দৈনিক অনুশীলন ও মূল্যায়ন পত্র</h1>
+<div class="sub">FINAL ASSESSMENT (MONTH 3)</div>
+</header>
+<table class="meta"><tr>
+<td class="k">নাম</td><td class="v"></td>
+<td class="k">দিন</td><td class="v dayno">৯০</td>
+<td class="k">তারিখ</td><td class="v"></td>
+<td class="k">পূর্ণমান</td><td class="v">৩০</td>
+<td class="k">সময়</td><td class="v">৭৫ মিনিট</td>
+</tr></table>
+<div class="sec a"><div class="sec-head"><span>SECTION A — English Language Skills</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>A1. Adverbs (How?)</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>The dog runs <span class="opt">(loudly / loud)</span>. <span class="m">৩</span></li></ol><div class="grp"><span>A2. Past Tense</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>Yesterday, we <span class="opt">(went / go)</span> to the park. <span class="m">৩</span></li></ol><div class="grp"><span>A3. Conjunctions</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>I am happy <span class="opt">(and / or)</span> I won. <span class="m">২</span></li></ol><div class="grp"><span>A4. Sentence Making</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Write a sentence with <b>loudly</b>: __________ <span class="m">২</span></li></ol></div>
+<div class="sec b"><div class="sec-head"><span>SECTION B — Mathematics &amp; Mental Reasoning</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>B1. Mental Math</span><span class="gm">৪ নম্বর</span></div><ol class="q" start="1"><li>7 × 7 = ? <span class="m">২</span></li><li>24 ÷ 3 = ? <span class="m">২</span></li></ol><div class="grp"><span>B2. 3-Digit Math</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li>4900 + 2905 = ? <span class="m">২</span></li></ol><div class="grp"><span>B3. Fractions / Time</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>Quarter past 3 means 3:___ ? <span class="m">২</span></li></ol><div class="grp"><span>B4. Olympiad Word Problem</span><span class="gm">২ নম্বর</span></div><ol class="q" start="5"><li>1 pen costs 7 Tk. How much for 7 pens? <span class="m">২</span></li></ol></div>
+<div class="sec c"><div class="sec-head"><span>SECTION C — Analytical Ability</span><span class="badge">১০ নম্বর</span></div><div class="grp"><span>C1. Advanced Series</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="1"><li>2, 5, 9, 14, ? <span class="m">৩</span></li></ol><div class="grp"><span>C2. Coding</span><span class="gm">৩ নম্বর</span></div><ol class="q" start="2"><li>A=1, B=2. What is 3, 1, 20? <span class="m">৩</span></li></ol><div class="grp"><span>C3. Odd One Out</span><span class="gm">২ নম্বর</span></div><ol class="q" start="3"><li><span class="opt">(Square / Circle / Triangle / Oval)</span> <span class="m">২</span></li></ol><div class="grp"><span>C4. Olympiad Logic</span><span class="gm">২ নম্বর</span></div><ol class="q" start="4"><li>একটি বানর ৩ ফুট ওঠে এবং ২ ফুট নিচে নেমে যায়। ৫ ফুট উঠতে কত দিন লাগবে? <span class="m">২</span></li></ol></div>
+<div class="scorebox">
+<table>
+<tr><th>Section A<br>English</th><th>Section B<br>Mathematics</th><th>Section C<br>Analytical</th><th>মোট</th><th>গ্রেড</th><th>সময় লেগেছে</th></tr>
+<tr><td>____ / ১০</td><td>____ / ১০</td><td>____ / ১০</td><td class="tot">____ / ৩০</td><td>____</td><td>____ মিনিট</td></tr>
+</table>
+<div class="sign"><span>পরীক্ষকের মন্তব্য: ................................................................</span><span>স্বাক্ষর: ..............................</span></div>
+</div>
+<div class="pagefoot"><span>Day 90 — Day 90 • Month 3</span><span>পূর্ণমান ৩০ • সময় ৭৫ মিনিট</span></div>
+</section>
+
+<section class="paper">
+  <h2 class="big">নির্ভুল উত্তর ও ব্যাখ্যা (Day 61-90)</h2>
+  <p style="text-align:center; color:#4a5568; margin-bottom: 20px;">প্রতিটি প্রশ্নের উত্তর এবং সহজে বোঝানোর ব্যাখ্যা নিচে দেওয়া হলো।</p>
+  <div style='column-count: 2; column-gap: 15px;'>
+
+
+    <div class="ans-box">
+      <h4>Day 61</h4>
+      <div class="ans-row"><b>English:</b><br> A1. slowly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 56 এবং 7<br> B2. 1825 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 56 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. B (ব্যাখ্যা: C > A > B)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 62</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 40 এবং 4<br> B2. 1845 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 40 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৩ মিনিট (ব্যাখ্যা: প্রতিটি বিড়াল নিজের ইঁদুর ধরতে ৩ মিনিট নেয়।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 63</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 72 এবং 7<br> B2. 1865 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 72 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ১৫ টাকা (ব্যাখ্যা: ২০ - ৫ = ১৫ টাকা ফেরত দেবে। ১০ টাকার তথ্যটি বিভ্রান্ত করার জন্য।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 64</h4>
+      <div class="ans-row"><b>English:</b><br> A1. happily (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 40 এবং 4<br> B2. 1885 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 40 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. লাল (ব্যাখ্যা: ১=লাল, ২=নীল, ৩=সবুজ। ১০ কে ৩ দিয়ে ভাগ করলে ভাগশেষ ১, তাই লাল।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 65</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. ate (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 72 এবং 8<br> B2. 1905 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 72 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৯টা (ব্যাখ্যা: ১২ - ৩ = ৯)</div>
+    </div>
+    
+</div></section><section class='paper'><div style='column-count: 2; column-gap: 15px;'>
+
+    <div class="ans-box">
+      <h4>Day 66</h4>
+      <div class="ans-row"><b>English:</b><br> A1. quickly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 40 এবং 9<br> B2. 1925 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 40 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ১, ২, ৩ (ব্যাখ্যা: ১+২+৩=৬)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 67</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. went (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 49 এবং 8<br> B2. 1945 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 49 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. যদু (ব্যাখ্যা: রাম > যদু > শ্যাম)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 68</h4>
+      <div class="ans-row"><b>English:</b><br> A1. slowly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 56 এবং 5<br> B2. 1965 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 56 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৮ টুকরো (ব্যাখ্যা: অলিম্পিয়াড কাট ফর্মুলা)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 69</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 72 এবং 4<br> B2. 1985 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 72 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. বৃহস্পতিবার (ব্যাখ্যা: ১০ কে ৭ দিয়ে ভাগ করলে ভাগশেষ ৩। সোম + ৩ = বৃহস্পতি)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 70</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 48 এবং 4<br> B2. 2005 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 48 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৩ দিন (ব্যাখ্যা: ১ম দিনে ১ ফুট, ২য় দিনে ২ ফুট, ৩য় দিনে ৩ ফুট উঠে ৫ ফুটে পৌঁছাবে।)</div>
+    </div>
+    
+</div></section><section class='paper'><div style='column-count: 2; column-gap: 15px;'>
+
+    <div class="ans-box">
+      <h4>Day 71</h4>
+      <div class="ans-row"><b>English:</b><br> A1. slowly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 18 এবং 4<br> B2. 2025 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 18 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. B (ব্যাখ্যা: C > A > B)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 72</h4>
+      <div class="ans-row"><b>English:</b><br> A1. happily (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. went (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 64 এবং 5<br> B2. 2045 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 64 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৩ মিনিট (ব্যাখ্যা: প্রতিটি বিড়াল নিজের ইঁদুর ধরতে ৩ মিনিট নেয়।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 73</h4>
+      <div class="ans-row"><b>English:</b><br> A1. happily (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. went (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 42 এবং 8<br> B2. 2065 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 42 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ১৫ টাকা (ব্যাখ্যা: ২০ - ৫ = ১৫ টাকা ফেরত দেবে। ১০ টাকার তথ্যটি বিভ্রান্ত করার জন্য।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 74</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. ate (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 40 এবং 8<br> B2. 2085 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 40 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. লাল (ব্যাখ্যা: ১=লাল, ২=নীল, ৩=সবুজ। ১০ কে ৩ দিয়ে ভাগ করলে ভাগশেষ ১, তাই লাল।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 75</h4>
+      <div class="ans-row"><b>English:</b><br> A1. happily (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 54 এবং 6<br> B2. 2105 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 54 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৯টা (ব্যাখ্যা: ১২ - ৩ = ৯)</div>
+    </div>
+    
+</div></section><section class='paper'><div style='column-count: 2; column-gap: 15px;'>
+
+    <div class="ans-box">
+      <h4>Day 76</h4>
+      <div class="ans-row"><b>English:</b><br> A1. quickly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 72 এবং 7<br> B2. 2125 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 72 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ১, ২, ৩ (ব্যাখ্যা: ১+২+৩=৬)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 77</h4>
+      <div class="ans-row"><b>English:</b><br> A1. happily (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. went (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 18 এবং 8<br> B2. 2145 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 18 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. যদু (ব্যাখ্যা: রাম > যদু > শ্যাম)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 78</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 24 এবং 9<br> B2. 2165 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 24 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৮ টুকরো (ব্যাখ্যা: অলিম্পিয়াড কাট ফর্মুলা)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 79</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 42 এবং 7<br> B2. 2185 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 42 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. বৃহস্পতিবার (ব্যাখ্যা: ১০ কে ৭ দিয়ে ভাগ করলে ভাগশেষ ৩। সোম + ৩ = বৃহস্পতি)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 80</h4>
+      <div class="ans-row"><b>English:</b><br> A1. slowly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 56 এবং 4<br> B2. 2205 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 56 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৩ দিন (ব্যাখ্যা: ১ম দিনে ১ ফুট, ২য় দিনে ২ ফুট, ৩য় দিনে ৩ ফুট উঠে ৫ ফুটে পৌঁছাবে।)</div>
+    </div>
+    
+</div></section><section class='paper'><div style='column-count: 2; column-gap: 15px;'>
+
+    <div class="ans-box">
+      <h4>Day 81</h4>
+      <div class="ans-row"><b>English:</b><br> A1. quickly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. ate (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 48 এবং 8<br> B2. 2225 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 48 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. B (ব্যাখ্যা: C > A > B)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 82</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 81 এবং 4<br> B2. 2245 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 81 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৩ মিনিট (ব্যাখ্যা: প্রতিটি বিড়াল নিজের ইঁদুর ধরতে ৩ মিনিট নেয়।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 83</h4>
+      <div class="ans-row"><b>English:</b><br> A1. slowly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 35 এবং 7<br> B2. 2265 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 35 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ১৫ টাকা (ব্যাখ্যা: ২০ - ৫ = ১৫ টাকা ফেরত দেবে। ১০ টাকার তথ্যটি বিভ্রান্ত করার জন্য।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 84</h4>
+      <div class="ans-row"><b>English:</b><br> A1. quickly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 24 এবং 8<br> B2. 2285 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 24 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. লাল (ব্যাখ্যা: ১=লাল, ২=নীল, ৩=সবুজ। ১০ কে ৩ দিয়ে ভাগ করলে ভাগশেষ ১, তাই লাল।)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 85</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. ate (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 56 এবং 8<br> B2. 2305 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 56 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৯টা (ব্যাখ্যা: ১২ - ৩ = ৯)</div>
+    </div>
+    
+</div></section><section class='paper'><div style='column-count: 2; column-gap: 15px;'>
+
+    <div class="ans-box">
+      <h4>Day 86</h4>
+      <div class="ans-row"><b>English:</b><br> A1. happily (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. played (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 40 এবং 4<br> B2. 2325 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 40 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ১, ২, ৩ (ব্যাখ্যা: ১+২+৩=৬)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 87</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. ate (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 24 এবং 5<br> B2. 2345 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 24 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. যদু (ব্যাখ্যা: রাম > যদু > শ্যাম)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 88</h4>
+      <div class="ans-row"><b>English:</b><br> A1. slowly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. saw (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. but (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 63 এবং 5<br> B2. 2365 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 63 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৮ টুকরো (ব্যাখ্যা: অলিম্পিয়াড কাট ফর্মুলা)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 89</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. went (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. because (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 45 এবং 6<br> B2. 2385 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 45 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. বৃহস্পতিবার (ব্যাখ্যা: ১০ কে ৭ দিয়ে ভাগ করলে ভাগশেষ ৩। সোম + ৩ = বৃহস্পতি)</div>
+    </div>
+    
+
+    <div class="ans-box">
+      <h4>Day 90</h4>
+      <div class="ans-row"><b>English:</b><br> A1. loudly (ব্যাখ্যা: 'কীভাবে' দৌড়ায় বোঝাতে adverb -ly বসে)<br> A2. went (ব্যাখ্যা: Yesterday মানে অতীত, তাই past tense)<br> A3. and (ব্যাখ্যা: বাক্যের অর্থ অনুযায়ী সঠিক সংযোগকারী)<br> A4. Open answer / মুক্ত উত্তর</div>
+      <div class="ans-row"><b>Math:</b><br> B1. 49 এবং 8<br> B2. 2405 (ব্যাখ্যা: শতক, দশক, একক ধরে যোগ)<br> B3. 15 (ব্যাখ্যা: Quarter past মানে ১৫ মিনিট পার হয়েছে)<br> B4. 49 Tk (ব্যাখ্যা: ১টির দাম জানা থাকলে গুণ করতে হয়)</div>
+      <div class="ans-row"><b>Logic:</b><br> C1. 20 (ব্যাখ্যা: পার্থক্য যথাক্রমে +3, +4, +5, তাই 14+6=20)<br> C2. CAT (ব্যাখ্যা: C=3, A=1, T=20)<br> C3. Oval/Circle (ব্যাখ্যা: বাকিগুলোর সরলরেখা বা কোণ আছে)<br> C4. ৩ দিন (ব্যাখ্যা: ১ম দিনে ১ ফুট, ২য় দিনে ২ ফুট, ৩য় দিনে ৩ ফুট উঠে ৫ ফুটে পৌঁছাবে।)</div>
+    </div>
+    
+</div>
+<div class="pagefoot"><span>Answer Key & Explanations</span><span>Month 3</span></div></section>
+
+<section class="paper">
+  <h2 class="big">কার্যকরী ট্রিকস (Best Teaching Tricks)</h2>
+  <h3 class="sub">মজার ছলে কঠিন বিষয় শেখানোর কৌশল</h3>
+  
+  <div class="trick"><h5>১. Adverbs শেখানোর "কীভাবে" (How) ট্রিক</h5>
+  <p>verb-কে প্রশ্ন করুন "কীভাবে?"। যেমন: "সে দৌড়ায়" - কীভাবে? "দ্রুত (Quickly)"। সাধারণত -ly যুক্ত শব্দগুলোই Adverb হয়। শিশুকে acting করে দেখান - slowly হেঁটে দেখান, loudly কথা বলে দেখান।</p></div>
+
+  <div class="trick"><h5>২. Multiplication (গুণ) শেখানোর "Group" ট্রিক</h5>
+  <p>নামতা মুখস্থ করার আগে Group করে শেখান। 3 × 4 মানে ৩টি ঝুড়িতে ৪টি করে আপেল। শিশুকে বোতাম বা মার্বেল দিয়ে ৩টি দলে ৪টি করে সাজাতে বলুন।</p></div>
+
+  <div class="trick"><h5>৩. Time (সময়) শেখানোর "Quarter" ট্রিক</h5>
+  <p>ঘড়িকে একটি পিজ্জা কল্পনা করুন। পিজ্জাকে ৪ ভাগ করলে এক ভাগ হলো Quarter (১৫ মিনিট)। তাই Quarter past মানে ১৫ মিনিট পার হয়েছে, আর Quarter to মানে ১৫ মিনিট বাকি।</p></div>
+
+  <div class="trick"><h5>৪. Word Problem এর "Key Word" ট্রিক</h5>
+  <p>প্রশ্নে "Total", "Altogether" থাকলে <b>যোগ (+)</b> হবে। "Left", "Remaining", "Difference" থাকলে <b>বিয়োগ (-)</b> হবে। "Each", "Per" থাকলে <b>গুণ (×) বা ভাগ (÷)</b> হবে।</p></div>
+
+  <div class="trick"><h5>৫. Logic Series এর "Hat" (টুপি) ট্রিক</h5>
+  <p>2, 5, 9, 14 এর মতো ধারায় পাশাপাশি দুটি সংখ্যার উপরে পেন্সিল দিয়ে একটি উল্টো 'V' (টুপি) এঁকে পার্থক্যটা (যেমন +3, +4, +5) লিখতে বলুন। প্যাটার্ন চোখের সামনে ভেসে উঠবে!</p></div>
+
+  <div class="trick"><h5>৬. Mirror Image (আয়না) ট্রিক</h5>
+  <p>b, d, p, q এর মতো বর্ণ আয়নায় কেমন দেখাবে বুঝতে, একটি স্বচ্ছ কাগজে (Tracing paper) বর্ণটি গাঢ় করে লিখে উল্টে দেখতে বলুন। এটি মস্তিষ্কের Spatial Reasoning দ্রুত বাড়ায়।</p></div>
+
+  <div class="pagefoot"><span>Best Tricks</span><span>Month 3</span></div>
+</section>
+
+
+<section class="paper">
+  <h2 class="big">Master Progress Tracker (Month 3)</h2>
+  <p style="text-align:center">প্রতিদিনের প্রাপ্ত নম্বর এখানে লিখে রাখুন।</p>
+  <table class="tracker">
+    <tr><th>Day</th><th>English (10)</th><th>Math (10)</th><th>Logic (10)</th><th>Total (30)</th><th>Signature</th></tr>
+
+<tr><td>Day 61</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 62</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 63</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 64</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 65</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 66</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 67</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 68</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 69</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 70</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 71</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 72</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 73</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 74</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 75</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 76</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 77</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 78</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 79</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 80</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 81</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 82</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 83</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 84</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 85</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 86</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 87</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 88</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 89</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Day 90</td><td></td><td></td><td></td><td></td><td></td></tr>
+
+  </table>
+  
+  <div style="margin-top: 40px; text-align: center; border: 2px dashed #4299e1; padding: 20px; border-radius: 10px; background: #ebf8ff;">
+    <h1 style="color: #2b6cb0; border: none; margin-bottom: 5px;">CERTIFICATE OF EXCELLENCE</h1>
+    <p style="margin: 0; font-size: 14px;">This certifies that</p>
+    <div style="border-bottom: 1px solid #111; width: 60%; margin: 20px auto 5px; height: 20px;"></div>
+    <p style="margin: 0; font-size: 14px;">has successfully completed the 90-Day Math Olympiad Preparation Program (Months 1, 2 & 3).</p>
+  </div>
+  
+  <div class="pagefoot"><span>Progress Tracker & Certificate</span><span>Month 3</span></div>
+</section>
+</body>
+</html>

@@ -66,3 +66,11 @@ python3 make_workbook.py                                              # HTML ত
   * `day-31-60-workbook.pdf` — A4, 32 পৃষ্ঠা (Print Ready)
   * `day-31-60-workbook.html` — HTML Source
   * Generated from `wb_days_31_40.py`, `wb_days_41_50.py`, `wb_days_51_60.py`.
+
+### Month 3 Workbook (Day 61–90)
+* **Target:** Advanced Olympiad Mastery Level (3rd Month)
+* **Focus:** Logic Puzzles, Mental Math, Adverbs, Past Tenses, Conjunctions.
+* **Special:** Includes Answer Key + Explanations for all 30 days and 6 new teaching Tricks at the end of the workbook.
+* **Files:** 
+  * `day-61-90-workbook.pdf` — A4, 45 পৃষ্ঠা (Print Ready)
+  * `day-61-90-workbook.html` — HTML Source
