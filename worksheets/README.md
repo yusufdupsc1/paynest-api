@@ -82,3 +82,11 @@ python3 make_workbook.py                                              # HTML ত
 * **Files:** 
   * `day-91-120-revision.pdf` — A4, 38 পৃষ্ঠা (Print Ready)
   * `day-91-120-revision.html` — HTML Source
+
+### Revision & Concrete Learning Workbook (Day 91–120)
+* **Target:** Full Format Solidifying Revision (4th Month)
+* **Focus:** 30 Distinct Variants strictly following the original 30-Marks Full Format (A: 10, B: 10, C: 10). Covers all fundamentals from Month 1, 2, and 3 without repetitions.
+* **Special:** Contains 30 Unique Olympiad Logic Puzzles, detailed logical Answer Key, and Solidifying Tricks.
+* **Files:** 
+  * `day-91-120-revision.pdf` — A4, 44 পৃষ্ঠা (Print Ready)
+  * `day-91-120-revision.html` — HTML Source
