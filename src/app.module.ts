@@ -42,16 +42,45 @@ function looksLikeUrl(value: string): boolean {
 }
 
 async function resolveHostToIPv4(host: string): Promise<string> {
+  if (!host || isIPLiteral(host)) {
+    return host;
+  }
+
   try {
     const dns = require('dns').promises;
+    // Prefer an explicit A-record lookup (getaddrinfo family-4 lookups can return
+    // ENETUNREACH when the resolver only answers over IPv6).
+    try {
+      const addresses = await dns.resolve4(host);
+      if (addresses.length > 0) {
+        console.error(`[TypeOrm] Resolved ${host} -> IPv4: ${addresses[0]}`);
+        return addresses[0];
+      }
+    } catch (resolveErr) {
+      const msg = resolveErr instanceof Error ? resolveErr.message : String(resolveErr);
+      console.error(`[TypeOrm] A-record lookup failed for ${host}: ${msg}. Trying family-4 lookup.`);
+    }
+
     const result = await dns.lookup(host, { family: 4 });
-    console.error(`[TypeOrm] Resolved ${host} → IPv4: ${result.address}`);
+    console.error(`[TypeOrm] Resolved ${host} -> IPv4: ${result.address}`);
     return result.address;
   } catch (err) {
     const errMessage = err instanceof Error ? err.message : String(err);
     console.error(`[TypeOrm] IPv4 DNS lookup failed for ${host}: ${errMessage}. Using hostname directly.`);
     return host;
   }
+}
+
+function isIPLiteral(host: string): boolean {
+  return /^(\d{1,3}\.){3}\d{1,3}$/.test(host) || host.startsWith('[') || host.startsWith('::');
+}
+
+function shouldEnableSsl(): boolean | { rejectUnauthorized: boolean } {
+  const raw = String(process.env.DB_SSL || '').trim().toLowerCase();
+  if (raw === 'false' || raw === '0' || raw === 'no') {
+    return false;
+  }
+  return process.env.NODE_ENV !== 'production' ? false : { rejectUnauthorized: false };
 }
 
 @Module({
@@ -128,6 +157,7 @@ async function resolveHostToIPv4(host: string): Promise<string> {
             entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
             synchronize,
             logging: false,
+            ssl: shouldEnableSsl(),
             retryAttempts: 1,
             retryDelay: 1000,
             acquireTimeout: 10000,
@@ -136,7 +166,7 @@ async function resolveHostToIPv4(host: string): Promise<string> {
               // @ts-ignore - forces IPv4 sockets
               family: 4,
               // @ts-ignore - fail fast on misconfiguration
-              connectTimeout: 10,
+              connectionTimeoutMillis: 10000,
             },
           };
         },
