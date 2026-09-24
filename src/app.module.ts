@@ -32,6 +32,15 @@ function decoded(value: string | null): string {
   }
 }
 
+function looksLikeUrl(value: string): boolean {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === 'postgres:' || parsed.protocol === 'postgresql:' || parsed.protocol === 'pgsql:';
+  } catch {
+    return false;
+  }
+}
+
 async function resolveHostToIPv4(host: string): Promise<string> {
   try {
     const dns = require('dns').promises;
@@ -56,71 +65,58 @@ async function resolveHostToIPv4(host: string): Promise<string> {
       limit: 100,
     }]),
     ScheduleModule.forRoot(),
-     TypeOrmModule.forRootAsync({
-       imports: [ConfigModule],
-       useFactory: async (configService: ConfigService) => {
-         const rawSynchronize = configService.get<string | boolean | undefined>('DB_SYNCHRONIZE');
-         const synchronize = typeof rawSynchronize === 'boolean'
-           ? rawSynchronize
-           : rawSynchronize == null
-             ? configService.get('NODE_ENV') !== 'production'
-             : rawSynchronize.trim().toLowerCase() === 'true';
+      TypeOrmModule.forRootAsync({
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => {
+          const rawSynchronize = configService.get<string | boolean | undefined>('DB_SYNCHRONIZE');
+          const synchronize = typeof rawSynchronize === 'boolean'
+            ? rawSynchronize
+            : rawSynchronize == null
+              ? configService.get('NODE_ENV') !== 'production'
+              : rawSynchronize.trim().toLowerCase() === 'true';
 
-         // Try DATABASE_URL first
-         const databaseUrl = configService.get<string>('DATABASE_URL');
-         
-         if (databaseUrl) {
-           try {
-             const parsed = new URL(databaseUrl);
-             const host = parsed.hostname;
-             const port = parseInt(parsed.port) || 5432;
-             const username = decoded(parsed.username);
-             const password = decoded(parsed.password);
-             const database = parsed.pathname.slice(1);
-             
-             // Resolve hostname to IPv4 to bypass IPv6 ENETUNREACH
-             const resolvedHost = await resolveHostToIPv4(host);
-             
-             console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}`);
-             
-              return {
-                type: 'postgres',
-                host: resolvedHost,
-                port,
-                username,
-                password,
-                database,
-                entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
-                synchronize,
-                logging: false,
-                retryAttempts: 1,
-                retryDelay: 1000,
-                acquireTimeout: 10000,
-                connectTimeout: 10,
-                extra: {
-                  // @ts-ignore - forces IPv4 sockets
-                  family: 4,
-                  // @ts-ignore - fail fast on misconfiguration
-                  connectTimeout: 10,
-                },
-              };
-           } catch (err) {
+          const dbHost = (configService.get<string>('DB_HOST') || '').trim();
+          const databaseUrl = configService.get<string>('DATABASE_URL');
+
+          // Normalize a connection string provided as DB_HOST (some providers paste the
+          // full URL into DB_HOST instead of the bare hostname).
+          const url = databaseUrl || (looksLikeUrl(dbHost) ? dbHost : undefined);
+
+          let host: string;
+          let port: number;
+          let username: string;
+          let password: string;
+          let database: string;
+
+          if (url) {
+            try {
+              const parsed = new URL(url);
+              host = parsed.hostname;
+              port = parseInt(parsed.port, 10) || 5432;
+              username = decoded(parsed.username);
+              password = decoded(parsed.password);
+              database = parsed.pathname.slice(1);
+            } catch (err) {
               const parseError = err instanceof Error ? err.message : String(err);
-              console.error(`[TypeOrm] Failed to parse DATABASE_URL: ${parseError}. Falling back to DB_* vars.`);
-           }
-         }
-         
-         // Fallback to DB_* environment variables
-         const host = configService.get('DB_HOST', 'localhost');
-         const port = configService.get<number>('DB_PORT', 5432);
-         const username = configService.get('DB_USERNAME', 'postgres');
-         const password = configService.get('DB_PASSWORD', 'postgres');
-         const database = configService.get('DB_DATABASE', 'payment_dashboard');
-         
-         // Resolve to IPv4
-         const resolvedHost = await resolveHostToIPv4(host);
-         
-         console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}`);
+              console.error(`[TypeOrm] Failed to parse database URL: ${parseError}. Falling back to DB_* vars.`);
+              host = dbHost;
+              port = configService.get<number>('DB_PORT', 5432);
+              username = configService.get('DB_USERNAME', 'postgres');
+              password = configService.get('DB_PASSWORD', 'postgres');
+              database = configService.get('DB_DATABASE', 'payment_dashboard');
+            }
+          } else {
+            host = dbHost || 'localhost';
+            port = configService.get<number>('DB_PORT', 5432);
+            username = configService.get('DB_USERNAME', 'postgres');
+            password = configService.get('DB_PASSWORD', 'postgres');
+            database = configService.get('DB_DATABASE', 'payment_dashboard');
+          }
+
+          // Resolve hostname to IPv4 to bypass IPv6 ENETUNREACH
+          const resolvedHost = await resolveHostToIPv4(host);
+
+          console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}, user=${username}`);
 
           return {
             type: 'postgres',
@@ -143,9 +139,9 @@ async function resolveHostToIPv4(host: string): Promise<string> {
               connectTimeout: 10,
             },
           };
-       },
-       inject: [ConfigService],
-     }),
+        },
+        inject: [ConfigService],
+      }),
     RedisModule,
     AuthModule,
     GatewayModule,
