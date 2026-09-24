@@ -30,6 +30,17 @@ import { Role } from '../auth/roles.enum';
 export class WebhooksController {
   constructor(private readonly webhooksService: WebhooksService) {}
 
+  private extractRawBody(request: Request, body: string | Record<string, unknown>): string {
+    const raw = (request as Request & { rawBody?: Buffer }).rawBody;
+    if (raw) {
+      return Buffer.isBuffer(raw) ? raw.toString('utf8') : String(raw);
+    }
+    if (typeof body === 'string') {
+      return body;
+    }
+    return JSON.stringify(body);
+  }
+
   @Public()
   @Post('stripe')
   @HttpCode(HttpStatus.OK)
@@ -44,7 +55,7 @@ export class WebhooksController {
     if (!signature) {
       throw new BadRequestException('Missing stripe-signature header');
     }
-    const rawBody = typeof body === 'string' ? body : JSON.stringify(body);
+    const rawBody = this.extractRawBody(request, body);
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.STRIPE,
       payload: rawBody,
@@ -64,7 +75,7 @@ export class WebhooksController {
   ): Promise<{ received: boolean }> {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.PAYPAL,
-      payload: body,
+      payload: this.extractRawBody(request, body),
       headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
@@ -86,7 +97,7 @@ export class WebhooksController {
     }
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.RAZORPAY,
-      payload: body,
+      payload: this.extractRawBody(request, body),
       headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
@@ -103,7 +114,7 @@ export class WebhooksController {
   ): Promise<{ received: boolean }> {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.BKASH,
-      payload: body,
+      payload: this.extractRawBody(request, body),
       headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
@@ -120,7 +131,7 @@ export class WebhooksController {
   ): Promise<{ received: boolean }> {
     const result = await this.webhooksService.processWebhook({
       gateway: GatewayType.NAGAD,
-      payload: body,
+      payload: this.extractRawBody(request, body),
       headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };
@@ -159,7 +170,7 @@ export class WebhooksController {
 
     const result = await this.webhooksService.processWebhook({
       gateway,
-      payload: body,
+      payload: this.extractRawBody(request, body),
       headers: request.headers as Record<string, string | string[] | undefined>,
     });
     return { received: result.success };

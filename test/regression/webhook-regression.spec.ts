@@ -85,7 +85,7 @@ describe('Webhook regression contracts', () => {
 
     // Health is excluded from prefix
     await request(app.getHttpServer())
-      .get('/health')
+      .get('/health/ready')
       .expect(200)
       .expect(({ body }) => {
         expect(body.webhooks.backlog).toEqual({

@@ -1,4 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import express from 'express';
+import type { Request } from 'express';
 
 const DEFAULT_ALLOWED_ORIGINS = [
   'http://localhost:3000',
@@ -24,6 +26,18 @@ export function configureApp<T extends INestApplication>(app: T): T {
     credentials: true,
     maxAge: 86400,
   });
+
+  // Capture the raw request body on `req.rawBody` so webhook signature verification
+  // can operate on the exact byte sequence received from the gateway. A single JSON
+  // parser with a `verify` hook replaces Nest's default body parser.
+  app.use(
+    express.json({
+      limit: '1mb',
+      verify: (req: Request, _res, buf) => {
+        (req as Request & { rawBody?: Buffer }).rawBody = buf;
+      },
+    }),
+  );
 
   app.useGlobalPipes(
     new ValidationPipe({

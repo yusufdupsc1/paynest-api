@@ -205,23 +205,29 @@ export class PayPalGateway implements IGateway {
     transactionExternalId: string,
     amount: number,
     reason?: string,
+    idempotencyKey?: string,
   ): Promise<RefundResponse> {
     try {
       const token = await this.getAccessToken();
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
 
-      const response = await fetch(`${this.baseUrl}/v2/payments/captures/${transactionExternalId}/refund`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: {
-            value: amount.toFixed(2),
-            currency_code: 'USD',
+      try {
+        const response = await fetch(`${this.baseUrl}/v2/payments/captures/${transactionExternalId}/refund`, {
+          method: 'POST',
+          signal: controller.signal,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            ...(idempotencyKey ? { 'PayPal-Request-Id': idempotencyKey } : {}),
           },
-        }),
-      });
+          body: JSON.stringify({
+            amount: {
+              value: amount.toFixed(2),
+              currency_code: 'USD',
+            },
+          }),
+        });
 
       if (!response.ok) {
         const error = await response.text();
@@ -236,6 +242,9 @@ export class PayPalGateway implements IGateway {
         externalRefundId: refund.id,
         status: refund.status === 'COMPLETED' ? RefundStatus.COMPLETED : RefundStatus.PENDING,
       };
+      } finally {
+        clearTimeout(timeout);
+      }
     } catch (error) {
       this.logger.error(`PayPal refund failed: ${error}`);
       return {

@@ -23,9 +23,7 @@
     "test:performance-smoke": "jest --config jest.config.ts --selectProjects regression --runTestsByPath test/regression/performance-smoke.spec.ts",
     "test:deploy-readiness": "npm run preflight:env && npm run -s type-check",
     "test:release-gate": "npm run lint-check && npm run type-check && npm run test:unit -- --runInBand && npm run test:integration -- --runInBand && npm run test:e2e -- --runInBand && npm run test:regression -- --runInBand && npm run test:performance-smoke -- --runInBand && npm run build-check",
-    "test:cov": "jest --config jest.config.ts --coverage",
-    "migration:generate": "typeorm migration:generate -d src/config/data-source.ts",
-    "migration:run": "typeorm migration:run -d src/config/data-source.ts"
+    "test:cov": "jest --config jest.config.ts --coverage"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.0",

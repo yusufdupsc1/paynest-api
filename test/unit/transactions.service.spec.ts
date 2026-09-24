@@ -5,12 +5,13 @@ import { IdempotencyService } from '../../src/modules/transactions/idempotency.s
 import { AuditService } from '../../src/modules/audit/audit.service';
 import { GatewayType, TransactionStatus } from '../../src/common/types';
 import { createMockRepository, MockRepository } from '../helpers/mock-repository';
+import { ConflictException } from '@nestjs/common';
 
 describe('TransactionsService', () => {
   let service: TransactionsService;
   let transactionRepository: MockRepository<Transaction>;
   let gatewayService: jest.Mocked<Pick<GatewayService, 'createPayment'>>;
-  let idempotencyService: jest.Mocked<Pick<IdempotencyService, 'checkAndStore' | 'store'>>;
+  let idempotencyService: jest.Mocked<Pick<IdempotencyService, 'acquireLock' | 'releaseLock' | 'storeMapping'>>;
   let auditService: jest.Mocked<Pick<AuditService, 'recordEntry'>>;
 
   beforeEach(() => {
@@ -19,8 +20,9 @@ describe('TransactionsService', () => {
       createPayment: jest.fn(),
     };
     idempotencyService = {
-      checkAndStore: jest.fn(),
-      store: jest.fn(),
+      acquireLock: jest.fn(),
+      releaseLock: jest.fn(),
+      storeMapping: jest.fn(),
     };
     auditService = {
       recordEntry: jest.fn(),
@@ -43,8 +45,9 @@ describe('TransactionsService', () => {
       idempotencyKey: 'idem-key-1',
     };
 
-    it('creates a new transaction when no idempotency match', async () => {
-      idempotencyService.checkAndStore.mockResolvedValue(null);
+    it('creates a new transaction when no idempotency match and lock acquired', async () => {
+      idempotencyService.acquireLock.mockResolvedValue(true);
+      transactionRepository.findOne.mockResolvedValue(null);
       gatewayService.createPayment.mockResolvedValue({
         success: true,
         externalId: 'ext-123',
@@ -79,46 +82,37 @@ describe('TransactionsService', () => {
         undefined,
         undefined,
       );
-      expect(idempotencyService.store).toHaveBeenCalledWith('idem-key-1', 'txn-1');
+      expect(idempotencyService.storeMapping).toHaveBeenCalledWith('idem-key-1', 'txn-1');
+      expect(idempotencyService.releaseLock).toHaveBeenCalledWith('idempotency:idem-key-1', expect.any(String));
       expect(auditService.recordEntry).toHaveBeenCalled();
     });
 
-    it('returns existing transaction on idempotency match', async () => {
+    it('returns existing transaction when found before gateway call', async () => {
       const existingTxn = {
         id: 'txn-existing',
         idempotencyKey: 'idem-key-1',
         status: TransactionStatus.COMPLETED,
       } as Transaction;
 
-      idempotencyService.checkAndStore.mockResolvedValue('txn-existing');
+      idempotencyService.acquireLock.mockResolvedValue(true);
       transactionRepository.findOne.mockResolvedValue(existingTxn);
 
       const result = await service.createPayment(paymentDto);
 
       expect(result.id).toBe('txn-existing');
       expect(gatewayService.createPayment).not.toHaveBeenCalled();
+      expect(idempotencyService.storeMapping).not.toHaveBeenCalled();
+      expect(idempotencyService.releaseLock).toHaveBeenCalled();
     });
 
-    it('creates transaction when idempotency key returns missing transaction id', async () => {
-      idempotencyService.checkAndStore.mockResolvedValue('txn-missing');
-      transactionRepository.findOne
-        .mockResolvedValueOnce(null)
-        .mockResolvedValueOnce({ id: 'txn-new' } as Transaction);
-      gatewayService.createPayment.mockResolvedValue({
-        success: true,
-        externalId: 'ext-456',
-        gateway: GatewayType.STRIPE,
-        status: TransactionStatus.PENDING,
-      });
+    it('throws ConflictException when lock is held by another caller', async () => {
+      idempotencyService.acquireLock.mockResolvedValue(false);
+      transactionRepository.findOne.mockResolvedValue(null);
 
-      transactionRepository.create.mockReturnValue({ id: 'txn-new' } as Transaction);
-      transactionRepository.save.mockResolvedValue({ id: 'txn-new' } as Transaction);
-      auditService.recordEntry.mockResolvedValue({ id: 'audit-2' } as never);
+      await expect(service.createPayment(paymentDto)).rejects.toThrow(ConflictException);
 
-      const result = await service.createPayment(paymentDto);
-
-      expect(result.id).toBe('txn-new');
-      expect(gatewayService.createPayment).toHaveBeenCalled();
+      expect(gatewayService.createPayment).not.toHaveBeenCalled();
+      expect(idempotencyService.releaseLock).not.toHaveBeenCalled();
     });
   });
 

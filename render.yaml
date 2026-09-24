@@ -1,11 +1,13 @@
 services:
   - type: web
     name: paynest-api
-    env: node
+    env: docker
+    plan: standard
     region: oregon
-    buildCommand: npm ci && npm run preflight:env && npm run build-check
-    startCommand: npm run start:prod
-    healthCheckPath: /health
+    # Build is driven by docker/Dockerfile (Bun toolchain).
+    # Render builds the Dockerfile and runs CMD ["node","dist/main"].
+    healthCheckPath: /health/ready
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: "production"
@@ -76,4 +78,32 @@ services:
       - key: RAZORPAY_KEY_SECRET
         sync: false
       - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: BKASH_API_KEY
+        sync: false
+      - key: BKASH_SECRET
+        sync: false
+      - key: BKASH_USERNAME
+        sync: false
+      - key: BKASH_PASSWORD
+        sync: false
+      - key: MERCADOPAGO_ACCESS_TOKEN
+        sync: false
+      - key: MERCADOPAGO_WEBHOOK_SECRET
+        sync: false
+      - key: FLUTTERWAVE_SECRET_KEY
+        sync: false
+      - key: FLUTTERWAVE_WEBHOOK_HASH
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_WEBHOOK_HASH
+        sync: false
+      - key: SQUARE_ACCESS_TOKEN
+        sync: false
+      - key: SQUARE_WEBHOOK_SIGNATURE_KEY
+        sync: false
+      - key: ADYEN_API_KEY
+        sync: false
+      - key: ADYEN_WEBHOOK_SECRET
         sync: false

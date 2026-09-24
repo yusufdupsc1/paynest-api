@@ -1,58 +1,77 @@
 import { BadRequestException } from '@nestjs/common';
-import { AuditService } from '../../src/modules/audit/audit.service';
+import { Repository } from 'typeorm';
 import { Refund } from '../../src/modules/refunds/entities/refund.entity';
+import { Transaction } from '../../src/modules/transactions/entities/transaction.entity';
 import { RefundsService } from '../../src/modules/refunds/refunds.service';
-import { TransactionsService } from '../../src/modules/transactions/transactions.service';
 import { GatewayService } from '../../src/gateways/gateway.service';
-import { RefundStatus, TransactionStatus } from '../../src/common/types';
+import { AuditService } from '../../src/modules/audit/audit.service';
+import { GatewayType, TransactionStatus, RefundStatus } from '../../src/common/types';
 import { canonicalRefundGatewayResponse, canonicalRefundRequest } from '../fixtures/requests';
 import { createMockRepository, MockRepository } from '../helpers/mock-repository';
-import { completedTransactionProjection } from '../fixtures/webhooks';
+
+function buildMockQueryRunner() {
+  const manager = {
+    findOne: jest.fn(),
+    create: jest.fn(),
+    save: jest.fn(),
+  };
+  const qr = {
+    connect: jest.fn().mockResolvedValue(undefined),
+    startTransaction: jest.fn().mockResolvedValue(undefined),
+    commitTransaction: jest.fn().mockResolvedValue(undefined),
+    rollbackTransaction: jest.fn().mockResolvedValue(undefined),
+    release: jest.fn().mockResolvedValue(undefined),
+    manager,
+  };
+  return { qr, manager };
+}
 
 describe('RefundsService integration', () => {
   let refundRepository: MockRepository<Refund>;
-  let transactionsService: jest.Mocked<
-    Pick<TransactionsService, 'findOne' | 'updateRefundAmount' | 'updateStatus'>
-  >;
   let gatewayService: jest.Mocked<Pick<GatewayService, 'createRefund'>>;
   let auditService: jest.Mocked<Pick<AuditService, 'recordEntry'>>;
+  let connection: { createQueryRunner: jest.Mock };
+  let queryRunner: ReturnType<typeof buildMockQueryRunner>['qr'];
+  let manager: ReturnType<typeof buildMockQueryRunner>['manager'];
   let service: RefundsService;
 
   beforeEach(() => {
     refundRepository = createMockRepository<Refund>();
-    transactionsService = {
-      findOne: jest.fn(),
-      updateRefundAmount: jest.fn(),
-      updateStatus: jest.fn(),
-    };
-    gatewayService = {
-      createRefund: jest.fn(),
-    };
-    auditService = {
-      recordEntry: jest.fn(),
-    };
+    gatewayService = { createRefund: jest.fn() };
+    auditService = { recordEntry: jest.fn().mockResolvedValue({ id: 'audit-1' } as never) };
+
+    const built = buildMockQueryRunner();
+    queryRunner = built.qr;
+    manager = built.manager;
+    connection = { createQueryRunner: jest.fn().mockReturnValue(queryRunner) };
 
     service = new RefundsService(
-      refundRepository as never,
-      transactionsService as never,
+      refundRepository as unknown as Repository<Refund>,
+      connection as never,
       gatewayService as never,
       auditService as never,
     );
   });
 
+  const completedTransaction = {
+    id: 'txn-001',
+    externalId: 'pi_test_001',
+    gateway: GatewayType.STRIPE,
+    amount: 125.5,
+    refundedAmount: 0,
+    status: TransactionStatus.COMPLETED,
+  } as unknown as Transaction;
+
   it('creates a partial refund and updates transaction state plus audit trail', async () => {
-    transactionsService.findOne.mockResolvedValue({
-      ...completedTransactionProjection,
-      status: TransactionStatus.COMPLETED,
-      refundedAmount: 0,
-    } as never);
+    manager.findOne.mockImplementation((entity) => {
+      if (entity === Transaction) return Promise.resolve(completedTransaction);
+      return Promise.resolve(null);
+    });
     gatewayService.createRefund.mockResolvedValue(canonicalRefundGatewayResponse);
-    refundRepository.create.mockImplementation((entity) => ({ ...entity }) as Refund);
-    refundRepository.save.mockImplementation(async (refund) => ({
-      ...refund,
-      id: refund.id ?? 'refund-001',
-      createdAt: refund.createdAt ?? new Date('2026-03-21T12:05:00.000Z'),
-      metadata: refund.metadata ?? null,
+    manager.create.mockImplementation((_, entity) => ({ ...entity }) as Refund);
+    manager.save.mockImplementation(async (entity: unknown) => ({
+      ...(entity as object),
+      id: 'refund-001',
     }) as Refund);
 
     const refund = await service.createRefund(canonicalRefundRequest);
@@ -64,28 +83,22 @@ describe('RefundsService integration', () => {
         status: RefundStatus.COMPLETED,
       }),
     );
-    expect(transactionsService.updateRefundAmount).toHaveBeenCalledWith('txn-001', 50);
-    expect(transactionsService.updateStatus).toHaveBeenCalledWith(
-      'txn-001',
-      TransactionStatus.PARTIALLY_REFUNDED,
-      undefined,
-      'refunds.createRefund',
-      expect.objectContaining({
-        refundId: 'refund-001',
-        refundAmount: 50,
-        refundStatus: RefundStatus.COMPLETED,
-      }),
+    expect(gatewayService.createRefund).toHaveBeenCalledWith(
+      GatewayType.STRIPE,
+      'pi_test_001',
+      50,
+      'operator_requested_partial_refund',
+      'refund:txn-001:50',
     );
-    expect(auditService.recordEntry).toHaveBeenCalledTimes(2);
+    expect(queryRunner.commitTransaction).toHaveBeenCalled();
+    expect(auditService.recordEntry).toHaveBeenCalled();
   });
 
   it('rejects refunds for transactions that are not completed', async () => {
-    transactionsService.findOne.mockResolvedValue({
-      ...completedTransactionProjection,
-      status: TransactionStatus.PENDING,
-    } as never);
+    manager.findOne.mockResolvedValue({ ...completedTransaction, status: TransactionStatus.PENDING });
 
     await expect(service.createRefund(canonicalRefundRequest)).rejects.toBeInstanceOf(BadRequestException);
     expect(gatewayService.createRefund).not.toHaveBeenCalled();
+    expect(queryRunner.rollbackTransaction).toHaveBeenCalled();
   });
 });

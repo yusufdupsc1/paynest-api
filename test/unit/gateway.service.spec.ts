@@ -109,7 +109,7 @@ describe('GatewayService', () => {
 
       await service.createRefund(GatewayType.STRIPE, 'ext-123', 50, 'customer request');
 
-      expect(stripeGateway.createRefund).toHaveBeenCalledWith('ext-123', 50, 'customer request');
+      expect(stripeGateway.createRefund).toHaveBeenCalledWith('ext-123', 50, 'customer request', undefined);
     });
   });
 

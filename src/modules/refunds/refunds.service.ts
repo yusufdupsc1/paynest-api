@@ -1,8 +1,14 @@
-import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
+import { IsNumber, IsString, Min, IsOptional } from 'class-validator';
 import { Refund } from './entities/refund.entity';
-import { TransactionsService } from '../transactions/transactions.service';
+import { Transaction } from '../transactions/entities/transaction.entity';
 import { GatewayService } from '../../gateways/gateway.service';
 import {
   AuditActionType,
@@ -12,10 +18,21 @@ import {
 } from '../../common/types';
 import { AuditService } from '../audit/audit.service';
 
-export interface CreateRefundDto {
-  transactionId: string;
-  amount: number;
+export class CreateRefundDto {
+  @IsString()
+  transactionId!: string;
+
+  @IsNumber()
+  @Min(0.01)
+  amount!: number;
+
+  @IsString()
+  @IsOptional()
   reason?: string;
+
+  @IsString()
+  @IsOptional()
+  idempotencyKey?: string;
 }
 
 @Injectable()
@@ -25,113 +42,151 @@ export class RefundsService {
   constructor(
     @InjectRepository(Refund)
     private readonly refundRepository: Repository<Refund>,
-    private readonly transactionsService: TransactionsService,
+    private readonly connection: Connection,
     private readonly gatewayService: GatewayService,
     private readonly auditService: AuditService,
   ) {}
 
   async createRefund(dto: CreateRefundDto): Promise<Refund> {
-    const transaction = await this.transactionsService.findOne(dto.transactionId);
+    const idempotencyKey = dto.idempotencyKey || `refund:${dto.transactionId}:${dto.amount}`;
+    const queryRunner = this.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    if (!transaction) {
-      throw new NotFoundException(`Transaction ${dto.transactionId} not found`);
-    }
+    try {
+      const transaction = await queryRunner.manager.findOne(Transaction, {
+        where: { id: dto.transactionId },
+        lock: { mode: 'pessimistic_write' },
+      });
 
-    if (transaction.status !== TransactionStatus.COMPLETED) {
-      throw new BadRequestException('Only completed transactions can be refunded');
-    }
+      if (!transaction) {
+        throw new NotFoundException(`Transaction ${dto.transactionId} not found`);
+      }
 
-    const availableAmount = transaction.amount - transaction.refundedAmount;
-    if (dto.amount > availableAmount) {
-      throw new BadRequestException(`Refund amount exceeds available amount: ${availableAmount}`);
-    }
+      if (transaction.status !== TransactionStatus.COMPLETED) {
+        throw new BadRequestException('Only completed transactions can be refunded');
+      }
 
-    const response = await this.gatewayService.createRefund(
-      transaction.gateway,
-      transaction.externalId ?? '',
-      dto.amount,
-      dto.reason,
-    );
+      const transactionAmount = Number(transaction.amount);
+      const alreadyRefunded = Number(transaction.refundedAmount);
+      const availableAmount = transactionAmount - alreadyRefunded;
+      if (dto.amount > availableAmount) {
+        throw new BadRequestException(`Refund amount exceeds available amount: ${availableAmount}`);
+      }
 
-    const refund = this.refundRepository.create({
-      transactionId: transaction.id,
-      externalRefundId: response.externalRefundId,
-      amount: dto.amount,
-      status: response.status === RefundStatus.COMPLETED ? RefundStatus.COMPLETED : RefundStatus.PENDING,
-      reason: dto.reason,
-      gatewayResponse: response as unknown as Record<string, unknown>,
-      processedAt: response.status === RefundStatus.COMPLETED ? new Date() : null,
-    });
+      const existingRefund = await queryRunner.manager.findOne(Refund, {
+        where: { transactionId: transaction.id },
+      });
+      if (existingRefund && existingRefund.amount === dto.amount) {
+        this.logger.log(`Refund already present for transaction ${transaction.id}, skipping gateway call`);
+        await queryRunner.commitTransaction();
+        return existingRefund;
+      }
 
-    const savedRefund = await this.refundRepository.save(refund);
+      const response = await this.gatewayService.createRefund(
+        transaction.gateway,
+        transaction.externalId ?? '',
+        dto.amount,
+        dto.reason,
+        idempotencyKey,
+      );
 
-    await this.auditService.recordEntry({
-      entityType: AuditEntityType.REFUND,
-      entityId: savedRefund.id,
-      transactionId: transaction.id,
-      refundId: savedRefund.id,
-      gateway: transaction.gateway,
-      action: AuditActionType.REFUND_CREATED,
-      previousStatus: null,
-      nextStatus: savedRefund.status,
-      source: 'refunds.createRefund',
-      metadata: {
-        amount: savedRefund.amount,
-        reason: savedRefund.reason,
-        externalRefundId: savedRefund.externalRefundId,
-      },
-    });
+      if (!response.success) {
+        throw new BadRequestException(response.message || 'Gateway refund failed');
+      }
 
-    if (savedRefund.status !== RefundStatus.PENDING) {
+      const refund = queryRunner.manager.create(Refund, {
+        transactionId: transaction.id,
+        externalRefundId: response.externalRefundId ?? null,
+        amount: dto.amount,
+        status: response.status === RefundStatus.COMPLETED ? RefundStatus.COMPLETED : RefundStatus.PENDING,
+        reason: dto.reason ?? null,
+        processedAt: response.status === RefundStatus.COMPLETED ? new Date() : null,
+      });
+
+      const savedRefund = await queryRunner.manager.save(refund);
+
+      const newRefundedAmount = alreadyRefunded + dto.amount;
+      transaction.refundedAmount = newRefundedAmount as unknown as number;
+      if (newRefundedAmount >= transactionAmount) {
+        transaction.status = TransactionStatus.REFUNDED;
+      } else {
+        transaction.status = TransactionStatus.PARTIALLY_REFUNDED;
+      }
+      transaction.gatewayResponse = {
+        ...(transaction.gatewayResponse ?? {}),
+        lastRefundId: savedRefund.id,
+      };
+      await queryRunner.manager.save(transaction);
+
+      await queryRunner.commitTransaction();
+
+      const nextRefundStatus = savedRefund.status;
+
       await this.auditService.recordEntry({
         entityType: AuditEntityType.REFUND,
         entityId: savedRefund.id,
         transactionId: transaction.id,
         refundId: savedRefund.id,
         gateway: transaction.gateway,
-        action: AuditActionType.REFUND_STATUS_CHANGED,
-        previousStatus: RefundStatus.PENDING,
-        nextStatus: savedRefund.status,
+        action: AuditActionType.REFUND_CREATED,
+        previousStatus: null,
+        nextStatus: nextRefundStatus,
         source: 'refunds.createRefund',
         metadata: {
           amount: savedRefund.amount,
+          reason: savedRefund.reason,
           externalRefundId: savedRefund.externalRefundId,
-          gatewayResponse: savedRefund.gatewayResponse,
+          idempotencyKey,
         },
       });
-    }
 
-    if (response.success) {
-      await this.transactionsService.updateRefundAmount(transaction.id, dto.amount);
+      if (nextRefundStatus !== RefundStatus.PENDING) {
+        await this.auditService.recordEntry({
+          entityType: AuditEntityType.REFUND,
+          entityId: savedRefund.id,
+          transactionId: transaction.id,
+          refundId: savedRefund.id,
+          gateway: transaction.gateway,
+          action: AuditActionType.REFUND_STATUS_CHANGED,
+          previousStatus: RefundStatus.PENDING,
+          nextStatus: nextRefundStatus,
+          source: 'refunds.createRefund',
+          metadata: {
+            amount: savedRefund.amount,
+            externalRefundId: savedRefund.externalRefundId,
+            gatewayResponse: savedRefund.gatewayResponse,
+          },
+        });
 
-      if (dto.amount === availableAmount) {
-        await this.transactionsService.updateStatus(
-          transaction.id,
-          TransactionStatus.REFUNDED,
-          undefined,
-          'refunds.createRefund',
-          {
+        await this.auditService.recordEntry({
+          entityType: AuditEntityType.TRANSACTION,
+          entityId: transaction.id,
+          transactionId: transaction.id,
+          gateway: transaction.gateway,
+          action: AuditActionType.TRANSACTION_STATUS_CHANGED,
+          previousStatus: TransactionStatus.COMPLETED,
+          nextStatus: transaction.status,
+          source: 'refunds.createRefund',
+          metadata: {
             refundId: savedRefund.id,
-            refundAmount: dto.amount,
+            refundAmount: savedRefund.amount,
             refundStatus: savedRefund.status,
           },
-        );
-      } else {
-        await this.transactionsService.updateStatus(
-          transaction.id,
-          TransactionStatus.PARTIALLY_REFUNDED,
-          undefined,
-          'refunds.createRefund',
-          {
-            refundId: savedRefund.id,
-            refundAmount: dto.amount,
-            refundStatus: savedRefund.status,
-          },
-        );
+        });
       }
-    }
 
-    return savedRefund;
+      return savedRefund;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      this.logger.error(`Refund creation failed for transaction ${dto.transactionId}`, error);
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async findAll(

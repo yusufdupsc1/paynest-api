@@ -39,7 +39,8 @@ async function resolveHostToIPv4(host: string): Promise<string> {
     console.error(`[TypeOrm] Resolved ${host} → IPv4: ${result.address}`);
     return result.address;
   } catch (err) {
-    console.error(`[TypeOrm] IPv4 DNS lookup failed for ${host}: ${err.message}. Using hostname directly.`);
+    const errMessage = err instanceof Error ? err.message : String(err);
+    console.error(`[TypeOrm] IPv4 DNS lookup failed for ${host}: ${errMessage}. Using hostname directly.`);
     return host;
   }
 }
@@ -98,7 +99,8 @@ async function resolveHostToIPv4(host: string): Promise<string> {
                },
              };
            } catch (err) {
-             console.error(`[TypeOrm] Failed to parse DATABASE_URL: ${err.message}. Falling back to DB_* vars.`);
+              const parseError = err instanceof Error ? err.message : String(err);
+              console.error(`[TypeOrm] Failed to parse DATABASE_URL: ${parseError}. Falling back to DB_* vars.`);
            }
          }
          

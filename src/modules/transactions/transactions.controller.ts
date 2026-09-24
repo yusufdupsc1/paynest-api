@@ -15,6 +15,8 @@ import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiHeader, ApiBearerAuth 
 import { TransactionsService, CreatePaymentDto, TransactionFilters } from './transactions.service';
 import { Transaction } from './entities/transaction.entity';
 import { GatewayType, TransactionStatus } from '../../common/types';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/roles.enum';
 
 @ApiTags('transactions')
 @ApiBearerAuth()
@@ -23,6 +25,7 @@ export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
   @Post('initiate')
+  @Roles(Role.ADMIN, Role.OPERATOR)
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Initiate a new payment' })
   @ApiHeader({ name: 'idempotency-key', required: true, description: 'Unique idempotency key' })
@@ -47,6 +50,7 @@ export class TransactionsController {
   }
 
   @Get()
+  @Roles(Role.ADMIN, Role.OPERATOR, Role.VIEWER)
   @ApiOperation({ summary: 'List all transactions' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
@@ -65,6 +69,7 @@ export class TransactionsController {
   }
 
   @Get(':id')
+  @Roles(Role.ADMIN, Role.OPERATOR, Role.VIEWER)
   @ApiOperation({ summary: 'Get transaction by ID' })
   @ApiResponse({ status: 200, description: 'Transaction details' })
   @ApiResponse({ status: 404, description: 'Transaction not found' })
@@ -77,6 +82,7 @@ export class TransactionsController {
   }
 
   @Get('stats/summary')
+  @Roles(Role.ADMIN, Role.OPERATOR, Role.VIEWER)
   @ApiOperation({ summary: 'Get transaction statistics' })
   async getStats(): Promise<{
     totalTransactions: number;

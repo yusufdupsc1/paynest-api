@@ -7,7 +7,7 @@ import { configureApp } from './app.factory';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
-  const app = configureApp(await NestFactory.create(AppModule));
+   const app = configureApp(await NestFactory.create(AppModule, { bodyParser: false }));
 
   app.use(helmet());
 

@@ -1,6 +1,8 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AnalyticsService } from './analytics.service';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/roles.enum';
 
 const DATE_ONLY_QUERY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const DATE_PREFIX_QUERY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})(?:$|[T\s])/;
@@ -77,6 +79,7 @@ function parseAnalyticsDateQuery(
 
 @ApiTags('analytics')
 @ApiBearerAuth()
+@Roles(Role.ADMIN, Role.OPERATOR, Role.VIEWER)
 @Controller('analytics')
 export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) {}

@@ -47,6 +47,7 @@ export interface IGateway {
     transactionExternalId: string,
     amount: number,
     reason?: string,
+    idempotencyKey?: string,
   ): Promise<RefundResponse>;
 
   getPaymentStatus(externalId: string): Promise<PaymentResponse>;

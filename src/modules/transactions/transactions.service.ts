@@ -1,6 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, ConflictException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindOptionsWhere, SelectQueryBuilder } from 'typeorm';
+import { randomUUID } from 'crypto';
+import { IsEnum, IsNumber, IsString, Min, IsOptional, IsObject } from 'class-validator';
 import { Transaction } from './entities/transaction.entity';
 import { GatewayService } from '../../gateways/gateway.service';
 import { IdempotencyService } from './idempotency.service';
@@ -14,13 +16,30 @@ import {
 } from '../../common/types';
 import { AuditService } from '../audit/audit.service';
 
-export interface CreatePaymentDto {
-  gateway: GatewayType;
-  amount: number;
-  currency: string;
-  customer: PaymentCustomer;
-  idempotencyKey: string;
+export class CreatePaymentDto {
+  @IsEnum(GatewayType)
+  gateway!: GatewayType;
+
+  @IsNumber()
+  @Min(0.01)
+  amount!: number;
+
+  @IsString()
+  currency!: string;
+
+  @IsObject()
+  customer!: PaymentCustomer;
+
+  @IsString()
+  @IsOptional()
+  idempotencyKey?: string;
+
+  @IsObject()
+  @IsOptional()
   metadata?: PaymentMetadata;
+
+  @IsString()
+  @IsOptional()
   returnUrl?: string;
 }
 
@@ -64,65 +83,106 @@ export class TransactionsService {
   ) {}
 
   async createPayment(dto: CreatePaymentDto): Promise<Transaction> {
-    const existingTransactionId = await this.idempotencyService.checkAndStore(
-      dto.idempotencyKey,
-    );
+    if (!dto.idempotencyKey) {
+      throw new BadRequestException('idempotencyKey is required');
+    }
+    const idempotencyKey = dto.idempotencyKey;
 
-    if (existingTransactionId) {
-      this.logger.log(`Returning existing transaction for idempotency key: ${dto.idempotencyKey}`);
-      const existingTransaction = await this.findOne(existingTransactionId);
-      if (existingTransaction) {
-        return existingTransaction;
+    const lockToken = randomUUID();
+    const lockKey = `idempotency:${idempotencyKey}`;
+
+    const acquired = await this.idempotencyService.acquireLock(lockKey, lockToken);
+    if (!acquired) {
+      const inFlight = await this.findByIdempotencyKey(idempotencyKey);
+      if (inFlight) {
+        return inFlight;
       }
+      throw new ConflictException(
+        `A payment request for idempotency key ${idempotencyKey} is already in progress. Retry shortly.`,
+      );
     }
 
-    const response = await this.gatewayService.createPayment(
-      dto.gateway,
-      dto.amount,
-      dto.currency,
-      dto.customer,
-      dto.idempotencyKey,
-      dto.metadata,
-      dto.returnUrl,
-    );
+    try {
+      const alreadyPersisted = await this.findByIdempotencyKey(idempotencyKey);
+      if (alreadyPersisted) {
+        return alreadyPersisted;
+      }
 
-    const transaction = this.transactionRepository.create({
-      externalId: response.externalId,
-      gateway: dto.gateway,
-      amount: dto.amount,
-      currency: dto.currency,
-      status: response.status,
-      customerEmail: dto.customer.email,
-      customerPhone: dto.customer.phone,
-      customerName: dto.customer.name,
-      metadata: dto.metadata,
-      gatewayResponse: response.gatewayResponse as Record<string, unknown>,
-      idempotencyKey: dto.idempotencyKey,
-      paymentUrl: response.paymentUrl,
-      returnUrl: dto.returnUrl,
-    });
+      const response = await this.gatewayService.createPayment(
+        dto.gateway,
+        dto.amount,
+        dto.currency,
+        dto.customer,
+        idempotencyKey,
+        dto.metadata,
+        dto.returnUrl,
+      );
 
-    const savedTransaction = await this.transactionRepository.save(transaction);
-    await this.idempotencyService.store(dto.idempotencyKey, savedTransaction.id);
+      const transaction = this.transactionRepository.create({
+        externalId: response.externalId,
+        gateway: dto.gateway,
+        amount: dto.amount,
+        currency: dto.currency,
+        status: response.status,
+        customerEmail: dto.customer.email,
+        customerPhone: dto.customer.phone,
+        customerName: dto.customer.name,
+        metadata: dto.metadata,
+        gatewayResponse: response.gatewayResponse as Record<string, unknown>,
+        idempotencyKey: idempotencyKey,
+        paymentUrl: response.paymentUrl,
+        returnUrl: dto.returnUrl,
+      });
 
-    await this.auditService.recordEntry({
-      entityType: AuditEntityType.TRANSACTION,
-      entityId: savedTransaction.id,
-      transactionId: savedTransaction.id,
-      gateway: savedTransaction.gateway,
-      action: AuditActionType.TRANSACTION_CREATED,
-      previousStatus: null,
-      nextStatus: savedTransaction.status,
-      source: 'transactions.createPayment',
-      metadata: {
-        externalId: savedTransaction.externalId,
-        amount: savedTransaction.amount,
-        currency: savedTransaction.currency,
-        idempotencyKey: savedTransaction.idempotencyKey,
-      },
-    });
+      let savedTransaction: Transaction;
+      try {
+        savedTransaction = await this.transactionRepository.save(transaction);
+      } catch (error) {
+        if (this.isUniqueViolation(error)) {
+          const concurrent = await this.findByIdempotencyKey(idempotencyKey);
+          if (concurrent) {
+            return concurrent;
+          }
+        }
+        throw error;
+      }
 
-    return savedTransaction;
+      await this.idempotencyService.storeMapping(idempotencyKey, savedTransaction.id);
+
+      await this.auditService.recordEntry({
+        entityType: AuditEntityType.TRANSACTION,
+        entityId: savedTransaction.id,
+        transactionId: savedTransaction.id,
+        gateway: savedTransaction.gateway,
+        action: AuditActionType.TRANSACTION_CREATED,
+        previousStatus: null,
+        nextStatus: savedTransaction.status,
+        source: 'transactions.createPayment',
+        metadata: {
+          externalId: savedTransaction.externalId,
+          amount: savedTransaction.amount,
+          currency: savedTransaction.currency,
+          idempotencyKey: savedTransaction.idempotencyKey,
+        },
+      });
+
+      return savedTransaction;
+    } finally {
+      await this.idempotencyService.releaseLock(lockKey, lockToken);
+    }
+  }
+
+  private isUniqueViolation(error: unknown): boolean {
+    if (!error) return false;
+    if (error instanceof Error && 'code' in error) {
+      const code = (error as { code: unknown }).code;
+      return code === '23505' || code === 'ER_DUP_ENTRY';
+    }
+    return false;
+  }
+
+  async findByIdempotencyKey(idempotencyKey: string): Promise<Transaction | null> {
+    return this.transactionRepository.findOne({ where: { idempotencyKey } });
   }
 
   async findAll(

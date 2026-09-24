@@ -2,6 +2,7 @@ import { HealthController } from '../../src/modules/health/health.controller';
 import { GatewayService } from '../../src/gateways/gateway.service';
 import { WebhooksService } from '../../src/modules/webhooks/webhooks.service';
 import { GatewayType } from '../../src/common/types';
+import { BadRequestException } from '@nestjs/common';
 
 describe('HealthController', () => {
   let controller: HealthController;
@@ -20,8 +21,20 @@ describe('HealthController', () => {
     controller = new HealthController(gatewayService as never, webhooksService as never);
   });
 
-  describe('healthCheck', () => {
-    it('returns ok status with gateway and webhook info', async () => {
+  describe('healthCheck (liveness)', () => {
+    it('returns minimal liveness without calling external services', async () => {
+      const result = await controller.healthCheck();
+
+      expect(result.status).toBe('ok');
+      expect(result.timestamp).toBeDefined();
+      expect(result.uptime).toBeGreaterThanOrEqual(0);
+      expect(gatewayService.getSupportedGateways).not.toHaveBeenCalled();
+      expect(webhooksService.getBacklogSummary).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('readinessCheck', () => {
+    it('returns gateway and webhook info when healthy', async () => {
       gatewayService.getSupportedGateways.mockReturnValue([
         { type: GatewayType.STRIPE, name: 'Stripe' },
       ]);
@@ -44,14 +57,12 @@ describe('HealthController', () => {
         recent24h: { received: 0, processed: 0, failed: 0, invalidSignature: 0, replayed: 0 },
       });
 
-      const result = await controller.healthCheck();
+      const result = await controller.readinessCheck();
 
       expect(result.status).toBe('ok');
       expect(result.gateways).toEqual([{ type: 'stripe', name: 'Stripe' }]);
-      expect(result.webhooks.backlog.total).toBe(0);
-      expect(result.webhooks.reliability.status).toBe('healthy');
-      expect(result.timestamp).toBeDefined();
-      expect(result.uptime).toBeGreaterThanOrEqual(0);
+      expect(result.webhooks?.backlog?.total).toBe(0);
+      expect(result.webhooks?.reliability?.status).toBe('healthy');
     });
 
     it('reflects active webhook backlog', async () => {
@@ -75,10 +86,31 @@ describe('HealthController', () => {
         recent24h: { received: 10, processed: 8, failed: 1, invalidSignature: 0, replayed: 0 },
       });
 
-      const result = await controller.healthCheck();
+      const result = await controller.readinessCheck();
 
-      expect(result.webhooks.reliability.status).toBe('active');
-      expect(result.webhooks.backlog.total).toBe(5);
+      expect(result.webhooks?.reliability?.status).toBe('active');
+      expect(result.webhooks?.backlog?.total).toBe(5);
+    });
+
+    it('reports degraded when a dependency fails', async () => {
+      gatewayService.getSupportedGateways.mockReturnValue([]);
+      webhooksService.getBacklogSummary.mockRejectedValue(new BadRequestException('db down'));
+      webhooksService.getReliabilitySummary.mockResolvedValue({
+        status: 'healthy',
+        replayable: 0,
+        blockedReplay: 0,
+        maxRetriesExceeded: 0,
+        lastReceivedAt: null,
+        lastProcessedAt: null,
+        backlogAgeSeconds: null,
+        recent24h: { received: 0, processed: 0, failed: 0, invalidSignature: 0, replayed: 0 },
+      });
+
+      const result = await controller.readinessCheck();
+
+      expect(result.status).toBe('degraded');
+      expect(result.webhooks?.backlog).toBeNull();
+      expect(result.webhooks?.reliability?.status).toBe('healthy');
     });
   });
 

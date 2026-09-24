@@ -8,37 +8,45 @@ describe('IdempotencyService', () => {
       service = new IdempotencyService(null);
     });
 
-    it('returns null for non-existent key', async () => {
-      const result = await service.checkAndStore('nonexistent');
-      expect(result).toBeNull();
+    it('acquires the lock when free', async () => {
+      expect(await service.acquireLock('key-1', 'token-a')).toBe(true);
     });
 
-    it('stores and retrieves idempotency key', async () => {
-      await service.store('key-1', 'txn-1');
-      const result = await service.checkAndStore('key-1');
-      expect(result).toBe('txn-1');
+    it('does not re-acquire the lock with a different token', async () => {
+      await service.acquireLock('key-1', 'token-a');
+      expect(await service.acquireLock('key-1', 'token-b')).toBe(false);
     });
 
-    it('deletes idempotency key', async () => {
-      await service.store('key-2', 'txn-2');
-      await service.delete('key-2');
-      const result = await service.checkAndStore('key-2');
-      expect(result).toBeNull();
+    it('releases the lock only for the owning token', async () => {
+      await service.acquireLock('key-1', 'token-a');
+      await service.releaseLock('key-1', 'wrong-token');
+      expect(await service.acquireLock('key-1', 'token-b')).toBe(false);
+
+      await service.releaseLock('key-1', 'token-a');
+      expect(await service.acquireLock('key-1', 'token-b')).toBe(true);
     });
 
-    it('checks key existence', async () => {
-      await service.store('key-3', 'txn-3');
-      expect(await service.exists('key-3')).toBe(true);
-      expect(await service.exists('nonexistent')).toBe(false);
+    it('stores and retrieves mapping', async () => {
+      await service.storeMapping('key-1', 'txn-1');
+      expect(await service.getMapping('key-1')).toBe('txn-1');
+      expect(await service.getMapping('nonexistent')).toBeNull();
+    });
+
+    it('removes mapping', async () => {
+      await service.storeMapping('key-1', 'txn-1');
+      await service.removeMapping('key-1');
+      expect(await service.getMapping('key-1')).toBeNull();
     });
   });
 
   describe('with Redis (mocked)', () => {
     let service: IdempotencyService;
     let mockRedis: {
+      set: jest.Mock;
       get: jest.Mock;
       setex: jest.Mock;
       del: jest.Mock;
+      eval: jest.Mock;
       exists: jest.Mock;
       on: jest.Mock;
       connect: jest.Mock;
@@ -46,9 +54,11 @@ describe('IdempotencyService', () => {
 
     beforeEach(() => {
       mockRedis = {
+        set: jest.fn(),
         get: jest.fn(),
         setex: jest.fn(),
         del: jest.fn(),
+        eval: jest.fn(),
         exists: jest.fn(),
         on: jest.fn(),
         connect: jest.fn().mockResolvedValue(undefined),
@@ -56,19 +66,43 @@ describe('IdempotencyService', () => {
       service = new IdempotencyService(mockRedis as never);
     });
 
-    it('returns existing transaction id from Redis', async () => {
-      mockRedis.get.mockResolvedValue('txn-existing');
+    it('acquires lock via atomic SET NX EX', async () => {
+      mockRedis.set.mockResolvedValue('OK');
 
-      const result = await service.checkAndStore('key-redis');
+      expect(await service.acquireLock('key-redis', 'token-a')).toBe(true);
 
-      expect(result).toBe('txn-existing');
-      expect(mockRedis.get).toHaveBeenCalledWith('idempotency:key-redis');
+      expect(mockRedis.set).toHaveBeenCalledWith(
+        'idempotency:lock:key-redis',
+        'token-a',
+        'EX',
+        60,
+        'NX',
+      );
     });
 
-    it('stores idempotency key in Redis', async () => {
+    it('reports lock contention when Redis returns null', async () => {
+      mockRedis.set.mockResolvedValue(null);
+
+      expect(await service.acquireLock('key-redis', 'token-a')).toBe(false);
+    });
+
+    it('releases lock via Lua eval only when token matches', async () => {
+      mockRedis.eval.mockResolvedValue(1);
+
+      await service.releaseLock('key-redis', 'token-a');
+
+      expect(mockRedis.eval).toHaveBeenCalledWith(
+        expect.any(String),
+        1,
+        'idempotency:lock:key-redis',
+        'token-a',
+      );
+    });
+
+    it('stores mapping in Redis', async () => {
       mockRedis.setex.mockResolvedValue('OK');
 
-      await service.store('key-redis', 'txn-new');
+      await service.storeMapping('key-redis', 'txn-new');
 
       expect(mockRedis.setex).toHaveBeenCalledWith(
         'idempotency:key-redis',
@@ -77,37 +111,32 @@ describe('IdempotencyService', () => {
       );
     });
 
-    it('deletes idempotency key from Redis', async () => {
+    it('returns stored mapping from Redis', async () => {
+      mockRedis.get.mockResolvedValue('txn-existing');
+
+      expect(await service.getMapping('key-redis')).toBe('txn-existing');
+      expect(mockRedis.get).toHaveBeenCalledWith('idempotency:key-redis');
+    });
+
+    it('removes mapping from Redis', async () => {
       mockRedis.del.mockResolvedValue(1);
 
-      await service.delete('key-redis');
+      await service.removeMapping('key-redis');
 
       expect(mockRedis.del).toHaveBeenCalledWith('idempotency:key-redis');
     });
 
-    it('checks key existence in Redis', async () => {
-      mockRedis.exists.mockResolvedValue(1);
-      expect(await service.exists('key-redis')).toBe(true);
+    it('falls back to memory when Redis acquireLock fails', async () => {
+      mockRedis.set.mockRejectedValue(new Error('Redis error'));
 
-      mockRedis.exists.mockResolvedValue(0);
-      expect(await service.exists('key-missing')).toBe(false);
+      expect(await service.acquireLock('key-fallback', 'token-a')).toBe(true);
     });
 
-    it('falls back to memory when Redis get fails', async () => {
-      mockRedis.get.mockRejectedValue(new Error('Redis error'));
-
-      const result = await service.checkAndStore('key-fallback');
-
-      expect(result).toBeNull();
-    });
-
-    it('falls back to memory when Redis setex fails', async () => {
+    it('falls back to memory when Redis storeMapping fails', async () => {
       mockRedis.setex.mockRejectedValue(new Error('Redis error'));
 
-      await service.store('key-fallback', 'txn-fb');
-
-      const result = await service.checkAndStore('key-fallback');
-      expect(result).toBe('txn-fb');
+      await service.storeMapping('key-fallback', 'txn-fb');
+      expect(await service.getMapping('key-fallback')).toBe('txn-fb');
     });
   });
 });

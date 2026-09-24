@@ -146,13 +146,17 @@ export class StripeGateway implements IGateway {
     transactionExternalId: string,
     amount: number,
     reason?: string,
+    idempotencyKey?: string,
   ): Promise<RefundResponse> {
     try {
-      const refund = await this.stripe.refunds.create({
-        payment_intent: transactionExternalId,
-        amount: Math.round(amount * 100),
-        reason: 'requested_by_customer',
-      });
+      const refund = await this.stripe.refunds.create(
+        {
+          payment_intent: transactionExternalId,
+          amount: Math.round(amount * 100),
+          reason: 'requested_by_customer',
+        },
+        { idempotencyKey },
+      );
 
       return {
         success: true,

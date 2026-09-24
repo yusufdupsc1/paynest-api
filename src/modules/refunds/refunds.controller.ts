@@ -2,14 +2,18 @@ import { Controller, Post, Body, Param, Get, Query, HttpCode, HttpStatus, NotFou
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { RefundsService, CreateRefundDto } from './refunds.service';
 import { Refund } from './entities/refund.entity';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/roles.enum';
 
 @ApiTags('refunds')
 @ApiBearerAuth()
+@Roles(Role.ADMIN, Role.OPERATOR)
 @Controller('refunds')
 export class RefundsController {
   constructor(private readonly refundsService: RefundsService) {}
 
   @Post()
+  @Roles(Role.ADMIN, Role.OPERATOR)
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a refund' })
   @ApiResponse({ status: 201, description: 'Refund created' })

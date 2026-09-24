@@ -75,9 +75,10 @@ export class GatewayService {
     transactionExternalId: string,
     amount: number,
     reason?: string,
+    idempotencyKey?: string,
   ): Promise<RefundResponse> {
     const gateway = this.getGateway(gatewayType);
-    return gateway.createRefund(transactionExternalId, amount, reason);
+    return gateway.createRefund(transactionExternalId, amount, reason, idempotencyKey);
   }
 
   getSupportedGateways(): Array<{ type: GatewayType; name: string }> {
