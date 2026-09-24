@@ -5,9 +5,57 @@ import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { configureApp } from './app.factory';
 
+const REQUIRED_VARS = [
+  'DATABASE_URL',
+  'DB_HOST',
+  'DB_PORT',
+  'DB_USERNAME',
+  'DB_PASSWORD',
+  'DB_DATABASE',
+  'DB_SYNCHRONIZE',
+  'REDIS_URL',
+  'REDIS_HOST',
+  'REDIS_PORT',
+  'REDIS_PASSWORD',
+  'REDIS_TLS',
+  'JWT_SECRET',
+  'ADMIN_PASSWORD',
+  'OPERATOR_PASSWORD',
+  'VIEWER_PASSWORD',
+  'STRIPE_API_KEY',
+  'STRIPE_WEBHOOK_SECRET',
+  'PAYPAL_CLIENT_ID',
+  'PAYPAL_CLIENT_SECRET',
+  'PAYPAL_WEBHOOK_ID',
+  'PAYPAL_ENVIRONMENT',
+  'RAZORPAY_KEY_ID',
+  'RAZORPAY_KEY_SECRET',
+  'RAZORPAY_WEBHOOK_SECRET',
+  'APP_URL',
+  'APP_ORIGIN',
+  'CORS_ORIGIN',
+  'JWT_EXPIRES_IN',
+  'NODE_ENV',
+];
+
+function auditEnv() {
+  const logger = new Logger('EnvAudit');
+  logger.log('=== Environment Variable Audit ===');
+  for (const name of REQUIRED_VARS) {
+    const value = process.env[name];
+    const status = value ? 'SET' : 'MISSING';
+    const masked = value ? (value.length > 8 ? value.slice(0, 4) + '****' + value.slice(-4) : '****') : '—';
+    logger.log(`${name}: ${status} (${masked})`);
+  }
+  logger.log('=== End Audit ===');
+}
+
 async function bootstrap() {
+  auditEnv();
   const logger = new Logger('Bootstrap');
-   const app = configureApp(await NestFactory.create(AppModule, { bodyParser: false }));
+  const app = configureApp(await NestFactory.create(AppModule, { bodyParser: false }));
+
+  app.use(helmet());
 
   app.use(helmet());
 
