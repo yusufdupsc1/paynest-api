@@ -83,21 +83,27 @@ async function resolveHostToIPv4(host: string): Promise<string> {
              
              console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}`);
              
-             return {
-               type: 'postgres',
-               host: resolvedHost,
-               port,
-               username,
-               password,
-               database,
-               entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
-               synchronize,
-               logging: false,
-               extra: {
-                 // @ts-ignore - forces IPv4 sockets
-                 family: 4,
-               },
-             };
+              return {
+                type: 'postgres',
+                host: resolvedHost,
+                port,
+                username,
+                password,
+                database,
+                entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
+                synchronize,
+                logging: false,
+                retryAttempts: 1,
+                retryDelay: 1000,
+                acquireTimeout: 10000,
+                connectTimeout: 10,
+                extra: {
+                  // @ts-ignore - forces IPv4 sockets
+                  family: 4,
+                  // @ts-ignore - fail fast on misconfiguration
+                  connectTimeout: 10,
+                },
+              };
            } catch (err) {
               const parseError = err instanceof Error ? err.message : String(err);
               console.error(`[TypeOrm] Failed to parse DATABASE_URL: ${parseError}. Falling back to DB_* vars.`);
@@ -116,21 +122,27 @@ async function resolveHostToIPv4(host: string): Promise<string> {
          
          console.error(`[TypeOrm] Config: host=${resolvedHost}, port=${port}, db=${database}`);
 
-         return {
-           type: 'postgres',
-           host: resolvedHost,
-           port,
-           username,
-           password,
-           database,
-           entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
-           synchronize,
-           logging: false,
-           extra: {
-             // @ts-ignore
-             family: 4,
-           },
-         };
+          return {
+            type: 'postgres',
+            host: resolvedHost,
+            port,
+            username,
+            password,
+            database,
+            entities: [Transaction, WebhookEvent, Refund, AnalyticsDaily, AuditLog],
+            synchronize,
+            logging: false,
+            retryAttempts: 1,
+            retryDelay: 1000,
+            acquireTimeout: 10000,
+            connectTimeout: 10,
+            extra: {
+              // @ts-ignore - forces IPv4 sockets
+              family: 4,
+              // @ts-ignore - fail fast on misconfiguration
+              connectTimeout: 10,
+            },
+          };
        },
        inject: [ConfigService],
      }),
